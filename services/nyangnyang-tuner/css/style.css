@@ -1,0 +1,117 @@
+.service-hero {
+    background: radial-gradient(circle at top left, rgba(99, 179, 237, 0.35), rgba(43, 108, 176, 0.85));
+    color: #fff;
+    padding: 120px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-hero::after {
+    content: "";
+    position: absolute;
+    bottom: -80px;
+    right: -60px;
+    width: 240px;
+    height: 240px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+}
+
+.service-hero h1 {
+    margin: 12px 0 8px;
+    font-size: clamp(36px, 6vw, 52px);
+}
+
+.service-hero p {
+    margin: 0;
+    font-size: clamp(18px, 2.5vw, 22px);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.back-link {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.service-content {
+    padding: 72px 0 96px;
+}
+
+.overview p {
+    font-size: 18px;
+    color: var(--color-muted);
+}
+
+.features {
+    margin-top: 56px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.feature-card {
+    background-color: #fff;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(45, 55, 72, 0.1);
+}
+
+.feature-card h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    margin: 0;
+    color: var(--color-muted);
+}
+
+.cta {
+    margin-top: 72px;
+    text-align: center;
+}
+
+.cta p {
+    color: var(--color-muted);
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 14px 36px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.service-footer {
+    background-color: #0f172a;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 32px 0;
+}
+
+@media (max-width: 600px) {
+    .service-hero {
+        padding: 96px 0 64px;
+    }
+
+    .feature-card {
+        padding: 24px;
+    }
+}
