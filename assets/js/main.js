@@ -1,6 +1,8 @@
 document.documentElement.classList.add('has-js');
 
 const loadingScreen = document.querySelector('.loading-screen');
+const revealOverlay = document.querySelector('.reveal-overlay');
+const pageFrame = document.querySelector('.page-frame');
 
 const removeLoadingScreen = () => {
     if (loadingScreen && loadingScreen.parentElement) {
@@ -20,13 +22,54 @@ if (loadingScreen) {
     );
 }
 
+const REVEAL_DELAY = 1900;
+const LOADER_FALLBACK_DELAY = REVEAL_DELAY + 2200;
+
+if (pageFrame && !revealOverlay) {
+    pageFrame.addEventListener(
+        'animationend',
+        event => {
+            if (event.animationName === 'page-unveil') {
+                document.body.classList.remove('is-revealing');
+            }
+        },
+        { once: true }
+    );
+}
+
+if (revealOverlay) {
+    revealOverlay.addEventListener(
+        'animationend',
+        event => {
+            if (event.animationName === 'reveal-flash') {
+                document.body.classList.remove('is-revealing');
+                window.setTimeout(() => {
+                    if (revealOverlay.parentElement) {
+                        revealOverlay.parentElement.removeChild(revealOverlay);
+                    }
+                }, 360);
+            }
+        },
+        { once: true }
+    );
+}
+
 window.addEventListener('load', () => {
-    document.body.classList.add('is-loaded');
-    document.body.classList.remove('is-loading');
+    window.setTimeout(() => {
+        document.body.classList.add('is-loaded', 'is-revealing');
+        document.body.classList.remove('is-loading');
+    }, REVEAL_DELAY);
 
     if (loadingScreen) {
-        window.setTimeout(removeLoadingScreen, 2000);
+        window.setTimeout(removeLoadingScreen, LOADER_FALLBACK_DELAY);
     }
+
+    window.setTimeout(() => {
+        document.body.classList.remove('is-revealing');
+        if (revealOverlay && revealOverlay.parentElement) {
+            revealOverlay.parentElement.removeChild(revealOverlay);
+        }
+    }, LOADER_FALLBACK_DELAY);
 });
 
 const apps = [
