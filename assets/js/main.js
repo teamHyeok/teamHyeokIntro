@@ -1,5 +1,34 @@
 document.documentElement.classList.add('has-js');
 
+const loadingScreen = document.querySelector('.loading-screen');
+
+const removeLoadingScreen = () => {
+    if (loadingScreen && loadingScreen.parentElement) {
+        loadingScreen.parentElement.removeChild(loadingScreen);
+    }
+};
+
+if (loadingScreen) {
+    loadingScreen.addEventListener(
+        'transitionend',
+        event => {
+            if (event.propertyName === 'opacity') {
+                removeLoadingScreen();
+            }
+        },
+        { once: true }
+    );
+}
+
+window.addEventListener('load', () => {
+    document.body.classList.add('is-loaded');
+    document.body.classList.remove('is-loading');
+
+    if (loadingScreen) {
+        window.setTimeout(removeLoadingScreen, 2000);
+    }
+});
+
 const apps = [
     {
         name: '냥냥 튜너',
