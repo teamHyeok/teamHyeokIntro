@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팀혁 소개</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="aurora aurora--one"></div>
+    <div class="aurora aurora--two"></div>
+    <div class="aurora aurora--three"></div>
+
+    <header class="top-bar" data-animate>
+        <div class="container top-bar__inner">
+            <a href="#" class="brand" aria-label="팀혁 소개 메인">TEAMHYEOK</a>
+            <nav class="nav" aria-label="Primary">
+                <a href="#about">About</a>
+                <a href="#apps">Works</a>
+                <a href="services/nyangnyang-tuner/">Nyangnyang Tuner</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero__inner">
+                <div class="hero__content" data-animate>
+                    <span class="hero__eyebrow">우리가 만들고 싶은 걸 만드는 팀</span>
+                    <h1 class="hero__title">팀혁 소개</h1>
+                    <p class="hero__subtitle">우리는 실험적인 상상력과 빠른 실행력으로 제품을 만들어 갑니다. 팀혁은 4인의 개발자로 구성된 소규모 팀으로, 구현 우선과 최저 비용을 목표로 하며 완성된 프로젝트는 과감하게 다음 단계로 나아갑니다.</p>
+                    <div class="hero__actions">
+                        <a class="cta-button" href="#apps">프로젝트 보기</a>
+                        <a class="ghost-button" href="services/nyangnyang-tuner/">냥냥 튜너 살펴보기</a>
+                    </div>
+                </div>
+                <div class="hero__visual" data-animate>
+                    <svg class="cat-illustration" viewBox="0 0 240 240" role="img" aria-labelledby="catTitle catDesc">
+                        <title id="catTitle">춤추는 냥냥 캐릭터</title>
+                        <desc id="catDesc">팀혁을 상징하는 귀여운 고양이 캐릭터가 움직이고 있습니다.</desc>
+                        <defs>
+                            <linearGradient id="catBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fed0ff" />
+                                <stop offset="100%" stop-color="#8fa8ff" />
+                            </linearGradient>
+                            <linearGradient id="catAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#fff6b7" />
+                                <stop offset="100%" stop-color="#ffb6b9" />
+                            </linearGradient>
+                            <linearGradient id="tailGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#ffd7f1" />
+                                <stop offset="100%" stop-color="#9bb4ff" />
+                            </linearGradient>
+                        </defs>
+                        <ellipse class="cat-shadow" cx="120" cy="215" rx="70" ry="20" />
+                        <g class="cat" transform="translate(40 20)">
+                            <path class="cat-tail" d="M148 108c26-6 38 24 16 38-18 12-37-4-34-20 2-9 9-16 18-18z" fill="url(#tailGradient)" />
+                            <g class="cat-body-group">
+                                <rect class="cat-body" x="28" y="50" rx="42" ry="42" width="120" height="120" fill="url(#catBody)" />
+                                <rect class="cat-belly" x="58" y="88" rx="28" ry="28" width="60" height="72" fill="#fff9fe" />
+                                <circle class="cat-blush cat-blush--left" cx="62" cy="118" r="10" fill="url(#catAccent)" />
+                                <circle class="cat-blush cat-blush--right" cx="114" cy="118" r="10" fill="url(#catAccent)" />
+                            </g>
+                            <g class="cat-head" transform="translate(20 0)">
+                                <path class="cat-ear cat-ear--left" d="M38 44c-10-22 14-38 26-22 4 6 2 16-4 22-6 6-18 6-22 0z" fill="url(#catAccent)" />
+                                <path class="cat-ear cat-ear--right" d="M108 42c6-22 32-18 30 2-2 10-12 16-22 14-8-2-12-10-8-16z" fill="url(#catAccent)" />
+                                <rect class="cat-head__shape" x="44" y="16" width="84" height="84" rx="36" ry="36" fill="url(#catBody)" />
+                                <g class="cat-eyes" transform="translate(0 20)">
+                                    <ellipse class="cat-eye" cx="70" cy="52" rx="10" ry="16" fill="#221b39" />
+                                    <ellipse class="cat-eye" cx="106" cy="52" rx="10" ry="16" fill="#221b39" />
+                                </g>
+                                <path class="cat-mouth" d="M86 88c8 10 22 10 30 0" stroke="#221b39" stroke-width="4" stroke-linecap="round" fill="none" />
+                                <circle class="cat-nose" cx="101" cy="74" r="6" fill="#ff8f98" />
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section container">
+            <div class="section__header" data-animate>
+                <span class="section__eyebrow">Team Philosophy</span>
+                <h2>팀혁이란?</h2>
+                <p>팀혁은 4인의 개발자로 구성된 소규모 팀으로, 구현 우선과 최저 비용을 목표로 합니다. 만들고 싶은 제품을 25일 이내에 완성하며, 완성된 프로젝트는 과감하게 다음 단계로 나아갑니다.</p>
+            </div>
+            <div class="principles" data-animate>
+                <div class="principle">
+                    <h3>직진하는 실행력</h3>
+                    <p>아이디어를 발견하면 즉시 프로토타이핑하고 사용자 앞에 선보입니다. 치열하게 부딪치며 더 좋은 경험을 찾아갑니다.</p>
+                </div>
+                <div class="principle">
+                    <h3>25일 스프린트</h3>
+                    <p>명확한 목표와 책임으로 짧고 강한 제작 주기를 유지합니다. 완성된 프로젝트는 다음 단계로 담대하게 전진합니다.</p>
+                </div>
+                <div class="principle">
+                    <h3>감각적인 제품</h3>
+                    <p>차별화된 디자인과 감성적인 디테일로 팀혁만의 시그니처 경험을 구축합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="apps" class="section container">
+            <div class="section__header" data-animate>
+                <span class="section__eyebrow">TeamHyeok Works</span>
+                <h2>팀혁이 만든 것들</h2>
+                <p>새로운 서비스가 추가될 때마다 이곳에서 만날 수 있어요.</p>
+            </div>
+            <div class="app-grid" id="appList">
+                <!-- 앱 카드가 자바스크립트로 추가됩니다. -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <p>&copy; <span id="currentYear"></span> 팀혁. All rights reserved.</p>
+            <a class="footer-link" href="https://github.com/teamhyeok" target="_blank" rel="noopener">GitHub 살펴보기</a>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
