@@ -2,6 +2,10 @@
 
 ---
 
+## GitHub Pages
+
+- https://teamhyeok.github.io/teamHyeokIntro/
+
 ## 팀 운영 원칙
 
 1. teamHyeok은 우리가 만들고 싶은 걸 만듭니다.
