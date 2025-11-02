@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팀혁 소개</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="is-loading">
+    <div class="loading-screen" role="status" aria-live="polite">
+        <div class="loading-screen__inner">
+            <span class="loading-screen__logo">TEAMHYEOK</span>
+            <div class="loading-mascot" aria-hidden="true">
+                <span class="loading-mascot__ring loading-mascot__ring--one"></span>
+                <span class="loading-mascot__ring loading-mascot__ring--two"></span>
+                <span class="loading-mascot__core"></span>
+                <span class="loading-mascot__spark loading-mascot__spark--one"></span>
+                <span class="loading-mascot__spark loading-mascot__spark--two"></span>
+            </div>
+            <span class="loading-screen__caption">Preparing the TeamHyeok universe...</span>
+        </div>
+    </div>
+    <div class="aurora aurora--one"></div>
+    <div class="aurora aurora--two"></div>
+    <div class="aurora aurora--three"></div>
+
+    <div class="reveal-overlay" aria-hidden="true"></div>
+
+    <div class="page-frame">
+        <header class="top-bar" data-animate>
+            <div class="container top-bar__inner">
+                <a href="#" class="brand" aria-label="팀혁 소개 메인">TEAMHYEOK</a>
+                <nav class="nav" aria-label="Primary">
+                    <a href="#about">About</a>
+                    <a href="#apps">Works</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container hero__inner">
+                    <div class="hero__content" data-animate>
+                        <span class="hero__eyebrow">우리가 만들고 싶은 걸 만드는 팀</span>
+                    <h1 class="hero__title">팀혁 소개</h1>
+                    <p class="hero__subtitle">우리는 실험적인 상상력과 빠른 실행력으로 제품을 만들어 갑니다. 팀혁은 4인의 개발자로 구성된 소규모 팀으로, 구현 우선과 최저 비용을 목표로 하며 완성된 프로젝트는 과감하게 다음 단계로 나아갑니다.</p>
+                </div>
+                <div class="hero__visual" data-animate>
+                    <img class="hero__logo" src="assets/images/teamhyeok-logo.svg" alt="TeamHyeok 로고 뱃지" width="320" height="320" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section container">
+            <div class="section__header" data-animate>
+                <span class="section__eyebrow">Team Philosophy</span>
+                <h2>팀혁이란?</h2>
+                <p>팀혁은 4인의 개발자로 구성된 소규모 팀으로, 구현 우선과 최저 비용을 목표로 합니다. 만들고 싶은 제품을 25일 이내에 완성하며, 완성된 프로젝트는 과감하게 다음 단계로 나아갑니다.</p>
+            </div>
+            <div class="principles" data-animate>
+                <div class="principle">
+                    <h3>직진하는 실행력</h3>
+                    <p>아이디어를 발견하면 즉시 프로토타이핑하고 사용자 앞에 선보입니다. 치열하게 부딪치며 더 좋은 경험을 찾아갑니다.</p>
+                </div>
+                <div class="principle">
+                    <h3>25일 스프린트</h3>
+                    <p>명확한 목표와 책임으로 짧고 강한 제작 주기를 유지합니다. 완성된 프로젝트는 다음 단계로 담대하게 전진합니다.</p>
+                </div>
+                <div class="principle">
+                    <h3>감각적인 제품</h3>
+                    <p>차별화된 디자인과 감성적인 디테일로 팀혁만의 시그니처 경험을 구축합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="apps" class="section container">
+            <div class="section__header" data-animate>
+                <span class="section__eyebrow">TeamHyeok Works</span>
+                <h2>팀혁이 만든 것들</h2>
+                <p>새로운 서비스가 추가될 때마다 이곳에서 만날 수 있어요.</p>
+            </div>
+            <div class="app-grid" id="appList">
+                <!-- 앱 카드가 자바스크립트로 추가됩니다. -->
+            </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container site-footer__inner">
+                <p>&copy; <span id="currentYear"></span> 팀혁. All rights reserved.</p>
+                <a class="footer-link" href="https://github.com/teamhyeok" target="_blank" rel="noopener">GitHub 살펴보기</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
