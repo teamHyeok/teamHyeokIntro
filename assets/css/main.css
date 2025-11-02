@@ -515,6 +515,24 @@ html:not(.has-js) body.is-loading {
     animation: float 5.6s ease-in-out infinite;
 }
 
+.hero__logo {
+    width: clamp(220px, 30vw, 320px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 40px rgba(8, 10, 24, 0.55));
+    border-radius: 28px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 70%);
+    padding: clamp(12px, 2vw, 20px);
+    box-sizing: border-box;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.hero__visual:hover .hero__logo {
+    transform: perspective(900px) rotateX(-4deg) rotateY(6deg);
+    filter: drop-shadow(0 26px 60px rgba(10, 12, 36, 0.65));
+}
+
 .cat-shadow {
     fill: rgba(10, 12, 24, 0.4);
     animation: shadowPulse 5.6s ease-in-out infinite;
