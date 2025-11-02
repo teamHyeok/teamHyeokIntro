@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title desc">
+  <title id="title">TeamHyeok emblem</title>
+  <desc id="desc">Square badge with the TeamHyeok name and four role icons: guitarist, revolutionary, jiujiteiro, and novelist.</desc>
+  <defs>
+    <linearGradient id="bgGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#101015" />
+      <stop offset="100%" stop-color="#05070C" />
+    </linearGradient>
+    <linearGradient id="textGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f5e9dc" />
+      <stop offset="100%" stop-color="#f0d6ff" />
+    </linearGradient>
+    <style>
+      text { font-family: 'Poppins', 'Pretendard', 'Noto Sans KR', sans-serif; }
+    </style>
+  </defs>
+  <rect width="600" height="600" fill="url(#bgGlow)" rx="24" />
+  <rect x="40" y="40" width="520" height="520" fill="none" stroke="#eae5dd" stroke-width="6" rx="18" />
+  <text x="300" y="180" font-size="80" font-weight="600" text-anchor="middle" fill="url(#textGlow)">TeamHyeok</text>
+  <g fill="none" stroke="#eae5dd" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(120 250)">
+      <circle cx="0" cy="0" r="38" />
+      <path d="M0 38v46" />
+      <path d="M0 12l44 44" />
+    </g>
+    <g transform="translate(240 250)">
+      <path d="M-34 46h68" />
+      <path d="M-24 -10h48l-10 56h-28z" />
+      <path d="M-18 -10l-8 -24" />
+      <path d="M18 -10l8 -24" />
+    </g>
+    <g transform="translate(360 250)">
+      <circle cx="0" cy="-24" r="20" />
+      <path d="M0 -4v80" />
+      <path d="M-32 16l64 24" />
+      <path d="M-32 16v32" />
+      <path d="M32 40v-48" />
+    </g>
+    <g transform="translate(480 250)">
+      <rect x="-34" y="-28" width="68" height="100" rx="10" />
+      <path d="M-12 -28v100" />
+      <path d="M12 -28v100" />
+    </g>
+  </g>
+  <g fill="#eae5dd" font-size="28" text-anchor="middle" font-weight="500">
+    <text x="120" y="360">GUITARIST</text>
+    <text x="240" y="360">REVOLUTIONARY</text>
+    <text x="360" y="360">JIU-JITEIRO</text>
+    <text x="480" y="360">NOVELIST</text>
+  </g>
+  <g fill="#6ea8ff">
+    <circle cx="360" cy="304" r="14" />
+  </g>
+</svg>
