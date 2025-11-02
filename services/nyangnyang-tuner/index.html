@@ -7,43 +7,182 @@
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <header class="service-hero">
-        <div class="container">
+<body class="service-body">
+    <div class="service-sky service-sky--one" aria-hidden="true"></div>
+    <div class="service-sky service-sky--two" aria-hidden="true"></div>
+    <div class="service-sky service-sky--three" aria-hidden="true"></div>
+
+    <header class="service-header">
+        <div class="container service-header__inner" data-animate>
             <a class="back-link" href="../../index.html">&larr; 팀혁 소개로 돌아가기</a>
-            <h1>냥냥 튜너</h1>
-            <p>고양이 감성과 함께하는 스마트 튜닝 도구</p>
+            <span class="service-chip">TeamHyeok Works</span>
+            <h1 class="service-header__title">냥냥 튜너</h1>
+            <p class="service-header__subtitle">고양이 감성과 함께하는 스마트 튜닝 도구</p>
         </div>
     </header>
 
-    <main class="service-content">
-        <section class="container overview">
-            <h2>프로젝트 소개</h2>
-            <p>냥냥 튜너는 초보자부터 전문가까지 누구나 사용할 수 있는 악기 튜닝 도구입니다. 고양이의 울음 소리에서 영감을 받은 감각적인 피드백과 직관적인 인터페이스로, 반복되는 조율 과정을 즐거운 경험으로 바꿉니다.</p>
+    <main class="service-main">
+        <section class="container service-hero">
+            <div class="hero__copy" data-animate>
+                <h2 class="hero__headline">고양이의 감각으로 완성하는 <span>스마트 튜닝 경험</span></h2>
+                <p class="hero__description">냥냥 튜너는 초보자부터 전문가까지 누구나 사용할 수 있는 악기 튜닝 도구입니다. 고양이의 울음소리에서 영감을 받은 감각적인 피드백과 직관적인 인터페이스로 반복되는 조율 과정을 즐거운 리추얼로 바꿔요.</p>
+                <ul class="hero-highlights">
+                    <li><span>AI 음정 분석</span>으로 줄 감기 방향을 즉시 추천</li>
+                    <li><span>감성적인 냥냥 피드백</span>으로 정확한 조율 시 만족스러운 사운드</li>
+                    <li><span>악기별 커스텀 프리셋</span>으로 내가 원하는 느낌 그대로 저장</li>
+                </ul>
+                <div class="hero-badges">
+                    <span class="hero-badge">Beta</span>
+                    <span class="hero-badge">Music Utility</span>
+                    <span class="hero-badge">Team of 4</span>
+                </div>
+            </div>
+
+            <div class="hero__visual" data-animate>
+                <div class="mascot-stage" aria-hidden="true">
+                    <span class="mascot-stage__halo"></span>
+                    <span class="mascot-stage__ring"></span>
+                    <span class="mascot-stage__glow"></span>
+                    <svg class="mascot-illustration" viewBox="0 0 260 260" role="img" aria-labelledby="mascotTitle mascotDesc">
+                        <title id="mascotTitle">리듬을 타는 냥냥 튜너 마스코트</title>
+                        <desc id="mascotDesc">고양이 캐릭터가 음악 노트와 함께 떠다니며 튜닝을 돕고 있습니다.</desc>
+                        <defs>
+                            <linearGradient id="stageBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffe5ff" />
+                                <stop offset="100%" stop-color="#b5c3ff" />
+                            </linearGradient>
+                            <linearGradient id="stageAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#fff6b7" />
+                                <stop offset="100%" stop-color="#ff9acb" />
+                            </linearGradient>
+                            <linearGradient id="stageTail" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#ffdff5" />
+                                <stop offset="100%" stop-color="#96b5ff" />
+                            </linearGradient>
+                        </defs>
+                        <ellipse class="mascot-shadow" cx="130" cy="226" rx="78" ry="26" />
+                        <g class="mascot-cat" transform="translate(40 22)">
+                            <path class="mascot-tail" d="M156 116c28-10 48 22 18 38-20 12-40-10-36-26 2-10 8-18 18-12z" fill="url(#stageTail)" />
+                            <g class="mascot-body-group">
+                                <rect class="mascot-body" x="34" y="54" rx="48" ry="48" width="128" height="132" fill="url(#stageBody)" />
+                                <rect class="mascot-belly" x="68" y="98" rx="32" ry="32" width="68" height="80" fill="#fff8ff" />
+                                <circle class="mascot-blush mascot-blush--left" cx="70" cy="130" r="12" fill="url(#stageAccent)" />
+                                <circle class="mascot-blush mascot-blush--right" cx="128" cy="130" r="12" fill="url(#stageAccent)" />
+                            </g>
+                            <g class="mascot-head" transform="translate(24 -4)">
+                                <path class="mascot-ear mascot-ear--left" d="M38 58c-12-26 16-46 32-26 5 8 2 18-6 26-8 8-22 8-26 0z" fill="url(#stageAccent)" />
+                                <path class="mascot-ear mascot-ear--right" d="M120 58c6-28 38-24 36 4-2 12-14 20-28 18-10-2-14-12-8-22z" fill="url(#stageAccent)" />
+                                <rect class="mascot-head__shape" x="44" y="24" width="96" height="96" rx="42" ry="42" fill="url(#stageBody)" />
+                                <g class="mascot-eyes" transform="translate(0 24)">
+                                    <ellipse class="mascot-eye mascot-eye--left" cx="76" cy="58" rx="10" ry="18" fill="#221b39" />
+                                    <ellipse class="mascot-eye mascot-eye--right" cx="120" cy="58" rx="10" ry="18" fill="#221b39" />
+                                </g>
+                                <path class="mascot-mouth" d="M102 102c8 10 22 10 30 0" stroke="#221b39" stroke-width="4" stroke-linecap="round" fill="none" />
+                                <circle class="mascot-nose" cx="116" cy="86" r="6" fill="#ff8f98" />
+                            </g>
+                        </g>
+                    </svg>
+                    <span class="floating-note floating-note--one" data-depth="0.25"><span>♪</span></span>
+                    <span class="floating-note floating-note--two" data-depth="0.32"><span>♩</span></span>
+                    <span class="floating-note floating-note--three" data-depth="0.18"><span>♫</span></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="container overview" data-animate>
+            <div class="overview-card">
+                <div class="overview-card__eyebrow">Project Overview</div>
+                <h2 class="overview-card__title">냥냥 튜너는 이렇게 만들어지고 있어요</h2>
+                <p class="overview-card__description">고양이와 함께하는 듯한 감성적인 인터랙션과 프로 레벨의 튜닝 정확도를 동시에 노립니다. 직관적인 화면 구성과 감각적인 사운드 피드백으로, 튜닝이 필요한 순간마다 즐겁게 찾게 되는 도구를 목표로 하고 있어요.</p>
+                <div class="overview-metrics">
+                    <div class="metric">
+                        <span class="metric__label">현재 단계</span>
+                        <span class="metric__value">Beta</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric__label">출시 연도</span>
+                        <span class="metric__value">2024</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric__label">지원 악기</span>
+                        <span class="metric__value">Guitar · Uke</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="container features">
-            <h2>주요 기능</h2>
-            <div class="feature-grid">
+            <div class="section-heading" data-animate>
+                <span class="section-heading__eyebrow">Signature Features</span>
+                <h2>냥냥 튜너의 핵심 기능</h2>
+                <p>감각적인 인터랙션과 실용적인 기능이 조화를 이룹니다. 각각의 모듈은 독립적으로 발전하며, 앞으로 추가될 악기와 모드도 같은 구조로 확장됩니다.</p>
+            </div>
+            <div class="feature-grid" data-animate>
                 <article class="feature-card">
+                    <span class="feature-card__icon" aria-hidden="true">😺</span>
                     <h3>고양이 피드백</h3>
-                    <p>정확한 음에 근접할수록 고양이의 만족스러운 울음소리를 들려줍니다. 귀여움으로 동기부여를 제공해요.</p>
+                    <p>정확한 음에 근접할수록 고양이의 만족스러운 울음소리가 울려 퍼집니다. 귀여움이 동기부여가 되어 튜닝 과정이 즐거워져요.</p>
+                    <span class="feature-card__tag">Emotional UX</span>
                 </article>
                 <article class="feature-card">
+                    <span class="feature-card__icon" aria-hidden="true">✨</span>
                     <h3>자동 튜닝 제안</h3>
-                    <p>실시간으로 음정을 분석해 자동으로 줄 감기 또는 풀기 방향을 추천합니다.</p>
+                    <p>실시간 음정 분석으로 줄을 감을지 풀지 즉시 제안합니다. 라이브 중에도 안정적인 튜닝을 유지할 수 있어요.</p>
+                    <span class="feature-card__tag">Realtime Engine</span>
                 </article>
                 <article class="feature-card">
+                    <span class="feature-card__icon" aria-hidden="true">🎛️</span>
                     <h3>맞춤형 프리셋</h3>
-                    <p>사용자 악기와 연주 스타일에 맞춘 프리셋을 저장하고 불러올 수 있어요.</p>
+                    <p>연주 스타일에 맞춘 프리셋을 저장하고 불러올 수 있습니다. 팀 구성원과 공유하면 같은 사운드를 빠르게 맞출 수 있어요.</p>
+                    <span class="feature-card__tag">Collaboration</span>
+                </article>
+                <article class="feature-card">
+                    <span class="feature-card__icon" aria-hidden="true">🌌</span>
+                    <h3>스테이지 모드</h3>
+                    <p>어두운 공연장에서도 한눈에 읽히는 콘트라스트와 모션이 적용됩니다. 시각적 노이즈를 줄이고 필수 정보에 집중할 수 있어요.</p>
+                    <span class="feature-card__tag">Performance Ready</span>
+                </article>
+            </div>
+        </section>
+
+        <section class="container sound-lab">
+            <div class="sound-lab__grid">
+                <article class="sound-lab__card" data-animate>
+                    <h2>사운드 디자인 철학</h2>
+                    <p>냥냥 튜너의 사운드는 실제 고양이 울음샘플과 신디사이즈 톤을 믹싱해 만들어졌어요. 조율에 성공할수록 하모닉스가 풍부해지는 구조로, 귀여운 감성 속에서도 전문적인 음색을 유지합니다.</p>
+                    <ul class="sound-lab__list">
+                        <li>멜로우 패드와 플럭 사운드를 레이어링한 시그널</li>
+                        <li>튜닝 상태에 따라 실시간으로 변조되는 리버브</li>
+                        <li>사용자별로 커스터마이징 가능한 음색 프로필</li>
+                    </ul>
+                </article>
+                <article class="sound-lab__card sound-lab__card--spectrum" data-animate>
+                    <h3>고양이 스펙트럼</h3>
+                    <p>고주파와 저주파를 동시에 감지하여 음정을 안정화합니다. 시각화된 스펙트럼은 감성적인 빛으로 표현되어, 정확도와 감각의 균형을 맞춰요.</p>
+                    <div class="spectrum">
+                        <span class="spectrum__bar" style="--bar-index: 0"></span>
+                        <span class="spectrum__bar" style="--bar-index: 1"></span>
+                        <span class="spectrum__bar" style="--bar-index: 2"></span>
+                        <span class="spectrum__bar" style="--bar-index: 3"></span>
+                        <span class="spectrum__bar" style="--bar-index: 4"></span>
+                        <span class="spectrum__bar" style="--bar-index: 5"></span>
+                        <span class="spectrum__bar" style="--bar-index: 6"></span>
+                        <span class="spectrum__bar" style="--bar-index: 7"></span>
+                    </div>
                 </article>
             </div>
         </section>
 
         <section class="container cta">
-            <h2>함께 만들고 있어요</h2>
-            <p>냥냥 튜너는 현재 베타 단계이며, 팀혁 구성원과 협력 파트너와 함께 기능을 확장하고 있습니다.</p>
-            <a class="cta-button" href="#" aria-disabled="true">곧 만나요!</a>
+            <div class="cta-card" data-animate>
+                <h2>함께 만들고 있어요</h2>
+                <p>냥냥 튜너는 현재 베타 단계이며, 팀혁 구성원과 협력 파트너와 함께 기능을 확장하고 있습니다. 새로운 악기 모드, 팀 공유 프리셋, 생동감 있는 3D 인터랙션을 차례로 준비 중이에요.</p>
+                <div class="cta-meta">
+                    <span class="cta-pill">Beta in progress</span>
+                    <span class="cta-pill">Next: Multi-instrument</span>
+                </div>
+                <a class="cta-button" href="#" aria-disabled="true">곧 만나요!</a>
+            </div>
         </section>
     </main>
 
