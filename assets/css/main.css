@@ -474,7 +474,7 @@ html:not(.has-js) body.is-loading {
     position: relative;
     display: grid;
     place-items: center;
-    padding: clamp(28px, 4vw, 36px);
+    padding: clamp(20px, 3.2vw, 32px);
     background: radial-gradient(circle at 12% 18%, rgba(124, 92, 255, 0.45), rgba(8, 11, 24, 0.7) 60%),
                 radial-gradient(circle at 82% 18%, rgba(142, 211, 255, 0.4), rgba(8, 11, 24, 0.8) 58%),
                 linear-gradient(145deg, rgba(14, 18, 36, 0.8), rgba(14, 18, 36, 0.55));
@@ -515,7 +515,7 @@ html:not(.has-js) body.is-loading {
 
 .hero__logo-frame {
     position: absolute;
-    inset: clamp(18px, 3vw, 26px);
+    inset: clamp(12px, 2.6vw, 24px);
     border-radius: 32px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(124, 92, 255, 0.55) 40%, rgba(142, 211, 255, 0.4) 70%, rgba(255, 182, 193, 0.45));
     opacity: 0.85;
@@ -531,7 +531,7 @@ html:not(.has-js) body.is-loading {
 
 .hero__logo {
     position: relative;
-    width: clamp(220px, 30vw, 320px);
+    width: clamp(260px, 36vw, 420px);
     height: auto;
     aspect-ratio: 1 / 1;
     object-fit: cover;
