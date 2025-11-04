@@ -510,10 +510,10 @@ html:not(.has-js) body.is-loading {
 
 .hero-showcase {
     position: relative;
-    width: clamp(220px, 72%, 320px);
+    width: clamp(240px, 78%, 360px);
     aspect-ratio: 1;
     border-radius: clamp(22px, 4vw, 30px);
-    padding: clamp(28px, 7vw, 42px);
+    padding: clamp(20px, 5vw, 34px);
     display: grid;
     place-items: center;
     background: linear-gradient(160deg, rgba(34, 44, 82, 0.82), rgba(17, 24, 46, 0.72));
@@ -527,7 +527,7 @@ html:not(.has-js) body.is-loading {
 .hero-showcase::before {
     content: "";
     position: absolute;
-    inset: 16%;
+    inset: 13%;
     border-radius: 32%;
     background: radial-gradient(circle at 32% 32%, rgba(124, 92, 255, 0.28), transparent 58%);
     filter: blur(28px);
@@ -538,7 +538,7 @@ html:not(.has-js) body.is-loading {
 .hero-showcase::after {
     content: "";
     position: absolute;
-    inset: 9%;
+    inset: 7%;
     border-radius: inherit;
     border: 1px solid rgba(255, 255, 255, 0.06);
     mix-blend-mode: screen;
@@ -578,12 +578,12 @@ html:not(.has-js) body.is-loading {
 }
 
 .hero-showcase__orbit--outer {
-    inset: clamp(11%, 7vw, 16%);
+    inset: clamp(9%, 6vw, 13%);
     border-color: rgba(124, 92, 255, 0.38);
 }
 
 .hero-showcase__orbit--inner {
-    inset: clamp(26%, 14vw, 32%);
+    inset: clamp(22%, 12vw, 28%);
     border-color: rgba(142, 211, 255, 0.42);
     animation-duration: 14s;
     animation-direction: reverse;
@@ -591,8 +591,8 @@ html:not(.has-js) body.is-loading {
 
 .hero-showcase__logo {
     position: relative;
-    width: clamp(150px, 62%, 240px);
-    max-width: 80%;
+    width: clamp(190px, 76%, 300px);
+    max-width: 92%;
     z-index: 1;
     filter: drop-shadow(0 20px 42px rgba(4, 8, 24, 0.65));
     transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), filter 0.8s ease;
@@ -1037,12 +1037,13 @@ html:not(.has-js) body.is-loading {
     }
 
     .hero-showcase {
-        padding: clamp(24px, 14vw, 32px);
+        width: clamp(200px, 82%, 280px);
+        padding: clamp(18px, 12vw, 26px);
         border-radius: clamp(20px, 10vw, 28px);
     }
 
     .hero-showcase__logo {
-        width: clamp(140px, 70%, 220px);
+        width: clamp(170px, 82%, 240px);
     }
 
     .hero-showcase__caption {
