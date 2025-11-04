@@ -499,6 +499,17 @@ html:not(.has-js) body.is-loading {
     z-index: 0;
 }
 
+.hero__visual::after {
+    inset: auto;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 215, 111, 0.65), transparent 60%);
+    bottom: -80px;
+    right: -60px;
+    filter: blur(30px);
+}
+
 .hero__visual::before {
     background: conic-gradient(from 120deg, rgba(124, 92, 255, 0.45), rgba(255, 215, 111, 0.28), rgba(142, 211, 255, 0.4), rgba(255, 142, 180, 0.32), rgba(124, 92, 255, 0.45));
     filter: blur(82px);
