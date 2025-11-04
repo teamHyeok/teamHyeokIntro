@@ -472,10 +472,10 @@ html:not(.has-js) body.is-loading {
 
 .hero__visual {
     position: relative;
-    width: min(440px, 78vw);
+    width: min(480px, 82vw);
     aspect-ratio: 1;
     margin: 0 auto;
-    padding: clamp(24px, 6vw, 38px);
+    padding: clamp(18px, 5.2vw, 30px);
     border-radius: clamp(28px, 5vw, 40px);
     background: linear-gradient(145deg, #080d1f, #111c3d 52%, #060e22);
     box-shadow: 0 34px 120px rgba(6, 10, 36, 0.56);
@@ -510,16 +510,17 @@ html:not(.has-js) body.is-loading {
 
 .hero-showcase {
     position: relative;
-    width: clamp(240px, 78%, 360px);
+    width: clamp(300px, 88%, 440px);
+    max-width: 100%;
     aspect-ratio: 1;
-    border-radius: clamp(22px, 4vw, 30px);
-    padding: clamp(20px, 5vw, 34px);
+    border-radius: clamp(24px, 4.6vw, 34px);
+    padding: clamp(12px, 3.8vw, 22px);
     display: grid;
     place-items: center;
-    background: linear-gradient(160deg, rgba(34, 44, 82, 0.82), rgba(17, 24, 46, 0.72));
-    backdrop-filter: blur(18px);
+    background: linear-gradient(152deg, rgba(38, 52, 96, 0.82), rgba(14, 22, 46, 0.88));
+    backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: inset 0 18px 42px rgba(6, 8, 20, 0.72), 0 18px 45px rgba(4, 10, 36, 0.46);
+    box-shadow: inset 0 16px 38px rgba(6, 8, 20, 0.65), 0 24px 60px rgba(4, 10, 36, 0.48);
     overflow: hidden;
     isolation: isolate;
 }
@@ -527,22 +528,24 @@ html:not(.has-js) body.is-loading {
 .hero-showcase::before {
     content: "";
     position: absolute;
-    inset: 13%;
+    inset: 7%;
     border-radius: 32%;
-    background: radial-gradient(circle at 32% 32%, rgba(124, 92, 255, 0.28), transparent 58%);
-    filter: blur(28px);
-    opacity: 0.75;
+    background:
+        radial-gradient(circle at 50% 34%, rgba(124, 92, 255, 0.32), transparent 60%),
+        radial-gradient(circle at 50% 72%, rgba(142, 211, 255, 0.26), transparent 72%);
+    filter: blur(26px);
+    opacity: 0.85;
     pointer-events: none;
 }
 
 .hero-showcase::after {
     content: "";
     position: absolute;
-    inset: 7%;
+    inset: 4%;
     border-radius: inherit;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     mix-blend-mode: screen;
-    opacity: 0.5;
+    opacity: 0.55;
     pointer-events: none;
 }
 
@@ -556,15 +559,15 @@ html:not(.has-js) body.is-loading {
 }
 
 .hero-showcase__glow--violet {
-    width: 160%;
-    height: 160%;
+    width: 168%;
+    height: 168%;
     background: radial-gradient(circle, rgba(124, 92, 255, 0.46), rgba(124, 92, 255, 0));
 }
 
 .hero-showcase__glow--cyan {
-    width: 132%;
-    height: 132%;
-    background: radial-gradient(circle, rgba(142, 211, 255, 0.5), rgba(142, 211, 255, 0));
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(142, 211, 255, 0.52), rgba(142, 211, 255, 0));
     animation-delay: 2.4s;
 }
 
@@ -578,12 +581,12 @@ html:not(.has-js) body.is-loading {
 }
 
 .hero-showcase__orbit--outer {
-    inset: clamp(9%, 6vw, 13%);
+    inset: clamp(6%, 4.2vw, 9%);
     border-color: rgba(124, 92, 255, 0.38);
 }
 
 .hero-showcase__orbit--inner {
-    inset: clamp(22%, 12vw, 28%);
+    inset: clamp(16%, 9vw, 22%);
     border-color: rgba(142, 211, 255, 0.42);
     animation-duration: 14s;
     animation-direction: reverse;
@@ -591,26 +594,27 @@ html:not(.has-js) body.is-loading {
 
 .hero-showcase__logo {
     position: relative;
-    width: clamp(190px, 76%, 300px);
-    max-width: 92%;
+    width: clamp(240px, 92%, 380px);
+    max-width: 98%;
     z-index: 1;
-    filter: drop-shadow(0 20px 42px rgba(4, 8, 24, 0.65));
+    border-radius: 18px;
+    filter: drop-shadow(0 24px 48px rgba(4, 8, 24, 0.7));
     transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), filter 0.8s ease;
 }
 
 .hero__visual:hover .hero-showcase__logo {
-    transform: translateY(-4px) scale(1.03);
-    filter: drop-shadow(0 26px 52px rgba(4, 8, 24, 0.75));
+    transform: translateY(-6px) scale(1.04);
+    filter: drop-shadow(0 30px 60px rgba(4, 8, 24, 0.78));
 }
 
 .hero-showcase__caption {
     position: absolute;
-    bottom: clamp(18px, 5vw, 26px);
+    bottom: clamp(14px, 4vw, 22px);
     font-family: var(--font-display);
     font-size: 12px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: rgba(230, 236, 255, 0.75);
+    color: rgba(230, 236, 255, 0.78);
     z-index: 1;
 }
 
@@ -1005,7 +1009,8 @@ html:not(.has-js) body.is-loading {
     }
 
     .hero__visual {
-        width: min(360px, 90vw);
+        width: min(400px, 92vw);
+        padding: clamp(16px, 7vw, 26px);
     }
 
     .section {
@@ -1032,24 +1037,24 @@ html:not(.has-js) body.is-loading {
     }
 
     .hero__visual {
-        width: min(320px, 88vw);
-        padding: clamp(18px, 8vw, 26px);
+        width: min(340px, 90vw);
+        padding: clamp(12px, 6.5vw, 18px);
     }
 
     .hero-showcase {
-        width: clamp(200px, 82%, 280px);
-        padding: clamp(18px, 12vw, 26px);
-        border-radius: clamp(20px, 10vw, 28px);
+        width: clamp(220px, 84%, 300px);
+        padding: clamp(8px, 9vw, 16px);
+        border-radius: clamp(22px, 12vw, 30px);
     }
 
     .hero-showcase__logo {
-        width: clamp(170px, 82%, 240px);
+        width: clamp(180px, 96%, 280px);
     }
 
     .hero-showcase__caption {
         font-size: 10px;
         letter-spacing: 0.28em;
-        bottom: clamp(14px, 6vw, 20px);
+        bottom: clamp(12px, 6vw, 18px);
     }
 
     .hero-showcase__caption::before {
