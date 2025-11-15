@@ -74,6 +74,14 @@ window.addEventListener('load', () => {
 
 const apps = [
     {
+        name: '자기암시',
+        category: 'Mind Ritual',
+        description: '목소리로 나를 설득하는 루틴, 자기암시 앱에서 하루를 디자인해보세요.',
+        status: 'Early Access',
+        launch: '2024',
+        link: 'services/self-affirm/'
+    },
+    {
         name: '냥냥 튜너',
         category: 'Music Utility',
         description: '고양이의 감성을 담은 튜닝 도구, 냥냥 튜너와 함께 악기를 세밀하게 조율해보세요.',
