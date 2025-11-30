@@ -88,6 +88,14 @@ const apps = [
         status: 'Beta',
         launch: '2024',
         link: 'services/nyangnyang-tuner/'
+    },
+    {
+        name: '주짓수 대회 보드',
+        category: 'Community · Web',
+        description: '전국 주짓수 대회를 달력과 지도에서 한눈에 확인하고 바로 이동하세요.',
+        status: 'Live',
+        launch: '2024',
+        link: 'services/jiujitsu/'
     }
 ];
 

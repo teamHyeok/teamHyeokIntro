@@ -85,6 +85,27 @@
     line-height: 1.7;
 }
 
+.store-ribbon {
+    margin: 1.8rem auto 0;
+    padding: 0.85rem 1.3rem;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    align-items: center;
+    background: linear-gradient(120deg, rgba(118, 141, 255, 0.16), rgba(222, 143, 255, 0.12));
+    border: 1px solid rgba(152, 178, 255, 0.35);
+    border-radius: 18px;
+    box-shadow: 0 18px 48px -32px rgba(8, 10, 34, 0.9);
+}
+
+.store-ribbon__text {
+    color: rgba(236, 241, 255, 0.9);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-align: center;
+    font-size: 0.98rem;
+}
+
 .service-main {
     position: relative;
     z-index: 1;
@@ -533,6 +554,45 @@
     margin-bottom: 2rem;
 }
 
+.store-promo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+}
+
+.store-promo__text {
+    margin: 0;
+    color: rgba(234, 240, 255, 0.8);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.app-store-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.5rem;
+    border-radius: 14px;
+    background: rgba(9, 12, 34, 0.35);
+    border: 1px solid rgba(150, 172, 255, 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.app-store-badge img {
+    display: block;
+    width: 200px;
+    height: auto;
+}
+
+.app-store-badge:hover,
+.app-store-badge:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 34px -20px rgba(120, 150, 255, 0.55);
+    border-color: rgba(170, 190, 255, 0.45);
+}
+
 .cta-actions {
     display: flex;
     flex-wrap: wrap;
@@ -597,5 +657,13 @@
 
     .cta-card {
         text-align: left;
+    }
+
+    .store-promo {
+        align-items: flex-start;
+    }
+
+    .store-ribbon {
+        align-items: flex-start;
     }
 }
