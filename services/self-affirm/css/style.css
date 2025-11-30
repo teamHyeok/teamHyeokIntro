@@ -85,6 +85,27 @@
     line-height: 1.7;
 }
 
+.store-ribbon {
+    margin: 1.8rem auto 0;
+    padding: 0.85rem 1.3rem;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    align-items: center;
+    background: linear-gradient(120deg, rgba(118, 141, 255, 0.16), rgba(222, 143, 255, 0.12));
+    border: 1px solid rgba(152, 178, 255, 0.35);
+    border-radius: 18px;
+    box-shadow: 0 18px 48px -32px rgba(8, 10, 34, 0.9);
+}
+
+.store-ribbon__text {
+    color: rgba(236, 241, 255, 0.9);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-align: center;
+    font-size: 0.98rem;
+}
+
 .service-main {
     position: relative;
     z-index: 1;
@@ -639,6 +660,10 @@
     }
 
     .store-promo {
+        align-items: flex-start;
+    }
+
+    .store-ribbon {
         align-items: flex-start;
     }
 }

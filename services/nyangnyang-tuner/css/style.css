@@ -115,6 +115,27 @@
     color: var(--service-muted);
 }
 
+.store-ribbon {
+    margin-top: 24px;
+    padding: 14px 18px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(152, 188, 255, 0.18), rgba(255, 188, 230, 0.12));
+    border: 1px solid rgba(170, 196, 255, 0.35);
+    border-radius: 18px;
+    box-shadow: 0 18px 40px -28px rgba(41, 52, 99, 0.65);
+}
+
+.store-ribbon__text {
+    color: rgba(241, 246, 255, 0.92);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-align: center;
+    font-size: 16px;
+}
+
 .service-main {
     position: relative;
     z-index: 1;
@@ -874,6 +895,10 @@
     .overview-card,
     .cta-card {
         border-radius: 22px;
+    }
+
+    .store-ribbon {
+        align-items: flex-start;
     }
 }
 
