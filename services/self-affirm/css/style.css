@@ -253,8 +253,11 @@
 }
 
 .hero__visual {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    place-items: center;
+    position: relative;
+    padding: clamp(1rem, 3vw, 2.4rem);
+    min-height: clamp(320px, 45vw, 520px);
 }
 
 .affirm-stage {
@@ -267,9 +270,22 @@
     border: 1px solid rgba(160, 184, 255, 0.28);
     box-shadow: 0 50px 130px -60px rgba(8, 10, 30, 0.92), 0 0 0 1px rgba(173, 196, 255, 0.08);
     overflow: hidden;
-    transform: perspective(1200px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateY(-4%) perspective(1200px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
     transform-style: preserve-3d;
     transition: transform 0.6s ease;
+}
+
+@media (min-width: 960px) {
+    .hero__visual {
+        justify-items: end;
+        padding-right: clamp(1.2rem, 4vw, 2.8rem);
+    }
+
+    .affirm-stage {
+        margin-right: min(2rem, 4vw);
+    }
 }
 
 .affirm-stage::before,
