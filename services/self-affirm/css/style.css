@@ -57,7 +57,60 @@
 
 .service-header--affirm .service-header__inner {
     text-align: center;
+    position: relative;
     gap: 1.25rem;
+}
+
+.back-link {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #f6f7ff;
+    background: linear-gradient(135deg, rgba(16, 22, 52, 0.82), rgba(22, 30, 66, 0.68));
+    border: 1px solid rgba(156, 178, 255, 0.28);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 22px 42px -24px rgba(6, 10, 28, 0.9);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.back-link__icon {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, rgba(118, 141, 255, 0.95), rgba(222, 143, 255, 0.9));
+    color: #0b0f1d;
+    font-weight: 800;
+    box-shadow: 0 14px 26px -16px rgba(118, 141, 255, 0.7);
+}
+
+.back-link__label {
+    font-size: 0.95rem;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 48px -24px rgba(6, 10, 28, 0.95);
+    border-color: rgba(156, 178, 255, 0.4);
+}
+
+@media (max-width: 640px) {
+    .back-link {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 10px;
+    }
 }
 
 .service-header--affirm .service-chip {
