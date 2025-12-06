@@ -352,7 +352,9 @@
 .affirm-stage__card {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 65%);
     border: 1px solid rgba(192, 208, 255, 0.5);
-    inset: 16% 16% 20% 16%;
+    inset: 15% auto 19%;
+    left: 50%;
+    width: clamp(240px, 72%, 340px);
     border-radius: 32px;
     padding: clamp(1.8rem, 3.6vw, 2.4rem);
     display: flex;
@@ -362,7 +364,8 @@
     color: #eff3ff;
     position: relative;
     z-index: 2;
-    transform: translateZ(70px);
+    transform: translate(-50%, -2%) translateZ(70px);
+    box-shadow: 0 24px 60px -32px rgba(8, 12, 36, 0.92);
 }
 
 .affirm-stage__card::before {
