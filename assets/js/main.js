@@ -77,23 +77,23 @@ const apps = [
         name: '자기암시',
         category: 'Mind Ritual',
         description: '목소리로 나를 설득하는 루틴, 자기암시 앱에서 하루를 디자인해보세요.',
-        status: 'Early Access',
-        launch: '2024',
+        status: 'iOS 배포',
+        launch: 'Android 1월 예정',
         link: 'services/self-affirm/'
     },
     {
         name: '냥냥 튜너',
         category: 'Music Utility',
         description: '고양이의 감성을 담은 튜닝 도구, 냥냥 튜너와 함께 악기를 세밀하게 조율해보세요.',
-        status: 'Beta',
-        launch: '2024',
+        status: 'iOS 배포',
+        launch: 'Android 1월 예정',
         link: 'services/nyangnyang-tuner/'
     },
     {
         name: '주짓수 대회 보드',
         category: 'Community · Web',
         description: '전국 주짓수 대회를 달력과 지도에서 한눈에 확인하고 바로 이동하세요.',
-        status: 'Live',
+        status: '운영중',
         launch: '2024',
         link: 'services/jiujitsu/'
     }
@@ -113,8 +113,8 @@ if (appList) {
             <h3 class="app-card__title">${app.name}</h3>
             <p class="app-card__description">${app.description}</p>
             <div class="app-card__meta">
-                <span class="app-card__pill">상태 ${app.status}</span>
-                <span class="app-card__pill">출시 ${app.launch}</span>
+                <span class="app-card__pill">${app.status}</span>
+                <span class="app-card__pill">${app.launch}</span>
             </div>
             <span class="app-card__cta">자세히 보기 →</span>
         `;
