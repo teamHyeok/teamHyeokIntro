@@ -113,8 +113,8 @@ if (appList) {
             <h3 class="app-card__title">${app.name}</h3>
             <p class="app-card__description">${app.description}</p>
             <div class="app-card__meta">
-                <span class="app-card__pill">상태 ${app.status}</span>
-                <span class="app-card__pill">출시 ${app.launch}</span>
+                <span class="app-card__pill">${app.status}</span>
+                <span class="app-card__pill">${app.launch}</span>
             </div>
             <span class="app-card__cta">자세히 보기 →</span>
         `;
