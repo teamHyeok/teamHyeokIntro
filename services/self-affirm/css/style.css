@@ -279,12 +279,8 @@
 
 @media (min-width: 960px) {
     .hero__visual {
-        justify-items: end;
-        padding-right: clamp(1.2rem, 4vw, 2.8rem);
-    }
-
-    .affirm-stage {
-        margin-right: min(2rem, 4vw);
+        justify-items: center;
+        padding-inline: clamp(0.5rem, 2vw, 1.6rem);
     }
 }
 
