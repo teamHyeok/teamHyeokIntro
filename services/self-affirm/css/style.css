@@ -391,22 +391,9 @@
     font-size: clamp(1.02rem, 2.4vw, 1.2rem);
     line-height: 1.75;
     color: rgba(227, 234, 255, 0.85);
-}
-
-.affirm-card__tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.affirm-card__tag {
-    background: rgba(141, 169, 255, 0.2);
-    border: 1px solid rgba(160, 184, 255, 0.32);
-    padding: 0.38rem 0.8rem;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    text-align: center;
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
 .affirm-stage__flare {
