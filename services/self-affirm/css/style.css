@@ -234,6 +234,11 @@
     flex-shrink: 0;
 }
 
+.hero-highlights li span {
+    white-space: nowrap;
+    font-weight: 700;
+}
+
 .hero-badges {
     display: flex;
     flex-wrap: wrap;
