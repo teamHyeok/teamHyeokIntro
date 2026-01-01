@@ -1,0 +1,36 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0b0e"/>
+      <stop offset="100%" stop-color="#0f1116"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c1f27"/>
+      <stop offset="100%" stop-color="#151923"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <rect x="100" y="140" width="880" height="140" rx="28" fill="#0f1218"/>
+  <text x="120" y="220" fill="#f4f7ff" font-size="64" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="800">자기암시</text>
+  <rect x="60" y="260" width="960" height="460" rx="42" fill="#0c1016" stroke="#222a36" stroke-width="3"/>
+  <text x="110" y="330" fill="#7a8191" font-size="34" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">빠른 시작</text>
+  <g transform="translate(100 360)">
+    <rect x="0" y="0" width="860" height="120" rx="26" fill="url(#card)" stroke="#252c38"/>
+    <text x="80" y="60" fill="#f4f7ff" font-size="34" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">나만의 암시 문구 만들기</text>
+    <text x="80" y="100" fill="#a7afc0" font-size="26" font-family="'Noto Sans KR', 'Pretendard', sans-serif">여러 줄로 문구를 입력하세요</text>
+  </g>
+  <g transform="translate(100 500)">
+    <rect x="0" y="0" width="860" height="120" rx="26" fill="url(#card)" stroke="#252c38"/>
+    <text x="80" y="60" fill="#f4f7ff" font-size="34" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">나만의 암시 문구 관리하기</text>
+    <text x="80" y="100" fill="#a7afc0" font-size="26" font-family="'Noto Sans KR', 'Pretendard', sans-serif">내가 만든 문구를 관리해요</text>
+  </g>
+  <g transform="translate(100 640)">
+    <rect x="0" y="0" width="860" height="120" rx="26" fill="url(#card)" stroke="#252c38"/>
+    <text x="80" y="60" fill="#f4f7ff" font-size="34" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">테마별 암시 문구 고르기</text>
+    <text x="80" y="100" fill="#a7afc0" font-size="26" font-family="'Noto Sans KR', 'Pretendard', sans-serif">명언 · 유머 · 응원 중 즐겨찾기</text>
+  </g>
+  <rect x="120" y="820" width="840" height="540" rx="40" fill="#0f1218" stroke="#222a36" stroke-width="3"/>
+  <text x="180" y="900" fill="#d6f7c5" font-size="32" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="600">나무가 성장하는 시각적 피드백</text>
+  <rect x="200" y="980" width="680" height="320" rx="32" fill="#101619" stroke="#1f262d" stroke-width="2"/>
+  <text x="220" y="1040" fill="#a7afc0" font-size="28" font-family="'Noto Sans KR', 'Pretendard', sans-serif">알림 방식과 주기를 설정하고, 다음 알림을 미리봅니다.</text>
+</svg>

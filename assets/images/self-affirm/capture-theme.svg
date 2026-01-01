@@ -1,0 +1,43 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c0f18"/>
+      <stop offset="100%" stop-color="#111621"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c202b"/>
+      <stop offset="100%" stop-color="#141823"/>
+    </linearGradient>
+    <linearGradient id="pill" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#009573" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00c896" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <rect x="60" y="80" width="960" height="1760" rx="42" fill="#0c1018" stroke="#2c3645" stroke-width="3"/>
+  <rect x="120" y="160" width="840" height="120" rx="28" fill="#181c27"/>
+  <text x="150" y="235" fill="#f5f7ff" font-size="42" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">귀찮으니 테마에서 고르기</text>
+  <rect x="120" y="320" width="180" height="64" rx="24" fill="#131723" stroke="#3a4558" stroke-width="2"/>
+  <text x="170" y="360" fill="#f5f7ff" font-size="30" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">명언</text>
+  <rect x="320" y="320" width="180" height="64" rx="24" fill="#131723" stroke="#3a4558" stroke-width="2"/>
+  <text x="375" y="360" fill="#f5f7ff" font-size="30" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">유머</text>
+  <rect x="520" y="320" width="180" height="64" rx="24" fill="#131723" stroke="#3a4558" stroke-width="2"/>
+  <text x="575" y="360" fill="#f5f7ff" font-size="30" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">응원</text>
+  <rect x="760" y="320" width="200" height="64" rx="26" fill="#171c25" stroke="#3a4558" stroke-width="2"/>
+  <text x="795" y="360" fill="#f5f7ff" font-size="30" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">0 / 104</text>
+  <g>
+    <rect x="120" y="420" width="840" height="120" rx="32" fill="url(#card)" stroke="#252c38"/>
+    <text x="150" y="480" fill="#f0f4ff" font-size="34" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="600">백번 실패한 뒤에 가장 먼저 해야할 건 백한번째 도전을 준비하는 것</text>
+    <text x="150" y="525" fill="#a5adbe" font-size="26" font-family="'Noto Sans KR', 'Pretendard', sans-serif">최찬혁</text>
+  </g>
+  <g>
+    <rect x="120" y="570" width="840" height="120" rx="32" fill="url(#card)" stroke="#252c38"/>
+    <text x="150" y="630" fill="#f0f4ff" font-size="34" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="600">배는 항구에 있을 때 가장 안전하다. 하지만 그게 배가 만들어진 이유는 아니다.</text>
+    <text x="150" y="675" fill="#a5adbe" font-size="26" font-family="'Noto Sans KR', 'Pretendard', sans-serif">아인슈타인</text>
+  </g>
+  <g>
+    <rect x="120" y="720" width="840" height="120" rx="32" fill="url(#card)" stroke="#252c38"/>
+    <text x="150" y="780" fill="#f0f4ff" font-size="34" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="600">아마추어는 걱정한대로 되고, 프로는 상상한대로 된다.</text>
+    <text x="150" y="825" fill="#a5adbe" font-size="26" font-family="'Noto Sans KR', 'Pretendard', sans-serif">강호동</text>
+  </g>
+</svg>
