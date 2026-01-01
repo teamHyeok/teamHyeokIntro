@@ -139,6 +139,7 @@
     };
 
     const buildEntry = (entry = {}) => ({
+        slug: entry.slug || '',
         label: entry.label || '',
         title: entry.title || '',
         excerpt: entry.excerpt || '',
@@ -146,7 +147,9 @@
         chips: Array.isArray(entry.chips) ? entry.chips : [],
         link: entry.link || '',
         highlight: Boolean(entry.highlight),
+        publishedAt: entry.publishedAt || new Date().toISOString().slice(0, 10),
         image: entry.image ? { ...entry.image } : { src: '', alt: '' },
+        body: Array.isArray(entry.body) ? entry.body : [],
         coverData: entry.coverData || ''
     });
 
@@ -176,6 +179,8 @@
 
     const chipsToString = chips => chips.join(', ');
     const chipsFromString = str => str.split(',').map(c => c.trim()).filter(Boolean);
+    const bodyToString = body => body.join('\n\n');
+    const bodyFromString = str => str.split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
 
     const download = (filename, content, type = 'application/json') => {
         const blob = content instanceof Blob ? content : new Blob([content], { type });
@@ -218,6 +223,11 @@
             removeBtn.onclick = () => removeEntry(index);
             wrapper.appendChild(removeBtn);
 
+            const slugField = document.createElement('div');
+            slugField.innerHTML = `<label>슬러그 (URL)</label><input type="text" value="${entry.slug}" placeholder="build-sprint-rhythm" />`;
+            slugField.querySelector('input').oninput = e => updateInput(index, 'slug', e.target.value);
+            wrapper.appendChild(slugField);
+
             const label = document.createElement('div');
             label.innerHTML = `<label>라벨</label><input type="text" value="${entry.label}" />`;
             label.querySelector('input').oninput = e => updateInput(index, 'label', e.target.value);
@@ -234,10 +244,21 @@
             excerptField.querySelector('textarea').oninput = e => updateInput(index, 'excerpt', e.target.value);
             wrapper.appendChild(excerptField);
 
+            const bodyField = document.createElement('div');
+            bodyField.className = 'grid-full';
+            bodyField.innerHTML = `<label>본문 (단락 사이 공백 줄로 구분)</label><textarea>${bodyToString(entry.body)}</textarea>`;
+            bodyField.querySelector('textarea').oninput = e => updateInput(index, 'body', bodyFromString(e.target.value));
+            wrapper.appendChild(bodyField);
+
             const quoteField = document.createElement('div');
             quoteField.innerHTML = `<label>인용문 (선택)</label><input type="text" value="${entry.quote}" />`;
             quoteField.querySelector('input').oninput = e => updateInput(index, 'quote', e.target.value);
             wrapper.appendChild(quoteField);
+
+            const publishedField = document.createElement('div');
+            publishedField.innerHTML = `<label>게시일 (YYYY-MM-DD)</label><input type="text" value="${entry.publishedAt}" />`;
+            publishedField.querySelector('input').oninput = e => updateInput(index, 'publishedAt', e.target.value);
+            wrapper.appendChild(publishedField);
 
             const linkField = document.createElement('div');
             linkField.innerHTML = `<label>링크 (선택)</label><input type="text" value="${entry.link}" placeholder="#apps" />`;
@@ -326,12 +347,18 @@
     };
 
     document.getElementById('downloadJson').onclick = () => {
-        const payload = state.map(({ coverData, ...rest }) => rest);
+        const payload = state.map(({ coverData, body, ...rest }) => ({
+            ...rest,
+            body,
+        }));
         download('magazine.json', JSON.stringify(payload, null, 2));
     };
 
     document.getElementById('copyJson').onclick = async () => {
-        const payload = state.map(({ coverData, ...rest }) => rest);
+        const payload = state.map(({ coverData, body, ...rest }) => ({
+            ...rest,
+            body,
+        }));
         await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
         alert('JSON이 복사되었습니다.');
     };

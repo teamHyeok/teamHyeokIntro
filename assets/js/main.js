@@ -102,6 +102,8 @@ const initAnimateObserver = () => {
     animatedElements.forEach(el => observeAnimateElement(el));
 };
 
+const getPublishedTime = entry => new Date(entry.publishedAt || entry.date || '').getTime() || 0;
+
 const createMagazineCard = entry => {
     const card = document.createElement('article');
     card.className = 'magazine-card';
@@ -163,10 +165,12 @@ const createMagazineCard = entry => {
         body.appendChild(meta);
     }
 
-    if (entry.link) {
+    const targetLink = entry.link || (entry.slug ? `magazine/?slug=${encodeURIComponent(entry.slug)}` : '');
+
+    if (targetLink) {
         const cta = document.createElement('a');
         cta.className = 'magazine-card__link';
-        cta.href = entry.link;
+        cta.href = targetLink;
         cta.textContent = '자세히 보기 →';
         cta.setAttribute('aria-label', `${entry.title || '매거진'} 자세히 보기`);
         body.appendChild(cta);
@@ -180,17 +184,18 @@ const createMagazineCard = entry => {
 const loadMagazine = async () => {
     const magazineList = document.getElementById('magazineList');
     if (!magazineList) return;
+    magazineList.innerHTML = '';
     try {
         const response = await fetch('assets/data/magazine.json', { cache: 'no-cache' });
         if (!response.ok) {
             throw new Error('매거진 데이터를 불러오지 못했습니다.');
         }
         const entries = await response.json();
-        if (!Array.isArray(entries)) return;
-        entries.forEach(entry => {
-            const card = createMagazineCard(entry);
-            magazineList.appendChild(card);
-        });
+        if (!Array.isArray(entries) || !entries.length) return;
+        const sorted = entries.slice().sort((a, b) => getPublishedTime(b) - getPublishedTime(a));
+        const latest = sorted[0];
+        const card = createMagazineCard(latest);
+        magazineList.appendChild(card);
     } catch (error) {
         const fallback = document.createElement('p');
         fallback.className = 'magazine-card__excerpt';
