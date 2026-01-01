@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팀혁 매거진 관리자</title>
+    <style>
+        :root {
+            --bg: #0a0c18;
+            --panel: rgba(18, 22, 35, 0.9);
+            --panel-weak: rgba(18, 22, 35, 0.65);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f2f6ff;
+            --muted: #b7c4e6;
+            --accent: #7c5cff;
+            --accent-2: #8ed3ff;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', 'Inter', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at 18% 18%, rgba(124,92,255,0.18), transparent 45%),
+                        radial-gradient(circle at 72% 12%, rgba(142,211,255,0.16), transparent 55%),
+                        var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: rgba(10,12,24,0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 20px;
+            letter-spacing: 0.05em;
+        }
+        main {
+            width: min(1080px, 94%);
+            margin: 24px auto 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 20px 60px rgba(5, 7, 18, 0.35);
+        }
+        .hint { color: var(--muted); font-size: 14px; line-height: 1.6; }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        button, .ghost {
+            border: 1px solid var(--border);
+            background: linear-gradient(145deg, rgba(33, 39, 59, 0.9), rgba(18, 22, 35, 0.7));
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        .primary { border-color: rgba(124,92,255,0.5); box-shadow: 0 10px 26px rgba(124,92,255,0.3); }
+        .danger { border-color: rgba(255,142,180,0.5); color: #ffd9e8; }
+        input[type="text"], textarea, input[type="url"] {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--panel-weak);
+            color: var(--text);
+        }
+        textarea { min-height: 90px; resize: vertical; }
+        label { display: block; font-weight: 600; margin: 10px 0 6px; }
+        .entry {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px 16px;
+            position: relative;
+        }
+        .entry h3 { grid-column: 1 / -1; margin: 0 0 4px; }
+        .entry small { color: var(--muted); }
+        .inline { display: flex; gap: 8px; align-items: center; }
+        .preview {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            border-radius: 12px;
+            border: 1px dashed var(--border);
+            background: rgba(255,255,255,0.03);
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+        }
+        .preview img { width: 100%; height: 100%; object-fit: cover; }
+        .entry .remove {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+        }
+        .pill { display: inline-flex; gap: 6px; align-items: center; padding: 4px 10px; background: rgba(255,255,255,0.06); border-radius: 999px; font-size: 12px; color: var(--muted); }
+        .grid-full { grid-column: 1 / -1; }
+        .note { font-size: 13px; color: var(--muted); margin: 0; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>팀혁 매거진 관리자 · 정적 파일 생성</h1>
+</header>
+<main>
+    <section class="panel">
+        <p class="hint">이 페이지는 정적 사이트용 매거진 카드 데이터를 만들기 위한 툴입니다. JSON을 내려받아 <code>assets/data/magazine.json</code>에 덮어쓰고, 이미지 파일을 <code>assets/images/magazine/</code>에 추가한 뒤 함께 커밋하면 됩니다.</p>
+        <div class="actions">
+            <button class="primary" id="addEntry">카드 추가</button>
+            <button id="downloadJson">magazine.json 다운로드</button>
+            <button id="copyJson">JSON 복사</button>
+            <label class="ghost" for="importJson">기존 JSON 불러오기</label>
+            <input type="file" id="importJson" accept="application/json" hidden>
+        </div>
+    </section>
+
+    <section class="panel" id="entries"></section>
+</main>
+
+<script>
+    const entriesEl = document.getElementById('entries');
+    const observeFile = (file, cb) => {
+        const reader = new FileReader();
+        reader.onload = () => cb(reader.result);
+        reader.readAsDataURL(file);
+    };
+
+    const buildEntry = (entry = {}) => ({
+        label: entry.label || '',
+        title: entry.title || '',
+        excerpt: entry.excerpt || '',
+        quote: entry.quote || '',
+        chips: Array.isArray(entry.chips) ? entry.chips : [],
+        link: entry.link || '',
+        highlight: Boolean(entry.highlight),
+        image: entry.image ? { ...entry.image } : { src: '', alt: '' },
+        coverData: entry.coverData || ''
+    });
+
+    let state = [];
+
+    const saveState = () => {
+        localStorage.setItem('magazine-admin', JSON.stringify(state));
+    };
+
+    const updateInput = (index, key, value) => {
+        state[index][key] = value;
+        saveState();
+    };
+
+    const updateImage = (index, { src, alt, coverData }) => {
+        state[index].image = { src, alt };
+        state[index].coverData = coverData || state[index].coverData;
+        saveState();
+        render();
+    };
+
+    const removeEntry = index => {
+        state.splice(index, 1);
+        saveState();
+        render();
+    };
+
+    const chipsToString = chips => chips.join(', ');
+    const chipsFromString = str => str.split(',').map(c => c.trim()).filter(Boolean);
+
+    const download = (filename, content, type = 'application/json') => {
+        const blob = content instanceof Blob ? content : new Blob([content], { type });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+    };
+
+    const render = () => {
+        entriesEl.innerHTML = '';
+        if (!state.length) {
+            const empty = document.createElement('p');
+            empty.className = 'hint';
+            empty.textContent = '아직 카드가 없습니다. “카드 추가”를 눌러 새 매거진을 작성하세요.';
+            entriesEl.appendChild(empty);
+            return;
+        }
+
+        state.forEach((entry, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'entry';
+
+            const title = document.createElement('h3');
+            title.textContent = entry.title || `매거진 카드 ${index + 1}`;
+            wrapper.appendChild(title);
+
+            const badge = document.createElement('div');
+            badge.className = 'pill';
+            badge.textContent = entry.highlight ? 'Spotlight 강조' : '일반 카드';
+            wrapper.appendChild(badge);
+
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove danger';
+            removeBtn.textContent = '삭제';
+            removeBtn.onclick = () => removeEntry(index);
+            wrapper.appendChild(removeBtn);
+
+            const label = document.createElement('div');
+            label.innerHTML = `<label>라벨</label><input type="text" value="${entry.label}" />`;
+            label.querySelector('input').oninput = e => updateInput(index, 'label', e.target.value);
+            wrapper.appendChild(label);
+
+            const titleField = document.createElement('div');
+            titleField.innerHTML = `<label>제목</label><input type="text" value="${entry.title}" />`;
+            titleField.querySelector('input').oninput = e => updateInput(index, 'title', e.target.value);
+            wrapper.appendChild(titleField);
+
+            const excerptField = document.createElement('div');
+            excerptField.className = 'grid-full';
+            excerptField.innerHTML = `<label>본문 요약</label><textarea>${entry.excerpt}</textarea>`;
+            excerptField.querySelector('textarea').oninput = e => updateInput(index, 'excerpt', e.target.value);
+            wrapper.appendChild(excerptField);
+
+            const quoteField = document.createElement('div');
+            quoteField.innerHTML = `<label>인용문 (선택)</label><input type="text" value="${entry.quote}" />`;
+            quoteField.querySelector('input').oninput = e => updateInput(index, 'quote', e.target.value);
+            wrapper.appendChild(quoteField);
+
+            const linkField = document.createElement('div');
+            linkField.innerHTML = `<label>링크 (선택)</label><input type="text" value="${entry.link}" placeholder="#apps" />`;
+            linkField.querySelector('input').oninput = e => updateInput(index, 'link', e.target.value);
+            wrapper.appendChild(linkField);
+
+            const chipsField = document.createElement('div');
+            chipsField.innerHTML = `<label>칩 (쉼표로 구분)</label><input type="text" value="${chipsToString(entry.chips)}" placeholder="Workflow, 팀 문화" />`;
+            chipsField.querySelector('input').oninput = e => updateInput(index, 'chips', chipsFromString(e.target.value));
+            wrapper.appendChild(chipsField);
+
+            const highlightField = document.createElement('div');
+            highlightField.className = 'inline';
+            highlightField.innerHTML = `<input type="checkbox" ${entry.highlight ? 'checked' : ''}> <label>Spotlight 강조</label>`;
+            highlightField.querySelector('input').onchange = e => updateInput(index, 'highlight', e.target.checked);
+            wrapper.appendChild(highlightField);
+
+            const imageSrcField = document.createElement('div');
+            imageSrcField.innerHTML = `<label>커버 이미지 경로</label><input type="text" value="${entry.image.src}" placeholder="assets/images/magazine/cover-x.svg" />`;
+            imageSrcField.querySelector('input').oninput = e => updateImage(index, { src: e.target.value, alt: entry.image.alt, coverData: entry.coverData });
+            wrapper.appendChild(imageSrcField);
+
+            const imageAltField = document.createElement('div');
+            imageAltField.innerHTML = `<label>커버 이미지 대체 텍스트</label><input type="text" value="${entry.image.alt}" />`;
+            imageAltField.querySelector('input').oninput = e => updateImage(index, { src: entry.image.src, alt: e.target.value, coverData: entry.coverData });
+            wrapper.appendChild(imageAltField);
+
+            const preview = document.createElement('div');
+            preview.className = 'preview';
+            preview.classList.add('grid-full');
+            if (entry.coverData) {
+                const img = document.createElement('img');
+                img.src = entry.coverData;
+                img.alt = entry.image.alt || '업로드된 이미지 미리보기';
+                preview.appendChild(img);
+            } else {
+                const note = document.createElement('span');
+                note.className = 'hint';
+                note.textContent = '여기에 업로드된 이미지가 미리보기로 표시됩니다.';
+                preview.appendChild(note);
+            }
+            wrapper.appendChild(preview);
+
+            const upload = document.createElement('div');
+            upload.className = 'inline grid-full';
+            upload.innerHTML = `<label for="file-${index}">커버 이미지 업로드</label><input type="file" id="file-${index}" accept="image/*">`;
+            upload.querySelector('input').onchange = e => {
+                const [file] = e.target.files || [];
+                if (!file) return;
+                const targetSrc = entry.image.src || `assets/images/magazine/${file.name}`;
+                observeFile(file, dataUrl => updateImage(index, { src: targetSrc, alt: entry.image.alt, coverData: dataUrl }));
+            };
+            wrapper.appendChild(upload);
+
+            const downloadImg = document.createElement('button');
+            downloadImg.textContent = '업로드된 이미지 다운로드';
+            downloadImg.className = 'ghost';
+            downloadImg.onclick = () => {
+                if (!entry.coverData) return alert('먼저 이미지를 업로드하세요.');
+                const filename = entry.image.src.split('/').pop() || 'magazine-cover.png';
+                const base64 = entry.coverData.split(',')[1];
+                const byteCharacters = atob(base64);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'image/png' });
+                download(filename, blob, 'image/png');
+            };
+            wrapper.appendChild(downloadImg);
+
+            const note = document.createElement('p');
+            note.className = 'note grid-full';
+            note.innerHTML = '이미지 경로는 <code>assets/images/magazine/</code> 아래에 위치하도록 맞춰주세요. “업로드된 이미지 다운로드”로 파일을 내려받아 동일 경로에 배치 후 커밋하면 됩니다.';
+            wrapper.appendChild(note);
+
+            entriesEl.appendChild(wrapper);
+        });
+    };
+
+    document.getElementById('addEntry').onclick = () => {
+        state.push(buildEntry());
+        saveState();
+        render();
+    };
+
+    document.getElementById('downloadJson').onclick = () => {
+        const payload = state.map(({ coverData, ...rest }) => rest);
+        download('magazine.json', JSON.stringify(payload, null, 2));
+    };
+
+    document.getElementById('copyJson').onclick = async () => {
+        const payload = state.map(({ coverData, ...rest }) => rest);
+        await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
+        alert('JSON이 복사되었습니다.');
+    };
+
+    document.getElementById('importJson').onchange = e => {
+        const [file] = e.target.files || [];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = evt => {
+            try {
+                const parsed = JSON.parse(evt.target.result);
+                state = Array.isArray(parsed) ? parsed.map(buildEntry) : [];
+                saveState();
+                render();
+            } catch (error) {
+                alert('JSON 파싱 중 오류가 발생했습니다.');
+                console.error(error);
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    const loadExisting = async () => {
+        try {
+            const saved = localStorage.getItem('magazine-admin');
+            if (saved) {
+                state = JSON.parse(saved).map(buildEntry);
+                render();
+                return;
+            }
+            const res = await fetch('../assets/data/magazine.json');
+            if (res.ok) {
+                const data = await res.json();
+                state = data.map(buildEntry);
+                render();
+            }
+        } catch (error) {
+            console.warn('기존 매거진을 불러오지 못했습니다.', error);
+        }
+    };
+
+    loadExisting();
+</script>
+</body>
+</html>

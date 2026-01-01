@@ -1,0 +1,22 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111427"/>
+      <stop offset="100%" stop-color="#0A0D1E"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7C5CFF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#8ED3FF" stop-opacity="0.14"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="42" fill="url(#bg)"/>
+  <rect x="200" y="170" width="800" height="460" rx="28" fill="url(#glass)" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+  <circle cx="360" cy="320" r="82" fill="#0E142E" stroke="#FFD76F" stroke-opacity="0.45" stroke-width="2"/>
+  <text x="320" y="350" fill="#FFD76F" font-size="82" font-family="'Space Grotesk', 'Noto Sans KR', sans-serif" font-weight="700">?</text>
+  <circle cx="600" cy="320" r="82" fill="#0E142E" stroke="#8ED3FF" stroke-opacity="0.45" stroke-width="2"/>
+  <text x="560" y="350" fill="#8ED3FF" font-size="82" font-family="'Space Grotesk', 'Noto Sans KR', sans-serif" font-weight="700">?</text>
+  <circle cx="840" cy="320" r="82" fill="#0E142E" stroke="#7C5CFF" stroke-opacity="0.45" stroke-width="2"/>
+  <text x="800" y="350" fill="#7C5CFF" font-size="82" font-family="'Space Grotesk', 'Noto Sans KR', sans-serif" font-weight="700">?</text>
+  <text x="240" y="520" fill="#E8EDFF" font-size="36" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-weight="700">우리가 쓰고 싶은가?  ·  3일 내 뼈대 제작 가능한가?  ·  유지비 최소화 가능한가?</text>
+  <text x="260" y="570" fill="#A5B7E5" font-size="24" font-family="'Noto Sans KR', 'Pretendard', sans-serif">세 가지 질문에 모두 YES면 바로 빌드에 들어갑니다.</text>
+</svg>
