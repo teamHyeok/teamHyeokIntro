@@ -675,6 +675,259 @@ html:not(.has-js) body.is-loading {
     line-height: 1.7;
 }
 
+.magazine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+}
+
+.magazine-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 30px 30px 26px;
+    border-radius: 26px;
+    background: linear-gradient(155deg, rgba(20, 24, 39, 0.82), rgba(20, 24, 39, 0.62));
+    border: 1px solid rgba(142, 211, 255, 0.12);
+    box-shadow: 0 20px 46px rgba(5, 7, 18, 0.5);
+    overflow: hidden;
+    min-height: 100%;
+}
+
+.magazine-card::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(circle at 30% 30%, rgba(124, 92, 255, 0.16), transparent 60%),
+                radial-gradient(circle at 72% 72%, rgba(255, 182, 219, 0.18), transparent 70%);
+    filter: blur(40px);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.magazine-card--spotlight {
+    grid-column: span 2;
+    background: linear-gradient(135deg, rgba(33, 39, 59, 0.9), rgba(24, 28, 45, 0.76));
+    border: 1px solid rgba(255, 215, 111, 0.25);
+}
+
+.magazine-card__cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: 18px;
+    overflow: hidden;
+    background: radial-gradient(circle at 30% 30%, rgba(124, 92, 255, 0.22), transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(142, 211, 255, 0.24), transparent 70%),
+                rgba(10, 12, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 12px 30px rgba(0, 0, 0, 0.35);
+    isolation: isolate;
+}
+
+.magazine-card__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.magazine-card__cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(5, 6, 12, 0.28) 70%);
+    z-index: 1;
+}
+
+.magazine-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.magazine-card__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(142, 211, 255, 0.12);
+    color: rgba(142, 211, 255, 0.9);
+    position: relative;
+    z-index: 1;
+}
+
+.magazine-card--spotlight .magazine-card__label {
+    background: rgba(255, 215, 111, 0.16);
+    color: #ffd76f;
+}
+
+.magazine-card__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
+}
+
+.magazine-card__excerpt {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+}
+
+.magazine-card__quote {
+    margin: 4px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid rgba(255, 215, 111, 0.6);
+    color: var(--color-highlight);
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+
+.magazine-card__meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.magazine-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.magazine-card__link {
+    position: relative;
+    z-index: 1;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-accent-soft);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.magazine-archive {
+    display: grid;
+    grid-template-columns: minmax(280px, 380px) 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+.magazine-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.magazine-list__item {
+    border-radius: 18px;
+    padding: 16px 18px;
+    background: linear-gradient(145deg, rgba(24, 28, 45, 0.86), rgba(18, 22, 35, 0.7));
+    border: 1px solid rgba(142, 211, 255, 0.12);
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.magazine-list__item:hover,
+.magazine-list__item:focus-visible {
+    transform: translateY(-4px);
+    border-color: rgba(142, 211, 255, 0.4);
+}
+
+.magazine-list__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 18px;
+}
+
+.magazine-list__meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: rgba(217, 226, 255, 0.72);
+}
+
+.magazine-detail {
+    padding: 24px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(24, 28, 45, 0.9), rgba(18, 22, 35, 0.72));
+    border: 1px solid rgba(142, 211, 255, 0.16);
+    box-shadow: 0 26px 64px rgba(5, 7, 18, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.magazine-detail__cover {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.magazine-detail__cover img {
+    width: 100%;
+    display: block;
+}
+
+.magazine-detail__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3vw, 38px);
+}
+
+.magazine-detail__chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.magazine-detail__body {
+    display: grid;
+    gap: 12px;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+}
+
+.magazine-detail__date {
+    color: rgba(217, 226, 255, 0.7);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.magazine-empty {
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    color: rgba(217, 226, 255, 0.7);
+}
+
 .app-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -992,6 +1245,14 @@ html:not(.has-js) body.is-loading {
 
     .section {
         padding: 64px 0;
+    }
+
+    .magazine-card--spotlight {
+        grid-column: span 1;
+    }
+
+    .magazine-archive {
+        grid-template-columns: 1fr;
     }
 }
 
