@@ -234,6 +234,92 @@
     flex-shrink: 0;
 }
 
+.hero-highlights li span {
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+.affirm-gallery {
+    display: grid;
+    gap: 1.6rem;
+    padding: 2rem 0 1rem;
+}
+
+.affirm-gallery__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-width: 36rem;
+}
+
+.section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(118, 141, 255, 0.16), rgba(222, 143, 255, 0.12));
+    border: 1px solid rgba(152, 178, 255, 0.35);
+    color: #e7ecff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+}
+
+.affirm-gallery__header h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.3rem);
+}
+
+.affirm-gallery__header p {
+    margin: 0;
+    color: rgba(233, 237, 255, 0.8);
+    line-height: 1.7;
+}
+
+.affirm-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.affirm-shot {
+    margin: 0;
+    display: grid;
+    gap: 0.9rem;
+}
+
+.affirm-shot__frame {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(18, 24, 42, 0.9), rgba(12, 16, 32, 0.95));
+    border: 1px solid rgba(130, 150, 210, 0.22);
+    box-shadow: 0 26px 60px rgba(4, 6, 18, 0.85);
+    display: grid;
+    place-items: center;
+    aspect-ratio: 9 / 16;
+    width: 100%;
+    max-width: 520px;
+    max-height: 78vh;
+    padding: clamp(8px, 1.8vw, 14px);
+    background-color: #0c0f16;
+}
+
+.affirm-shot__frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: radial-gradient(circle at 50% 40%, rgba(124, 92, 255, 0.08), rgba(124, 92, 255, 0));
+}
+
+.affirm-shot figcaption {
+    color: rgba(219, 226, 255, 0.82);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
 .hero-badges {
     display: flex;
     flex-wrap: wrap;
