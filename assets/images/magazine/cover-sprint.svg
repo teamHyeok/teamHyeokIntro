@@ -1,0 +1,36 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2B2F5E"/>
+      <stop offset="50%" stop-color="#1B1E39"/>
+      <stop offset="100%" stop-color="#0F1226"/>
+    </linearGradient>
+    <linearGradient id="orb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7C5CFF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#8ED3FF" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="orb2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFD76F" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FF8EB4" stop-opacity="0.7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="46" fill="url(#bg)"/>
+  <circle cx="320" cy="260" r="220" fill="url(#orb)" opacity="0.4"/>
+  <circle cx="880" cy="520" r="260" fill="url(#orb2)" opacity="0.32"/>
+  <g filter="url(#glow)">
+    <circle cx="600" cy="400" r="210" stroke="white" stroke-opacity="0.1" stroke-width="2" fill="none"/>
+    <circle cx="600" cy="400" r="150" stroke="#8ED3FF" stroke-opacity="0.35" stroke-width="3" fill="none" stroke-dasharray="18 16"/>
+    <circle cx="600" cy="400" r="90" stroke="#FFD76F" stroke-opacity="0.45" stroke-width="3" fill="none" stroke-dasharray="10 12"/>
+  </g>
+  <defs>
+    <filter id="glow" x="330" y="130" width="540" height="540" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <text x="120" y="660" fill="white" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-size="48" font-weight="700" letter-spacing="1">25일 빌드 스프린트</text>
+  <text x="120" y="710" fill="#C7D6FF" font-family="'Noto Sans KR', 'Pretendard', sans-serif" font-size="26" font-weight="500" letter-spacing="0.5">리듬을 지키는 준비-실험-다듬기-기록</text>
+</svg>
