@@ -296,10 +296,14 @@
     background: linear-gradient(160deg, rgba(18, 24, 42, 0.9), rgba(12, 16, 32, 0.95));
     border: 1px solid rgba(130, 150, 210, 0.22);
     box-shadow: 0 26px 60px rgba(4, 6, 18, 0.85);
-    min-height: clamp(240px, 28vw, 360px);
-    height: clamp(260px, 46vw, 520px);
     display: grid;
     place-items: center;
+    aspect-ratio: 9 / 16;
+    width: 100%;
+    max-width: 520px;
+    max-height: 78vh;
+    padding: clamp(8px, 1.8vw, 14px);
+    background-color: #0c0f16;
 }
 
 .affirm-shot__frame img {
