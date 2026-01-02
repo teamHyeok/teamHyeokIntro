@@ -1,18 +1,18 @@
 .service-body--affirm {
-    --affirm-ink: #1f2727;
-    --affirm-muted: rgba(31, 39, 39, 0.72);
-    --affirm-accent: #6aa593;
-    --affirm-accent-strong: #4f8677;
-    --affirm-surface: rgba(255, 255, 255, 0.96);
-    --affirm-surface-strong: #f3eee4;
-    --affirm-stroke: rgba(68, 96, 88, 0.18);
+    --affirm-ink: #1c2522;
+    --affirm-muted: rgba(28, 37, 34, 0.76);
+    --affirm-accent: #5c8d7a;
+    --affirm-accent-strong: #3d7764;
+    --affirm-surface: rgba(255, 255, 255, 0.98);
+    --affirm-surface-strong: #f5f1e7;
+    --affirm-stroke: rgba(61, 119, 100, 0.14);
     color: var(--affirm-ink);
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
-    background: radial-gradient(circle at 26% 18%, rgba(106, 165, 147, 0.12) 0%, transparent 30%),
-        radial-gradient(circle at 78% 14%, rgba(79, 134, 119, 0.1) 0%, transparent 32%),
-        linear-gradient(145deg, #f6f2e9 0%, #f2eddf 45%, #f4f0e6 100%);
+    background: radial-gradient(circle at 28% 16%, rgba(92, 141, 122, 0.12) 0%, transparent 28%),
+        radial-gradient(circle at 76% 14%, rgba(61, 119, 100, 0.08) 0%, transparent 30%),
+        linear-gradient(150deg, #f8f5ee 0%, #f2eddf 42%, #f5f1e8 100%);
 }
 
 .service-body--affirm::before,
@@ -25,13 +25,13 @@
 }
 
 .service-body--affirm::before {
-    background: radial-gradient(ellipse at 16% 14%, rgba(106, 165, 147, 0.16) 0%, rgba(246, 242, 233, 0) 58%),
-        radial-gradient(ellipse at 84% 12%, rgba(79, 134, 119, 0.14) 0%, rgba(246, 242, 233, 0) 60%);
+    background: radial-gradient(ellipse at 16% 14%, rgba(92, 141, 122, 0.14) 0%, rgba(246, 242, 233, 0) 58%),
+        radial-gradient(ellipse at 84% 12%, rgba(61, 119, 100, 0.12) 0%, rgba(246, 242, 233, 0) 60%);
     filter: blur(10px);
 }
 
 .service-body--affirm::after {
-    background: radial-gradient(circle at 50% 50%, rgba(106, 165, 147, 0.14) 0%, rgba(246, 242, 233, 0) 62%);
+    background: radial-gradient(circle at 50% 50%, rgba(92, 141, 122, 0.12) 0%, rgba(246, 242, 233, 0) 62%);
     animation: affirmGlow 22s ease-in-out infinite alternate;
     opacity: 0.75;
 }
@@ -111,8 +111,8 @@
 }
 
 .service-header--affirm .service-chip {
-    background: rgba(31, 39, 39, 0.06);
-    border: 1px solid rgba(31, 39, 39, 0.12);
+    background: rgba(28, 37, 34, 0.06);
+    border: 1px solid rgba(28, 37, 34, 0.12);
     color: var(--affirm-ink);
     padding: 0.45rem 0.95rem;
     border-radius: 999px;
@@ -186,8 +186,9 @@
 }
 
 .service-hero .hero__copy h2 {
-    font-size: clamp(2.3rem, 4.6vw, 3rem);
-    line-height: 1.18;
+    font-size: clamp(2.4rem, 4.8vw, 3.2rem);
+    line-height: 1.16;
+    letter-spacing: -0.01em;
 }
 
 .service-hero .hero__copy {
@@ -199,11 +200,11 @@
 }
 
 .service-hero .hero__description {
-    color: rgba(31, 39, 39, 0.8);
-    font-size: 1.05rem;
-    line-height: 1.8;
-    margin-top: 1.1rem;
-    max-width: 36rem;
+    color: rgba(28, 37, 34, 0.78);
+    font-size: 1.02rem;
+    line-height: 1.74;
+    margin-top: 1.05rem;
+    max-width: 37rem;
 }
 
 .hero-actions {
@@ -228,10 +229,10 @@
 }
 
 .pill-button--primary {
-    background: #1f2727;
-    color: #f6f2e9;
-    border-color: #1f2727;
-    box-shadow: 0 16px 36px -24px rgba(0, 0, 0, 0.35);
+    background: linear-gradient(135deg, #253833, #1f2d28);
+    color: #f5f1e8;
+    border-color: rgba(28, 37, 34, 0.8);
+    box-shadow: 0 16px 34px -22px rgba(0, 0, 0, 0.32);
 }
 
 .pill-button--ghost {
@@ -259,11 +260,11 @@
     align-items: flex-start;
     gap: 0.75rem;
     background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(31, 39, 39, 0.08);
+    border: 1px solid rgba(28, 37, 34, 0.06);
     border-radius: 16px;
-    padding: 0.95rem 1.1rem;
-    font-size: 0.98rem;
-    box-shadow: 0 24px 48px -36px rgba(0, 0, 0, 0.25);
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    box-shadow: 0 20px 44px -36px rgba(0, 0, 0, 0.2);
 }
 
 .hero-highlights li span {
@@ -271,13 +272,13 @@
     align-items: center;
     justify-content: center;
     min-width: 88px;
-    padding: 0.35rem 0.75rem;
+    padding: 0.38rem 0.78rem;
     border-radius: 999px;
-    background: rgba(106, 165, 147, 0.14);
+    background: rgba(92, 141, 122, 0.14);
     color: var(--affirm-ink);
     font-weight: 700;
-    letter-spacing: 0.04em;
-    border: 1px solid rgba(106, 165, 147, 0.35);
+    letter-spacing: 0.03em;
+    border: 1px solid rgba(92, 141, 122, 0.24);
 }
 
 .affirm-gallery {
@@ -371,12 +372,12 @@
 .hero-badge {
     padding: 0.4rem 0.85rem;
     border-radius: 999px;
-    background: rgba(167, 246, 193, 0.18);
+    background: rgba(92, 141, 122, 0.14);
     color: var(--affirm-ink);
     font-size: 0.78rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    border: 1px solid var(--affirm-stroke);
+    border: 1px solid rgba(92, 141, 122, 0.26);
 }
 
 .hero__visual {
@@ -392,10 +393,10 @@
     inset: 6% 4%;
     border-radius: 32px;
     background:
-        radial-gradient(circle at 12% 10%, rgba(106, 165, 147, 0.2) 0%, transparent 26%),
-        radial-gradient(circle at 86% 12%, rgba(79, 134, 119, 0.16) 0%, transparent 32%);
-    box-shadow: inset 0 0 0 1px rgba(106, 165, 147, 0.16);
-    opacity: 0.5;
+        radial-gradient(circle at 12% 10%, rgba(92, 141, 122, 0.16) 0%, transparent 26%),
+        radial-gradient(circle at 86% 12%, rgba(61, 119, 100, 0.12) 0%, transparent 32%);
+    box-shadow: inset 0 0 0 1px rgba(92, 141, 122, 0.12);
+    opacity: 0.45;
     pointer-events: none;
     z-index: 0;
 }
@@ -421,9 +422,9 @@
     aspect-ratio: 1 / 1.1;
     border-radius: 42px;
     padding: clamp(2.1rem, 4.6vw, 3rem);
-    background: linear-gradient(150deg, #ffffff, #f4efe4);
-    border: 1px solid rgba(31, 39, 39, 0.08);
-    box-shadow: 0 40px 110px -70px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    background: linear-gradient(145deg, #ffffff, #f6f2e8);
+    border: 1px solid rgba(28, 37, 34, 0.06);
+    box-shadow: 0 36px 96px -68px rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.7);
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
@@ -453,9 +454,9 @@
 }
 
 .affirm-stage::before {
-    background: radial-gradient(circle at 20% 18%, rgba(106, 165, 147, 0.12) 0%, rgba(106, 165, 147, 0) 58%),
-        radial-gradient(circle at 70% 82%, rgba(79, 134, 119, 0.1) 0%, rgba(79, 134, 119, 0) 60%);
-    filter: blur(4px);
+    background: radial-gradient(circle at 20% 18%, rgba(92, 141, 122, 0.12) 0%, rgba(92, 141, 122, 0) 58%),
+        radial-gradient(circle at 70% 82%, rgba(61, 119, 100, 0.1) 0%, rgba(61, 119, 100, 0) 60%);
+    filter: blur(3px);
 }
 
 .affirm-stage::after {
@@ -476,17 +477,17 @@
 }
 
 .affirm-stage__glow {
-    background: radial-gradient(circle at 28% 22%, rgba(106, 165, 147, 0.18) 0%, rgba(106, 165, 147, 0) 62%),
-        radial-gradient(circle at 78% 78%, rgba(79, 134, 119, 0.14) 0%, rgba(79, 134, 119, 0) 55%);
-    filter: blur(8px);
+    background: radial-gradient(circle at 28% 22%, rgba(92, 141, 122, 0.16) 0%, rgba(92, 141, 122, 0) 62%),
+        radial-gradient(circle at 78% 78%, rgba(61, 119, 100, 0.12) 0%, rgba(61, 119, 100, 0) 55%);
+    filter: blur(7px);
 }
 
 .affirm-stage__orbit {
-    border: 1px solid rgba(106, 165, 147, 0.2);
+    border: 1px solid rgba(92, 141, 122, 0.16);
     inset: 10%;
     transform: rotate(10deg);
     opacity: 0.4;
-    box-shadow: inset 0 0 40px rgba(106, 165, 147, 0.08);
+    box-shadow: inset 0 0 40px rgba(92, 141, 122, 0.06);
 }
 
 .affirm-stage__orbit::after {
@@ -494,7 +495,7 @@
     position: absolute;
     inset: 14%;
     border-radius: inherit;
-    border: 1px solid rgba(79, 134, 119, 0.18);
+    border: 1px solid rgba(61, 119, 100, 0.14);
     transform: rotate(-24deg);
 }
 
@@ -507,8 +508,8 @@
 }
 
 .affirm-stage__card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.82) 65%);
-    border: 1px solid rgba(31, 39, 39, 0.06);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.9) 65%);
+    border: 1px solid rgba(28, 37, 34, 0.04);
     top: 52%;
     left: 50%;
     width: min(82%, 360px);
@@ -517,7 +518,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(4px);
     color: var(--affirm-ink);
     position: absolute;
     z-index: 2;
@@ -544,8 +545,8 @@
 
 .affirm-card__quote {
     font-size: clamp(1.02rem, 2.4vw, 1.2rem);
-    line-height: 1.75;
-    color: var(--affirm-muted);
+    line-height: 1.72;
+    color: rgba(28, 37, 34, 0.82);
     text-align: center;
     word-break: keep-all;
     overflow-wrap: break-word;
@@ -572,12 +573,12 @@
 }
 
 .manifesto-card {
-    background: linear-gradient(150deg, var(--affirm-surface), rgba(243, 238, 228, 0.9));
-    border: 1px solid rgba(31, 39, 39, 0.08);
+    background: linear-gradient(150deg, var(--affirm-surface), rgba(245, 241, 232, 0.94));
+    border: 1px solid rgba(28, 37, 34, 0.06);
     padding: 1.6rem;
     border-radius: 24px;
-    box-shadow: 0 28px 55px -42px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(4px);
+    box-shadow: 0 28px 55px -42px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(3px);
 }
 
 .manifesto-card h3 {
@@ -601,13 +602,14 @@
 
 .section-heading span {
     display: inline-block;
-    background: rgba(167, 246, 193, 0.16);
+    background: rgba(92, 141, 122, 0.14);
     border-radius: 999px;
     padding: 0.35rem 0.9rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-size: 0.75rem;
     margin-bottom: 1rem;
+    border: 1px solid rgba(92, 141, 122, 0.26);
 }
 
 .section-heading h2 {
@@ -629,9 +631,9 @@
 }
 
 .feature-card {
-    background: linear-gradient(150deg, #ffffff, rgba(243, 238, 228, 0.92));
+    background: linear-gradient(150deg, #ffffff, rgba(245, 241, 232, 0.94));
     border-radius: 24px;
-    border: 1px solid rgba(31, 39, 39, 0.08);
+    border: 1px solid rgba(28, 37, 34, 0.06);
     padding: 1.7rem;
     display: grid;
     gap: 1rem;
@@ -643,14 +645,14 @@
     content: "";
     position: absolute;
     inset: -30% -40%;
-    background: radial-gradient(circle at center, rgba(106, 165, 147, 0.2), rgba(106, 165, 147, 0));
+    background: radial-gradient(circle at center, rgba(92, 141, 122, 0.18), rgba(92, 141, 122, 0));
     opacity: 0;
     transition: opacity 0.6s ease;
 }
 
 .feature-card:hover::before,
 .feature-card:focus-within::before {
-    opacity: 0.8;
+    opacity: 0.65;
 }
 
 .feature-card__icon {
@@ -696,9 +698,9 @@
     width: clamp(220px, 32vw, 320px);
     aspect-ratio: 10 / 19;
     border-radius: 32px;
-    background: linear-gradient(180deg, #ffffff, rgba(244, 239, 228, 0.95));
-    border: 1px solid rgba(31, 39, 39, 0.08);
-    box-shadow: 0 40px 110px -60px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(180deg, #ffffff, rgba(245, 241, 232, 0.96));
+    border: 1px solid rgba(28, 37, 34, 0.06);
+    box-shadow: 0 40px 110px -60px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     transform: perspective(1200px) rotateX(var(--device-tilt-x, 0deg)) rotateY(var(--device-tilt-y, 0deg));
     transform-style: preserve-3d;
@@ -710,8 +712,8 @@
     position: absolute;
     inset: 14% 12% 16%;
     border-radius: 22px;
-    background: linear-gradient(135deg, rgba(106, 165, 147, 0.15), rgba(79, 134, 119, 0.08));
-    border: 1px solid rgba(31, 39, 39, 0.08);
+    background: linear-gradient(135deg, rgba(92, 141, 122, 0.12), rgba(61, 119, 100, 0.08));
+    border: 1px solid rgba(28, 37, 34, 0.06);
 }
 
 .affirm-flow__steps {
@@ -749,9 +751,9 @@
 .cta-card {
     border-radius: 32px;
     padding: clamp(2.5rem, 6vw, 3.5rem);
-    background: linear-gradient(145deg, #ffffff, var(--affirm-surface-strong));
-    border: 1px solid rgba(31, 39, 39, 0.08);
-    box-shadow: 0 40px 90px -60px rgba(0, 0, 0, 0.22);
+    background: linear-gradient(145deg, #ffffff, rgba(245, 241, 232, 0.98));
+    border: 1px solid rgba(28, 37, 34, 0.06);
+    box-shadow: 0 36px 90px -62px rgba(0, 0, 0, 0.18);
     text-align: center;
 }
 
