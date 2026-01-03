@@ -1,0 +1,10 @@
+{
+  "name": "teamhyeokintro",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "generate:sitemap": "node scripts/generate-sitemap.js",
+    "prebuild": "npm run generate:sitemap",
+    "build": "npm run generate:sitemap"
+  }
+}
