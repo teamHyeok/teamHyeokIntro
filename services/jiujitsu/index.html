@@ -17,10 +17,6 @@
             <span class="service-chip">TeamHyeok Works</span>
             <h1 class="service-header__title">주짓수 대회 지도</h1>
             <p class="service-header__subtitle">국내 주짓수 대회 일정을 한눈에 모아 확인해보세요! 지역별 분포 지도도 제공해서 간편하게 출전 가능 시합들을 확인할 수 있어요!</p>
-            <div class="bjj-ribbon" data-animate>
-                <div class="bjj-ribbon__text">지금 진행 중인 대회 일정 바로 확인</div>
-                <a class="bjj-button" href="http://jiujitsu.teamhyeok.com/" target="_blank" rel="noopener">대회 리스트 보러가기</a>
-            </div>
         </div>
     </header>
 
@@ -29,33 +25,37 @@
             <div class="hero__copy" data-animate>
                 <h2 class="hero__headline">전국 대회 정보를 <span>캘린더 하나</span>로 정리했어요</h2>
                 <p class="hero__description">흩어진 대회 공지, 검색에 시간을 쏟지 않아도 됩니다. 날짜와 지역, 주최 정보를 한곳에 묶어 선수와 관람객이 필요한 정보를 바로 찾을 수 있도록 설계했습니다.</p>
-                <ul class="hero-highlights">
-                    <li><span>실시간 업데이트</span>로 새롭게 열린 대회를 놓치지 않아요.</li>
-                    <li><span>카테고리 필터</span>로 지역·기타 이벤트를 빠르게 탐색.</li>
-                    <li><span>상세 링크</span>를 통해 접수 페이지까지 바로 이동.</li>
-                </ul>
-                <div class="hero-badges">
-                    <span class="hero-badge">Web</span>
-                    <span class="hero-badge">Realtime Board</span>
-                    <span class="hero-badge">Community friendly</span>
-                </div>
-            </div>
-            <div class="hero__visual" data-animate>
-                <div class="bjj-map" aria-hidden="true">
-                    <div class="bjj-map__grid">
-                        <span class="bjj-pin" style="--row:1;--col:1;">수도권</span>
-                        <span class="bjj-pin" style="--row:1;--col:2;">서울</span>
-                        <span class="bjj-pin" style="--row:1;--col:4;">인천</span>
-                        <span class="bjj-pin" style="--row:2;--col:2;">일본</span>
-                        <span class="bjj-pin" style="--row:2;--col:4;">대전</span>
-                        <span class="bjj-pin" style="--row:2;--col:1;">광주</span>
-                        <span class="bjj-pin" style="--row:3;--col:3;">부산</span>
-                        <span class="bjj-pin" style="--row:3;--col:1;">제주</span>
-                        <span class="bjj-pin" style="--row:3;--col:4;">전국</span>
+                <div class="hero-panels">
+                    <div class="hero-panel hero-panel--info">
+                        <div class="hero-detail__header">
+                            <p class="hero-detail__eyebrow">주요 강점</p>
+                            <p class="hero-detail__summary">실시간 업데이트, 필터, 상세 링크까지 대회 정보를 한 화면에서 정리했습니다.</p>
+                        </div>
+                        <ul class="hero-highlights">
+                            <li>
+                                <span>실시간 업데이트</span>
+                                새롭게 열린 대회를 놓치지 않아요.
+                            </li>
+                            <li>
+                                <span>카테고리 필터</span>
+                                지역·기타 이벤트를 빠르게 탐색.
+                            </li>
+                            <li>
+                                <span>상세 링크</span>
+                                접수 페이지까지 바로 이동.
+                            </li>
+                        </ul>
+                        <div class="hero-badges hero-badges--panel">
+                            <span class="hero-badge">Web</span>
+                            <span class="hero-badge">Realtime Board</span>
+                            <span class="hero-badge">Community friendly</span>
+                        </div>
                     </div>
-                    <div class="bjj-map__legend">
-                        <span class="legend-dot legend-dot--main"></span> 진행 중 대회
-                        <span class="legend-dot legend-dot--upcoming"></span> 예정 대회
+                    <div class="hero-panel hero-panel--cta">
+                        <p class="hero-detail__eyebrow">대회 일정</p>
+                        <h3 class="hero-cta__title">지금 진행/예정 대회를 한눈에</h3>
+                        <p class="hero-cta__description">달력·리스트에서 바로 확인하고 접수 링크로 이동하세요.</p>
+                        <a class="bjj-button hero-cta__button" href="http://jiujitsu.teamhyeok.com/" target="_blank" rel="noopener">대회 리스트 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -83,38 +83,11 @@
             </div>
         </section>
 
-        <section class="container features">
-            <div class="section-heading" data-animate>
-                <span class="section-heading__eyebrow">What you get</span>
-                <h2>주짓수 대회 보드 핵심 기능</h2>
-                <p>필요한 정보를 빠르게 찾도록 검색과 시각화를 단순화했습니다.</p>
+        <section class="container bjj-shot">
+            <div class="bjj-shot__frame" data-animate>
+                <img src="../../assets/images/jiujitsu_main.JPG" alt="주짓수 대회 보드 예시 화면" loading="lazy">
             </div>
-            <div class="feature-grid" data-animate>
-                <article class="feature-card">
-                    <span class="feature-card__icon" aria-hidden="true">📆</span>
-                    <h3>달력형 캘린더</h3>
-                    <p>월별 대회 일정을 한눈에 보고, 클릭하면 상세 안내와 접수 링크로 이동합니다.</p>
-                    <span class="feature-card__tag">Schedule</span>
-                </article>
-                <article class="feature-card">
-                    <span class="feature-card__icon" aria-hidden="true">🧭</span>
-                    <h3>지도형 핀 표시</h3>
-                    <p>지역별 대회를 색상으로 구분해 위치를 직관적으로 파악할 수 있습니다.</p>
-                    <span class="feature-card__tag">Location View</span>
-                </article>
-                <article class="feature-card">
-                    <span class="feature-card__icon" aria-hidden="true">🔗</span>
-                    <h3>공식 링크 정리</h3>
-                    <p>접수 및 공지 링크를 카드 내부에 바로 배치해 추가 검색 없이 이동합니다.</p>
-                    <span class="feature-card__tag">Fast Access</span>
-                </article>
-                <article class="feature-card">
-                    <span class="feature-card__icon" aria-hidden="true">📣</span>
-                    <h3>커뮤니티 제안</h3>
-                    <p>누락된 대회가 있다면 요청을 받아 바로 반영합니다. 커뮤니티 주도로 채워지는 보드입니다.</p>
-                    <span class="feature-card__tag">Community</span>
-                </article>
-            </div>
+            <p class="bjj-shot__caption">팀혁이 정리한 주짓수 대회 보드 실제 화면 예시</p>
         </section>
 
         <section class="container cta">
