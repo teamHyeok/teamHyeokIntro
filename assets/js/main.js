@@ -229,6 +229,14 @@ const apps = [
         status: '운영중',
         launch: '2024',
         link: 'services/jiujitsu/'
+    },
+    {
+        name: '흑백 요리사 맵',
+        category: 'Community · Map',
+        description: '흑백 요리사에 등장한 셰프들의 식당을 모아 본 거점 맵, 한 번에 위치를 살펴보세요.',
+        status: '웹 공개',
+        launch: '2025',
+        link: 'services/black-white-chef/'
     }
 ];
 
