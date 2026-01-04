@@ -36,19 +36,19 @@
     "link": "#apps"
   },
   {
-    "slug": "weekly-moodboard",
-    "label": "Mood Board",
-    "title": "우리를 움직이는 영감 레퍼런스",
-    "excerpt": "매주 월요일 Framer 인터랙션, Indie Hackers 사례, UI 스크린샷을 3장씩 공유해 다음 실험에 바로 반영합니다.",
-    "chips": ["Design", "Community", "Inspiration"],
-    "publishedAt": "2024-12-28",
+    "slug": "humble-outcome-over-grand-plan",
+    "label": "Retro",
+    "title": "화려한 기획보단 하찮은 결과물",
+    "excerpt": "3달 넘게 머무르던 기획을 접고, 가장 단순한 아이디어인 냥냥 튜너를 만들어 보며 팀은 ‘속도’와 ‘실행’을 다시 배웠습니다.",
+    "chips": ["want", "communication", "goal"],
+    "publishedAt": "2025-06-01",
     "image": {
       "src": "assets/images/magazine/cover-moodboard.svg",
-      "alt": "팀혁 무드보드 카드"
+      "alt": "작은 결과물을 향한 팀 목표 전환"
     },
     "body": [
-      "팀원 각자가 즐겨보는 레퍼런스를 모아 무드보드를 만듭니다. 멤버 A는 촘촘한 인터랙션을 연구하는 Framer 커뮤니티, 멤버 B는 Indie Hackers 사례로 수익 구조를 점검합니다.",
-      "매주 월요일 스크린샷 3장씩을 모아 슬라이드로 붙이고, 마음에 드는 카피와 마이크로 인터랙션을 다음 스프린트에 반영합니다."
+      "개발 초기에는 각자 멋진 아이디어만 제시했고, 공수를 따져본 경험이 없어서 시간만 흘렀습니다. 결국 대단해 보이는 기획 대신 가장 ‘하찮아’ 보이는 아이디어를 택했고, 그렇게 탄생한 것이 고양이와 함께하는 기타 튜너, 냥냥 튜너였습니다.",
+      "3달 넘게 기획에 멈춰 있던 팀은 단 3주 만에 앱을 출시할 만큼 속도가 붙었습니다. 이 경험으로 우리는 화려한 계획보다 결과물을 만들어 내는 추진력이 개발자로서의 필수 역량이라는 걸 체감했습니다."
     ]
   }
 ]
