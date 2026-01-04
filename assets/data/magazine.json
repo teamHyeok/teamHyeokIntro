@@ -8,7 +8,7 @@
     "chips": ["pay", "product", "market"],
     "publishedAt": "2025-08-16",
     "image": {
-      "src": "assets/images/magazine/cover-sprint.svg",
+      "src": "assets/images/payment.png",
       "alt": "인앱 결제 도입을 상징하는 제품 로그 카드"
     },
     "body": [
@@ -25,7 +25,7 @@
     "chips": ["community", "marketing", "communication"],
     "publishedAt": "2025-11-12",
     "image": {
-      "src": "assets/images/magazine/cover-questions.svg",
+      "src": "assets/images/marketing_magagine.jpg",
       "alt": "해외 커뮤니티 협업을 상징하는 이미지"
     },
     "body": [
@@ -43,7 +43,7 @@
     "chips": ["want", "communication", "goal"],
     "publishedAt": "2025-06-01",
     "image": {
-      "src": "assets/images/magazine/cover-moodboard.svg",
+      "src": "assets/images/nekotuner_first.jpg",
       "alt": "작은 결과물을 향한 팀 목표 전환"
     },
     "body": [
