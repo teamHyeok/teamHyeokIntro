@@ -21,6 +21,14 @@
     padding-top: clamp(3.5rem, 7vw, 5.5rem);
 }
 
+.service-header__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
 .service-header__inner {
     position: relative;
 }
