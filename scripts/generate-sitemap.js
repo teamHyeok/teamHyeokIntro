@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const baseUrl = 'https://blackwhitemap.com';
+const baseUrl = 'https://teamhyeok.com';
 const routes = [
   '/',
   '/magazine/',
