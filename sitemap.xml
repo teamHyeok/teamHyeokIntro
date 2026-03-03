@@ -2,27 +2,27 @@
 <!-- Note: Hash-based routing (e.g. #/path) offers limited SEO value. Prefer path-based routing with a 404.html fallback on GitHub Pages. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blackwhitemap.com/</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://teamhyeok.com/</loc>
+    <lastmod>2026-03-03</lastmod>
   </url>
   <url>
-    <loc>https://blackwhitemap.com/magazine/</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://teamhyeok.com/magazine/</loc>
+    <lastmod>2026-03-03</lastmod>
   </url>
   <url>
-    <loc>https://blackwhitemap.com/services/</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://teamhyeok.com/services/</loc>
+    <lastmod>2026-03-03</lastmod>
   </url>
   <url>
-    <loc>https://blackwhitemap.com/services/nyangnyang-tuner/</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://teamhyeok.com/services/nyangnyang-tuner/</loc>
+    <lastmod>2026-03-03</lastmod>
   </url>
   <url>
-    <loc>https://blackwhitemap.com/services/jiujitsu/</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://teamhyeok.com/services/jiujitsu/</loc>
+    <lastmod>2026-03-03</lastmod>
   </url>
   <url>
-    <loc>https://blackwhitemap.com/services/self-affirm/</loc>
-    <lastmod>2026-01-02</lastmod>
+    <loc>https://teamhyeok.com/services/self-affirm/</loc>
+    <lastmod>2026-03-03</lastmod>
   </url>
 </urlset>
