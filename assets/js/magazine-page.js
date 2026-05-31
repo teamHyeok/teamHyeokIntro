@@ -49,7 +49,6 @@ const renderList = (entries, activeSlug) => {
 
         if (entry.slug === activeSlug) {
             item.setAttribute('aria-current', 'true');
-            item.style.borderColor = 'rgba(142, 211, 255, 0.4)';
         }
 
         item.addEventListener('click', event => {
