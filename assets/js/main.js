@@ -567,60 +567,6 @@ const initHeroCanvas = () => {
         ctx.scale(CORE_SCALE, CORE_SCALE);
         ctx.translate(-vpx, -vpy);
 
-        // ===== a serene blue dream-paradise glimpsed just beyond the destination light =====
-        ctx.save();
-        ctx.globalCompositeOperation = 'lighter';
-        const skyY = vpy - base * 0.17;                 // the paradise hangs above the light
-        // 1) cool atmosphere blooming upward — pale cyan heart fading into dream blue
-        const skyR = base * 0.4;
-        const sky = ctx.createRadialGradient(vpx, skyY, 0, vpx, skyY, skyR);
-        sky.addColorStop(0, 'rgba(165, 240, 255, 0.32)');
-        sky.addColorStop(0.4, 'rgba(85, 175, 250, 0.19)');
-        sky.addColorStop(0.75, 'rgba(65, 110, 235, 0.08)');
-        sky.addColorStop(1, 'rgba(40, 70, 170, 0)');
-        ctx.fillStyle = sky;
-        ctx.beginPath();
-        ctx.arc(vpx, skyY, skyR, 0, TAU);
-        ctx.fill();
-        // 2) two aurora ribbons drifting across the paradise sky
-        for (let a = 0; a < 2; a++) {
-            const phase = elapsed * (0.18 + a * 0.07) + a * 2.1;
-            const amp = base * (0.028 + a * 0.012);
-            const yBase = skyY - base * (0.02 + a * 0.05);
-            const span = base * 0.34;
-            ctx.beginPath();
-            for (let i = 0; i <= 24; i++) {
-                const t = i / 24;
-                const x = vpx - span / 2 + span * t;
-                const y = yBase + Math.sin(t * Math.PI * 2 + phase) * amp * Math.sin(t * Math.PI);
-                i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
-            }
-            const ag = ctx.createLinearGradient(vpx - span / 2, 0, vpx + span / 2, 0);
-            ag.addColorStop(0, 'rgba(120, 230, 220, 0)');
-            ag.addColorStop(0.5, `rgba(${a ? '110, 195, 255' : '150, 255, 225'}, ${0.24 - a * 0.06})`);
-            ag.addColorStop(1, 'rgba(120, 230, 220, 0)');
-            ctx.strokeStyle = ag;
-            ctx.lineWidth = base * (0.01 - a * 0.003);
-            ctx.lineCap = 'round';
-            ctx.stroke();
-        }
-        // 3) drifting dream-lights — slow floating motes that twinkle
-        for (let i = 0; i < 5; i++) {
-            const fseed = i * 1.7;
-            const mx = vpx + Math.sin(elapsed * 0.06 + fseed) * base * 0.1 + (i - 2) * base * 0.035;
-            const my = skyY + Math.cos(elapsed * 0.05 + fseed * 1.3) * base * 0.045 - base * 0.01;
-            const mr = base * (0.004 + 0.0025 * (i % 3));
-            const tw = 0.4 + 0.6 * (0.5 + 0.5 * Math.sin(elapsed * 1.5 + fseed * 2));
-            const mg = ctx.createRadialGradient(mx, my, 0, mx, my, mr * 3);
-            mg.addColorStop(0, `rgba(215, 250, 255, ${0.7 * tw})`);
-            mg.addColorStop(1, 'rgba(150, 220, 255, 0)');
-            ctx.fillStyle = mg;
-            ctx.beginPath();
-            ctx.arc(mx, my, mr * 3, 0, TAU);
-            ctx.fill();
-        }
-        ctx.restore();
-
         // dual-tone bloom
         ctx.save();
         ctx.globalCompositeOperation = 'lighter';
