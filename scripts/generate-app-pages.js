@@ -122,6 +122,7 @@ ${app.shots
     <link rel="canonical" href="${url}">
     <meta name="robots" content="index, follow">
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="${esc(app.name)} · 팀혁">
