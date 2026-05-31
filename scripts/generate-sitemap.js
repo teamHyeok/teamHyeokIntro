@@ -1,20 +1,16 @@
 const fs = require('fs');
 const path = require('path');
+const apps = require('../assets/data/apps.js');
 
 const baseUrl = 'https://teamhyeok.com';
-const routes = [
-  '/',
-  '/magazine/',
-  '/services/',
-  '/services/nyangnyang-tuner/',
-  '/services/jiujitsu/',
-  '/services/self-affirm/',
-];
+
+const staticRoutes = ['/', '/magazine/', '/services/'];
+const appRoutes = apps.map((app) => `/${app.page}`);
+const routes = [...new Set([...staticRoutes, ...appRoutes])];
 
 const today = new Date().toISOString().split('T')[0];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<!-- Note: Hash-based routing (e.g. #/path) offers limited SEO value. Prefer path-based routing with a 404.html fallback on GitHub Pages. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${routes
   .map(
@@ -33,4 +29,4 @@ const rootDir = path.join(__dirname, '..');
 fs.writeFileSync(path.join(rootDir, 'sitemap.xml'), sitemap.trim() + '\n');
 fs.writeFileSync(path.join(rootDir, 'robots.txt'), robots);
 
-console.log('Generated sitemap.xml and robots.txt');
+console.log(`Generated sitemap.xml (${routes.length} routes) and robots.txt`);
