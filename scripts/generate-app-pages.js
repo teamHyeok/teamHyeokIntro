@@ -133,6 +133,9 @@ ${app.shots
     <meta name="twitter:description" content="${esc(app.tagline)}">
     <meta name="twitter:image" content="${iconAbs}">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../../assets/css/main.css">
     <script type="application/ld+json">
 ${JSON.stringify(jsonld, null, 2)}
