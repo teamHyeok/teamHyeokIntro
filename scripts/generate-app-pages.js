@@ -75,6 +75,7 @@ ${app.shots
     <meta name="keywords" content="${esc(app.keywords)}">
     <link rel="canonical" href="${url}">
     <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="${esc(app.name)} · 팀혁">

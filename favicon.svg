@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="TeamHyeok">
+  <rect width="32" height="32" rx="7" fill="#08090c"/>
+  <rect x="1.5" y="1.5" width="29" height="29" rx="5.5" fill="none" stroke="#d4ff3f" stroke-opacity="0.4" stroke-width="1"/>
+  <g fill="#d4ff3f">
+    <rect x="8" y="7" width="3.6" height="14"/>
+    <rect x="20.4" y="7" width="3.6" height="14"/>
+    <rect x="8" y="12.2" width="16" height="3.6"/>
+    <rect x="8" y="24" width="16" height="2.6" rx="0.6"/>
+  </g>
+</svg>
