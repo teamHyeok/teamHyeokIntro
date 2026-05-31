@@ -1279,7 +1279,7 @@ a.app-card:hover .app-card__cta {
 .magazine-empty {
     margin: 0;
     font-size: 15px;
-    color: var(--text-dim);
+    color: var(--text-muted);
 }
 
 /* ---------- 404 ---------- */
