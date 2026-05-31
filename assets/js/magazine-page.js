@@ -80,6 +80,9 @@ const renderDetail = entry => {
         const img = document.createElement('img');
         img.src = `../${entry.image.src}`;
         img.alt = entry.image.alt || '';
+        img.loading = 'lazy';
+        if (entry.image.width) img.width = entry.image.width;
+        if (entry.image.height) img.height = entry.image.height;
         cover.appendChild(img);
         detailEl.appendChild(cover);
     }
