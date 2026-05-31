@@ -1078,6 +1078,47 @@ a.app-card:hover .app-card__cta {
     color: var(--accent);
 }
 
+/* ---------- detail screenshots ---------- */
+.detail__shots {
+    margin: 4px 0 56px;
+}
+
+.detail__shots .section__eyebrow {
+    display: inline-flex;
+    margin-bottom: 20px;
+}
+
+.shot-gallery {
+    display: flex;
+    gap: 18px;
+    max-width: 580px;
+}
+
+.shot {
+    flex: 1 1 0;
+    min-width: 0;
+    margin: 0;
+}
+
+.shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.5);
+}
+
+.shot-gallery--wide {
+    flex-direction: column;
+    max-width: 760px;
+    gap: 16px;
+}
+
+.shot-gallery--wide .shot img {
+    border-radius: 16px;
+}
+
 @media (max-width: 768px) {
     .detail {
         padding: 96px 0 64px;
@@ -1091,6 +1132,10 @@ a.app-card:hover .app-card__cta {
     .detail__icon {
         width: 96px;
         height: 96px;
+    }
+
+    .shot-gallery {
+        gap: 12px;
     }
 }
 

@@ -10,13 +10,15 @@
  *  category    Schema.org applicationCategory
  *  status      'soon' for unreleased apps
  *  detail      true -> a generated detail page exists at /services/<slug>/
+ *  shots       App Store screenshots shown on the detail page
+ *  shotsLandscape  true when screenshots are landscape (wider than tall)
  */
 const TEAMHYEOK_APPS = [
     {
         slug: 'self-affirm',
         name: '자기암시',
-        tagline: '목소리로 나를 설득하는 하루 루틴. 확언을 만들고, 즐겨찾기하고, 알림으로 되새깁니다.',
-        description: '자기암시는 내가 원하는 확언(긍정 문장)을 직접 만들고, 듣기 좋은 목소리와 알림으로 하루 종일 반복해 들려주는 마인드 트레이닝 앱입니다. 원하는 시간과 횟수로 루틴을 설정하고, 즐겨찾기한 문장을 iPhone·iPad·Apple Watch에서 동일하게 되새기세요.',
+        tagline: '내가 정한 확언을 원하는 시간에 알림으로 받는 마인드 루틴. 계정 없이 로컬 알림만 씁니다.',
+        description: '자기암시는 기억하고 싶은 확언(긍정 문장)을 등록해두면 원하는 시간에 알림으로 보내주는 앱입니다. 주기 알림과 지정 시간 알림으로 하루 종일 문구를 되새기고, 밤에는 조용한 시간으로 알림을 잠시 멈춥니다. 회원가입 없이 로컬 알림만 사용해 개인정보를 최소화했습니다.',
         group: 'life',
         groupLabel: '라이프스타일',
         platform: 'iOS',
@@ -25,19 +27,23 @@ const TEAMHYEOK_APPS = [
         page: 'services/self-affirm/',
         appStoreId: '6754752885',
         detail: true,
-        features: [
-            '원하는 확언을 직접 작성하고 즐겨찾기',
-            '시간·횟수를 지정하는 반복 알림 루틴',
-            'iPhone·iPad·Apple Watch 동기화',
-            '밤에는 조용히 쉬는 수면 모드'
+        shots: [
+            'assets/images/apps/shots/self-affirm-1.webp',
+            'assets/images/apps/shots/self-affirm-2.webp'
         ],
-        keywords: '자기암시, 확언, 긍정 확언, 마인드셋, affirmation, 루틴 앱, 팀혁'
+        features: [
+            '주기(30분~12시간) 또는 지정 시간 반복 알림',
+            '명언·유머·응원 테마 문구와 나만의 문구 등록',
+            '밤에는 자동으로 멈추는 조용한 시간',
+            '계정·회원가입 없이 로컬 알림만 사용'
+        ],
+        keywords: '자기암시, 확언, 확언 알림, 긍정 확언, affirmation, 마인드셋, 팀혁'
     },
     {
         slug: 'donelog',
         name: '갓생로그',
-        tagline: '해낸 일을 기록하는 하루 브이로그. 작은 성취를 모아 회고로 돌려줍니다.',
-        description: '갓생로그는 \'해야 할 일\'이 아니라 \'오늘 해낸 일\'을 기록하는 성취 로그 앱입니다. 작은 성취를 사진과 한 줄로 남기고, 모인 기록을 주간·월간 회고로 돌려받아 꾸준함을 눈으로 확인하세요.',
+        tagline: '매일 해낸 일을 3초 영상으로 남기는 기록 앱. 하루의 클립이 자동으로 데일리 브이로그가 됩니다.',
+        description: '갓생로그는 매일 해낸 일을 3초 영상 클립으로 기록하는 앱입니다. 할 일을 완료할 때마다 3초를 촬영하면, 하루가 끝날 때 클립들이 하나의 데일리 브이로그로 자동 합쳐집니다. 추억 탭에서 지난 영상을 다시 보고, 주간·월간 통계와 연속 기록으로 꾸준함을 눈으로 확인하세요.',
         group: 'life',
         groupLabel: '라이프스타일',
         platform: 'iOS',
@@ -46,19 +52,23 @@ const TEAMHYEOK_APPS = [
         page: 'services/donelog/',
         appStoreId: '6765966189',
         detail: true,
-        features: [
-            '오늘 해낸 일을 사진과 메모로 기록',
-            '성취가 쌓이는 캘린더 뷰',
-            '주간·월간 회고 리포트',
-            '꾸준함을 돕는 가벼운 알림'
+        shots: [
+            'assets/images/apps/shots/donelog-1.webp',
+            'assets/images/apps/shots/donelog-2.webp'
         ],
-        keywords: '갓생로그, 갓생, 성취 기록, 회고, done list, 하루 기록, 팀혁'
+        features: [
+            '할 일 완료마다 3초 클립 촬영',
+            '하루 클립이 자동으로 데일리 브이로그로 합성',
+            '추억 탭에서 지난 기록 영상 감상',
+            '주간·월간 통계와 연속 기록 추적'
+        ],
+        keywords: '갓생로그, 갓생, 브이로그 기록, 데일리 브이로그, 성취 기록, done log, 팀혁'
     },
     {
         slug: 'dare30',
         name: '작심 한달',
-        tagline: '30일 챌린지로 습관을 만드는 트래커. 스티커와 코인으로 동기를 더합니다.',
-        description: '작심 한달은 30일 챌린지 단위로 습관을 만드는 트래커입니다. 매일 체크할 때마다 스티커와 코인으로 보상을 받으며, 작심삼일을 넘어 한 달 완주를 목표로 동기를 설계했습니다.',
+        tagline: '7·30·365일 챌린지로 습관을 만드는 트래커. 잔디밭을 채우고 캐릭터의 응원을 받으세요.',
+        description: '작심 한달은 매일의 작은 도전을 기록해 습관으로 만드는 챌린지 앱입니다. 7·30·365일 기간을 정해 매일 체크인하면 GitHub 스타일 잔디밭이 채워지고, 6종의 캐릭터가 매일 다른 말로 응원합니다. 체크인할 때마다 코인을 모아 새 캐릭터를 해금하고 홈 화면을 꾸며보세요.',
         group: 'life',
         groupLabel: '라이프스타일',
         platform: 'iOS',
@@ -67,13 +77,17 @@ const TEAMHYEOK_APPS = [
         page: 'services/dare30/',
         appStoreId: '6760480813',
         detail: true,
-        features: [
-            '30일 단위 습관 챌린지',
-            '매일 체크로 모으는 스티커·코인 보상',
-            '한눈에 보는 달성률과 연속 기록',
-            '여러 습관을 동시에 관리'
+        shots: [
+            'assets/images/apps/shots/dare30-1.webp',
+            'assets/images/apps/shots/dare30-2.webp'
         ],
-        keywords: '작심한달, 습관 트래커, 30일 챌린지, habit tracker, 습관 만들기, 팀혁'
+        features: [
+            '7·30·365일 챌린지 기간 선택',
+            'GitHub 스타일 잔디밭으로 진행률 확인',
+            '6종 캐릭터의 매일 다른 응원 메시지',
+            '코인으로 캐릭터 해금 · iCloud 동기화'
+        ],
+        keywords: '작심한달, 습관 트래커, 30일 챌린지, habit tracker, 습관 만들기, 챌린지 앱, 팀혁'
     },
     {
         slug: 'aeiou-kr',
@@ -99,8 +113,8 @@ const TEAMHYEOK_APPS = [
     {
         slug: 'aeiou-jp',
         name: 'aeiou JP',
-        tagline: '오프라인으로 즐기는 일본어 학습. 히라가나부터 3,000+ 단어, SRS 복습까지.',
-        description: 'aeiou JP는 인터넷 없이도 즐기는 일본어 학습 앱입니다. 히라가나·가타카나 기초부터 3,000개 이상의 단어를 SRS(간격 반복) 시스템으로 외우고, 손글씨로 직접 써보며 익힐 수 있습니다.',
+        tagline: '히라가나 쓰기부터 N5 단어, 상황별 회화까지. AI가 매일 학습을 짜주는 일본어 앱.',
+        description: 'aeiou JP는 히라가나 첫 글자부터 실전 회화까지 함께하는 일본어 학습 앱입니다. 획순 가이드와 실시간 채점으로 가나를 직접 써보고, JLPT N5 필수 단어를 과학적 간격 반복(SRS)으로 외우며, 카페·식당 등 10가지 상황별 대화를 연습합니다. AI가 진도와 취약점을 분석해 매일 최적의 학습을 추천합니다.',
         group: 'learn',
         groupLabel: '학습',
         platform: 'iOS',
@@ -109,19 +123,23 @@ const TEAMHYEOK_APPS = [
         page: 'services/aeiou-jp/',
         appStoreId: '6761683071',
         detail: true,
-        features: [
-            '히라가나·가타카나 기초부터',
-            '3,000개 이상 단어 사전',
-            'SRS 간격 반복 복습',
-            '오프라인 완전 지원'
+        shots: [
+            'assets/images/apps/shots/aeiou-jp-1.webp',
+            'assets/images/apps/shots/aeiou-jp-2.webp'
         ],
-        keywords: 'aeiou jp, 일본어 학습, 히라가나, 가타카나, 일본어 단어, learn japanese, 팀혁'
+        features: [
+            '획순 가이드·실시간 채점으로 가나 쓰기',
+            'JLPT N5 단어를 간격 반복(SRS)으로 암기',
+            '카페·식당 등 10가지 상황별 회화 연습',
+            'AI 추천 학습과 오답 노트 자동 생성'
+        ],
+        keywords: 'aeiou jp, 일본어 학습, 히라가나, 가타카나, JLPT N5, learn japanese, 팀혁'
     },
     {
         slug: 'study-timer',
         name: '순공야르',
-        tagline: '움직임으로 자리 비움을 잡아내는 순공 타이머. 진짜 집중한 시간만 기록합니다.',
-        description: '순공야르는 움직임 기반으로 자리 비움을 감지하는 순공(순수 공부) 타이머입니다. 카메라가 책상 앞을 지키며 자리를 비우면 자동으로 멈춰, 진짜 집중한 시간만 정확히 기록하고 동기화합니다.',
+        tagline: '카메라로 자리 비움을 잡아내는 순공 타이머. 진짜 집중한 시간만 기록합니다.',
+        description: '순공야르는 카메라로 자리 비움을 감지하는 순공(순수 공부) 타이머입니다. 자리를 비우면 자동으로 멈춰 진짜 집중한 시간만 정확히 측정하고, 공부 중·자리 비움·복귀 상태를 실시간으로 표시합니다. 주간·월간 통계와 위젯, 라이브 액티비티, iCloud 동기화를 지원합니다.',
         group: 'learn',
         groupLabel: '학습',
         platform: 'iOS',
@@ -130,19 +148,23 @@ const TEAMHYEOK_APPS = [
         page: 'services/study-timer/',
         appStoreId: '6766282371',
         detail: true,
+        shots: [
+            'assets/images/apps/shots/study-timer-1.webp',
+            'assets/images/apps/shots/study-timer-2.webp'
+        ],
         features: [
-            '움직임 기반 자리 비움 자동 감지',
-            '순공 시간만 정확히 측정',
-            '일·주·월 공부 기록 통계',
-            '기기 간 동기화'
+            '카메라 자리 감지로 순공 시간 자동 측정',
+            '공부 중·자리 비움·복귀 실시간 상태 표시',
+            '주간·월간 통계와 공유 카드',
+            '위젯·라이브 액티비티·iCloud 동기화'
         ],
         keywords: '순공야르, 순공 타이머, 공부 타이머, 자리비움, study timer, 집중 타이머, 팀혁'
     },
     {
         slug: 'please-sleep',
         name: '언제자요',
-        tagline: '코골이까지 분석하는 수면 알람. Apple Watch 수면 데이터와 함께 기록합니다.',
-        description: '언제자요는 잠드는 시간부터 코골이까지 분석해주는 수면 알람 앱입니다. Apple Watch의 수면 데이터와 함께 수면 패턴을 기록하고, 가장 개운한 타이밍에 깨워주는 스마트 알람을 제공합니다.',
+        tagline: '기상 시간만 정하면 언제 자야 할지 알려주는 수면 알람. 취침·기상 알람을 함께 관리합니다.',
+        description: '언제자요는 기상 시간을 기준으로 추천 취침 시간을 계산해주는 수면 알람 앱입니다. "몇 시에 일어날까"를 정하면 "언제 자야 할까"가 자동으로 따라오고, 취침 알람과 기상 알람으로 수면 루틴을 부드럽게 만듭니다. 잠드는 시간(버퍼)과 요일별 반복, 내가 만든 커스텀 알람 사운드까지 지원합니다.',
         group: 'health',
         groupLabel: '건강',
         platform: 'iOS',
@@ -151,19 +173,23 @@ const TEAMHYEOK_APPS = [
         page: 'services/please-sleep/',
         appStoreId: '6758732586',
         detail: true,
-        features: [
-            '코골이·잠꼬대 사운드 분석',
-            'Apple Watch 수면 데이터 연동',
-            '수면 패턴 기록과 리포트',
-            '개운한 기상을 위한 스마트 알람'
+        shots: [
+            'assets/images/apps/shots/please-sleep-1.webp',
+            'assets/images/apps/shots/please-sleep-2.webp'
         ],
-        keywords: '언제자요, 수면 알람, 코골이 분석, 수면 기록, sleep tracker, 수면 패턴, 팀혁'
+        features: [
+            '기상 시간 기반 추천 취침 시간 계산',
+            '취침 알람 + 기상 알람으로 수면 루틴 관리',
+            '잠드는 시간(버퍼)·요일별 반복 설정',
+            '내가 만든 커스텀 알람 사운드 지원'
+        ],
+        keywords: '언제자요, 수면 알람, 취침 시간 계산, 기상 알람, sleep alarm, 수면 루틴, 팀혁'
     },
     {
         slug: 'nyangnyang-tuner',
         name: '냥냥 튜너',
-        tagline: '고양이 감성으로 기타·베이스를 정확하게. 마이크로 음을 세밀하게 조율합니다.',
-        description: '냥냥 튜너는 고양이 감성의 귀여운 인터페이스로 기타·베이스·우쿨렐레를 정확하게 조율하는 악기 튜너입니다. 마이크로 입력된 음을 실시간으로 세밀하게 분석해 정확한 음정을 맞춰줍니다.',
+        tagline: '마이크로 음을 센트 단위까지 잡아내는 크로매틱 튜너. 대부분의 악기를 정확하게 조율합니다.',
+        description: '냥냥 튜너는 마이크로 입력된 음을 센트 단위로 정밀하게 분석하는 크로매틱 튜너입니다. 기타·베이스를 비롯한 대부분의 악기를 실시간으로 조율하고, 노이즈 필터로 시끄러운 환경에서도 안정적으로 음정을 잡아줍니다. iPad 레이아웃과 가로 모드를 지원합니다.',
         group: 'tool',
         groupLabel: '도구',
         platform: 'iOS',
@@ -172,19 +198,24 @@ const TEAMHYEOK_APPS = [
         page: 'services/nyangnyang-tuner/',
         appStoreId: '6749933012',
         detail: true,
-        features: [
-            '기타·베이스·우쿨렐레 튜닝',
-            '마이크 실시간 음정 분석',
-            '고양이 감성의 직관적 UI',
-            '다양한 튜닝 프리셋'
+        shots: [
+            'assets/images/apps/shots/nyangnyang-tuner-1.webp',
+            'assets/images/apps/shots/nyangnyang-tuner-2.webp'
         ],
-        keywords: '냥냥튜너, 기타 튜너, 베이스 튜너, 악기 튜너, guitar tuner, 튜닝 앱, 팀혁'
+        shotsLandscape: true,
+        features: [
+            '실시간 음정·피치 표시',
+            '센트 단위 정밀 크로매틱 튜닝',
+            '기타·베이스 등 대부분의 악기 지원',
+            '노이즈 필터 · iPad/가로 모드'
+        ],
+        keywords: '냥냥튜너, 크로매틱 튜너, 기타 튜너, 베이스 튜너, guitar tuner, 악기 튜너, 팀혁'
     },
     {
         slug: 'sojung-filter',
         name: '소중필터',
-        tagline: '감성을 입히는 사진·영상 필터. 한 번의 탭으로 분위기를 완성합니다.',
-        description: '소중필터는 사진과 영상에 감성적인 분위기를 입히는 필터 앱입니다. 복잡한 보정 없이 한 번의 탭으로 색감과 무드를 완성하고, 소중한 순간을 더 소중하게 남기세요.',
+        tagline: '아날로그 필름 감성을 입히는 사진·영상 필터. 5가지 무드로 순간을 물들입니다.',
+        description: '소중필터는 아날로그 필름의 감성을 사진과 영상에 입히는 필터 앱입니다. 산책·여름·소중·기억·새벽 5가지 필터로 무드를 완성하고, 강도·그레인·밝기·색온도를 미세하게 조정할 수 있습니다. 사진은 물론 영상도 원본 화질 그대로 내보내고, 비교 슬라이더로 원본과 나란히 확인하세요.',
         group: 'tool',
         groupLabel: '도구',
         platform: 'iOS',
@@ -193,13 +224,17 @@ const TEAMHYEOK_APPS = [
         page: 'services/sojung-filter/',
         appStoreId: '6762511423',
         detail: true,
-        features: [
-            '감성 사진·영상 필터',
-            '원탭으로 완성되는 색감 보정',
-            '다양한 무드 프리셋',
-            '간편한 공유'
+        shots: [
+            'assets/images/apps/shots/sojung-filter-1.webp',
+            'assets/images/apps/shots/sojung-filter-2.webp'
         ],
-        keywords: '소중필터, 사진 필터, 영상 필터, 감성 필터, photo filter, 사진 보정, 팀혁'
+        features: [
+            '산책·여름·소중·기억·새벽 5가지 필름 필터',
+            '사진·영상 모두 필터 적용 · 원본 화질 내보내기',
+            '강도·그레인·밝기·색온도 미세 조정',
+            '비교 슬라이더로 원본과 나란히 확인'
+        ],
+        keywords: '소중필터, 사진 필터, 영상 필터, 감성 필터, 필름 필터, photo filter, 팀혁'
     },
     {
         slug: 'jiujitsu',

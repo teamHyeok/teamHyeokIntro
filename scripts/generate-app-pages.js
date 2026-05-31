@@ -26,6 +26,21 @@ const renderPage = (app) => {
         .map((f) => `                        <li>${esc(f)}</li>`)
         .join('\n');
 
+    const shots = Array.isArray(app.shots) && app.shots.length
+        ? `
+            <section class="detail__shots" data-animate>
+                <span class="section__eyebrow">Screenshots</span>
+                <div class="shot-gallery${app.shotsLandscape ? ' shot-gallery--wide' : ''}">
+${app.shots
+    .map(
+        (s, i) =>
+            `                    <figure class="shot"><img src="../../${s}" alt="${esc(app.name)} 스크린샷 ${i + 1}" loading="lazy"></figure>`
+    )
+    .join('\n')}
+                </div>
+            </section>`
+        : '';
+
     const jsonld = {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
@@ -113,7 +128,7 @@ ${JSON.stringify(jsonld, null, 2)}
                     </div>
                 </div>
             </section>
-
+${shots}
             <section class="detail__body" data-animate>
                 <div class="detail__about">
                     <span class="section__eyebrow">About</span>
