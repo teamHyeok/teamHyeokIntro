@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#08090c">
+    <meta name="theme-color" content="#fdf4e0">
     <title>작심 한달 — 팀혁 TeamHyeok</title>
-    <meta name="description" content="작심 한달은 매일의 작은 도전을 기록해 습관으로 만드는 챌린지 앱입니다. 7·30·365일 기간을 정해 매일 체크인하면 GitHub 스타일 잔디밭이 채워지고, 6종의 캐릭터가 매일 다른 말로 응원합니다. 체크인할 때마다 코인을 모아 새 캐릭터를 해금하고 홈 화면을 꾸며보세요.">
+    <meta name="description" content="작심 한달은 매일의 작은 도전을 기록해 습관으로 만드는 챌린지 앱입니다. 7·30·365일 기간을 정해 매일 체크인하면 GitHub 스타일 잔디밭이 채워지고, 6종의 캐릭터가 매일 다른 말로 응원합니다.">
     <meta name="keywords" content="작심한달, 습관 트래커, 30일 챌린지, habit tracker, 습관 만들기, 챌린지 앱, 팀혁">
     <link rel="canonical" href="https://teamhyeok.com/services/dare30/">
     <meta name="robots" content="index, follow">
@@ -30,6 +30,7 @@
     <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/GmarketSansBold.woff2" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="css/style.css">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -56,70 +57,141 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370970936034063"
         crossorigin="anonymous"></script>
 </head>
-<body>
-    <div class="aurora aurora--one"></div>
-    <div class="aurora aurora--two"></div>
-
-    <header class="top-bar">
-        <div class="container top-bar__inner">
-            <a href="../../index.html" class="brand" aria-label="팀혁 홈">TEAMHYEOK</a>
-            <nav class="nav" aria-label="Primary">
-                <a href="../../index.html#apps">Works</a>
-                <a href="../../index.html#about">About</a>
-            </nav>
+<body class="service-body service-body--dare">
+    <header class="dare-topbar">
+        <div class="container dare-topbar__inner">
+            <a class="back-link" href="../../index.html" aria-label="팀혁 소개로 돌아가기">
+                <span class="back-link__icon" aria-hidden="true">←</span>
+                <span class="back-link__label">홈으로</span>
+            </a>
+            <span class="dare-topbar__brand">TeamHyeok&nbsp;Works</span>
         </div>
     </header>
 
-    <main class="detail">
-        <div class="container">
-            <a class="detail__back" href="../../index.html#apps">← 모든 제품 보기</a>
+    <main class="service-main">
+        <section class="container dare-hero">
+            <div class="dare-hero__copy" data-animate>
+                <span class="dare-kicker"><span class="dare-cal" aria-hidden="true">30</span>매일 한 칸, 작심 한달</span>
+                <h1 class="dare-hero__title">오늘도 한 칸,<br><span>채워볼까요?</span></h1>
+                <p class="dare-hero__lead">7일이든 365일이든, 기간을 정하고 매일 체크인만 하세요. 잔디밭이 한 칸씩 채워지고, 귀여운 캐릭터들이 매일 다른 말로 응원해줍니다.</p>
+                <div class="dare-hero__actions">
+                    <a class="dare-btn dare-btn--primary" href="https://apps.apple.com/kr/app/id6760480813" target="_blank" rel="noopener">App Store에서 받기 <span aria-hidden="true">→</span></a>
+                    <a class="dare-btn dare-btn--ghost" href="#flow">어떻게 쓰나요?</a>
+                </div>
+                <ul class="dare-stats">
+                    <li><strong>7·30·365일</strong><span>챌린지 기간</span></li>
+                    <li><strong>잔디밭</strong><span>진행률 한눈에</span></li>
+                    <li><strong>6종 캐릭터</strong><span>매일 응원</span></li>
+                </ul>
+            </div>
 
-            <section class="detail__hero" data-animate>
-                <span class="detail__icon">
-                    <img src="../../assets/images/apps/dare30.jpg" alt="작심 한달 아이콘" width="512" height="512">
-                </span>
-                <div class="detail__heading">
-                    <div class="detail__badges">
-                        <span class="detail__platform">iOS</span>
-                        <span class="detail__group">라이프스타일</span>
+            <div class="dare-hero__visual" data-animate>
+                <div class="dare-card">
+                    <div class="dare-card__top">
+                        <span class="dare-streak">🔥 23일 연속</span>
+                        <span class="dare-coin">🪙 1,450</span>
                     </div>
-                    <h1 class="detail__title">작심 한달</h1>
-                    <p class="detail__tagline">7·30·365일 챌린지로 습관을 만드는 트래커. 잔디밭을 채우고 캐릭터의 응원을 받으세요.</p>
-                    <div class="detail__actions">
-                        <a class="cta-button" href="https://apps.apple.com/kr/app/id6760480813" target="_blank" rel="noopener">App Store에서 다운로드 →</a>
+                    <span class="dare-card__label">이번 달 잔디밭</span>
+                    <div class="dare-grass" role="img" aria-label="매일 체크인으로 채워진 잔디밭">
+                        <span class="g g4"></span><span class="g g3"></span><span class="g g2"></span><span class="g g4"></span><span class="g g3"></span><span class="g g1"></span><span class="g g4"></span>
+                        <span class="g g3"></span><span class="g g4"></span><span class="g g4"></span><span class="g g2"></span><span class="g g4"></span><span class="g g3"></span><span class="g g4"></span>
+                        <span class="g g4"></span><span class="g g2"></span><span class="g g3"></span><span class="g g4"></span><span class="g g4"></span><span class="g g3"></span><span class="g g4"></span>
+                        <span class="g g2"></span><span class="g g4"></span><span class="g g3"></span><span class="g g4"></span><span class="g g1"></span><span class="g g0"></span><span class="g g0"></span>
+                        <span class="g g4"></span><span class="g g3"></span><span class="g g4"></span><span class="g g0"></span><span class="g g0"></span><span class="g g0"></span><span class="g g0"></span>
                     </div>
+                    <button class="dare-checkin" type="button" tabindex="-1" aria-hidden="true">오늘 체크인 <span>✓</span></button>
                 </div>
-            </section>
+                <span class="dare-bubble" aria-hidden="true">곰곰이 : 오늘도 최고야! 💛</span>
+            </div>
+        </section>
 
-            <section class="detail__shots" data-animate>
-                <span class="section__eyebrow">Screenshots</span>
-                <div class="shot-gallery">
-                    <figure class="shot"><img src="../../assets/images/apps/shots/dare30-1.webp" alt="작심 한달 스크린샷 1" width="900" height="1948" loading="lazy"></figure>
-                    <figure class="shot"><img src="../../assets/images/apps/shots/dare30-2.webp" alt="작심 한달 스크린샷 2" width="900" height="1948" loading="lazy"></figure>
+        <section class="container dare-flow" id="flow">
+            <header class="dare-section__head" data-animate>
+                <span class="dare-section__eyebrow">How it works</span>
+                <h2 class="dare-section__title">작심삼일은 이제 그만, <span>세 단계로</span></h2>
+            </header>
+            <ol class="dare-steps" data-animate>
+                <li class="dare-step">
+                    <span class="dare-step__num">01</span>
+                    <span class="dare-step__icon" aria-hidden="true">🎯</span>
+                    <h3>기간 정하기</h3>
+                    <p>7·30·365일 중에 내게 맞는 챌린지 기간을 골라요.</p>
+                </li>
+                <li class="dare-step">
+                    <span class="dare-step__num">02</span>
+                    <span class="dare-step__icon" aria-hidden="true">✅</span>
+                    <h3>매일 체크인</h3>
+                    <p>하루 한 번 체크인하면 잔디밭이 한 칸씩 채워져요.</p>
+                </li>
+                <li class="dare-step">
+                    <span class="dare-step__num">03</span>
+                    <span class="dare-step__icon" aria-hidden="true">🎁</span>
+                    <h3>응원 & 해금</h3>
+                    <p>캐릭터의 응원을 받고, 모은 코인으로 새 친구를 해금해요.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="container dare-features">
+            <header class="dare-section__head" data-animate>
+                <span class="dare-section__eyebrow">What's inside</span>
+                <h2 class="dare-section__title">꾸준함이 <span>즐거워지는</span> 장치들</h2>
+            </header>
+            <div class="dare-feature-grid" data-animate>
+                <article class="dare-feature">
+                    <span class="dare-feature__icon" aria-hidden="true">📅</span>
+                    <h3>챌린지 기간 선택</h3>
+                    <p>7·30·365일 중 원하는 기간으로 도전을 시작해요.</p>
+                </article>
+                <article class="dare-feature">
+                    <span class="dare-feature__icon" aria-hidden="true">🌱</span>
+                    <h3>잔디밭 진행률</h3>
+                    <p>GitHub 스타일 잔디밭으로 꾸준함을 한눈에 확인해요.</p>
+                </article>
+                <article class="dare-feature">
+                    <span class="dare-feature__icon" aria-hidden="true">🐻</span>
+                    <h3>캐릭터 응원</h3>
+                    <p>6종 캐릭터가 매일 다른 말로 다정하게 응원해요.</p>
+                </article>
+                <article class="dare-feature">
+                    <span class="dare-feature__icon" aria-hidden="true">☁️</span>
+                    <h3>코인 해금 · 동기화</h3>
+                    <p>체크인으로 모은 코인으로 캐릭터를 해금하고 iCloud로 동기화해요.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container dare-shots">
+            <header class="dare-section__head" data-animate>
+                <span class="dare-section__eyebrow">Screenshots</span>
+                <h2 class="dare-section__title">시작은 가볍게, <span>꾸미는 재미는 덤</span></h2>
+            </header>
+            <div class="dare-shot-row" data-animate>
+                <figure class="dare-phone">
+                    <img src="../../assets/images/apps/shots/dare30-1.webp" alt="작심 한달 홈 화면 — 새로운 도전 시작하기" width="900" height="1947" loading="lazy">
+                </figure>
+                <figure class="dare-phone">
+                    <img src="../../assets/images/apps/shots/dare30-2.webp" alt="작심 한달 캐릭터 상점 — 코인으로 캐릭터 해금" width="900" height="1948" loading="lazy">
+                </figure>
+            </div>
+        </section>
+
+        <section class="container dare-cta">
+            <div class="dare-cta__card" data-animate>
+                <span class="dare-cta__sticker" aria-hidden="true">🐻</span>
+                <h2>새로운 도전,<br>오늘 시작해볼까요?</h2>
+                <p>작은 한 칸이 모여 한 달이 되고, 한 달이 모여 습관이 됩니다. 작심 한달과 함께 꾸준함을 즐겁게 만들어보세요.</p>
+                <div class="dare-cta__actions">
+                    <a class="dare-btn dare-btn--primary" href="https://apps.apple.com/kr/app/id6760480813" target="_blank" rel="noopener">App Store에서 받기 <span aria-hidden="true">→</span></a>
+                    <a class="dare-btn dare-btn--ghost" href="mailto:teamhyeok@gmail.com">의견 보내기</a>
                 </div>
-            </section>
-            <section class="detail__body" data-animate>
-                <div class="detail__about">
-                    <span class="section__eyebrow">About</span>
-                    <p>작심 한달은 매일의 작은 도전을 기록해 습관으로 만드는 챌린지 앱입니다. 7·30·365일 기간을 정해 매일 체크인하면 GitHub 스타일 잔디밭이 채워지고, 6종의 캐릭터가 매일 다른 말로 응원합니다. 체크인할 때마다 코인을 모아 새 캐릭터를 해금하고 홈 화면을 꾸며보세요.</p>
-                </div>
-                <div class="detail__features">
-                    <span class="section__eyebrow">Features</span>
-                    <ul class="feature-list">
-                        <li>7·30·365일 챌린지 기간 선택</li>
-                        <li>GitHub 스타일 잔디밭으로 진행률 확인</li>
-                        <li>6종 캐릭터의 매일 다른 응원 메시지</li>
-                        <li>코인으로 캐릭터 해금 · iCloud 동기화</li>
-                    </ul>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container site-footer__inner">
-            <p>대표 최찬혁 · &copy; <span id="currentYear"></span> 팀혁(TeamHyeok). All rights reserved.</p>
-            <a class="footer-link" href="../../index.html">팀혁 홈으로</a>
+    <footer class="service-footer">
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> 팀혁. All rights reserved.</p>
         </div>
     </footer>
 

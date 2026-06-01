@@ -76,7 +76,7 @@ const TEAMHYEOK_APPS = [
         icon: 'assets/images/apps/dare30.jpg',
         page: 'services/dare30/',
         appStoreId: '6760480813',
-        detail: true,
+        detail: false,
         shots: [
             'assets/images/apps/shots/dare30-1.webp',
             'assets/images/apps/shots/dare30-2.webp'

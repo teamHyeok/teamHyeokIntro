@@ -1,0 +1,612 @@
+:root {
+    color-scheme: light;
+}
+
+/* =====================================================================
+   작심 한달 — standalone page design
+   Mood: cozy, warm, playful gamified habit challenge.
+   Motifs: GitHub-style 잔디밭 grid, flame streak, coins, cute mascots.
+   Butter cream + warm orange. Soft and friendly, the opposite of edgy.
+   ===================================================================== */
+
+.service-body--dare {
+    --d30-cream: #fdf4e0;
+    --d30-cream-2: #fbe7c2;
+    --d30-surface: #fffaf0;
+    --d30-orange: #ff8e44;
+    --d30-orange-2: #f26f1f;
+    --d30-ink: #5a4a37;
+    --d30-muted: #97876f;
+    --d30-line: rgba(90, 74, 55, 0.12);
+    --d30-g0: rgba(90, 74, 55, 0.09);
+    --d30-g1: #d6ecc4;
+    --d30-g2: #a7da8a;
+    --d30-g3: #74c25a;
+    --d30-g4: #44a23c;
+    color: var(--d30-ink);
+    background:
+        radial-gradient(110% 70% at 85% -5%, #fff1cf 0%, rgba(255, 241, 207, 0) 55%),
+        radial-gradient(100% 60% at 0% 100%, #ffe7d2 0%, rgba(255, 231, 210, 0) 55%),
+        linear-gradient(180deg, #fdf4e0 0%, #fcefd6 50%, #faead0 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Top bar ===== */
+.dare-topbar {
+    position: relative;
+    z-index: 5;
+    padding-top: clamp(1.4rem, 3vw, 2rem);
+}
+
+.dare-topbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dare-topbar__brand {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    color: var(--d30-muted);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px 9px 9px;
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--d30-ink);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+    border: 1px solid var(--d30-line);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 30px -20px rgba(242, 111, 31, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.back-link__icon {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(150deg, var(--d30-orange), var(--d30-orange-2));
+    color: #fff;
+    font-size: 1rem;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(255, 142, 68, 0.45);
+}
+
+/* ===== Main ===== */
+.service-main {
+    position: relative;
+    z-index: 1;
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+/* ===== Hero ===== */
+.dare-hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: clamp(2.4rem, 6vw, 4.5rem);
+    padding-top: clamp(2.8rem, 7vw, 5rem);
+    padding-bottom: clamp(3rem, 7vw, 5rem);
+}
+
+.dare-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px 6px 6px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--d30-line);
+    border-radius: 999px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--d30-orange-2);
+    box-shadow: 0 10px 26px -20px rgba(242, 111, 31, 0.6);
+}
+
+.dare-cal {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: linear-gradient(150deg, var(--d30-orange), var(--d30-orange-2));
+    color: #fff;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 0.86rem;
+}
+
+.dare-hero__title {
+    margin: 1.1rem 0 1.2rem;
+    font-family: "Gmarket Sans", "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 6.5vw, 4.4rem);
+    line-height: 1.14;
+    letter-spacing: -0.02em;
+}
+
+.dare-hero__title span {
+    background: linear-gradient(100deg, var(--d30-orange), var(--d30-orange-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dare-hero__lead {
+    margin: 0;
+    max-width: 30rem;
+    font-size: clamp(1rem, 1.5vw, 1.12rem);
+    line-height: 1.75;
+    color: var(--d30-muted);
+}
+
+.dare-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 1.8rem 0 2rem;
+}
+
+.dare-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.98rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.dare-btn--primary {
+    background: linear-gradient(135deg, var(--d30-orange), var(--d30-orange-2));
+    color: #fff;
+    box-shadow: 0 18px 38px -16px rgba(242, 111, 31, 0.6);
+}
+
+.dare-btn--primary:hover,
+.dare-btn--primary:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 46px -16px rgba(242, 111, 31, 0.7);
+}
+
+.dare-btn--ghost {
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--d30-ink);
+    border: 1px solid var(--d30-line);
+}
+
+.dare-btn--ghost:hover,
+.dare-btn--ghost:focus-visible {
+    transform: translateY(-2px);
+    background: #fff;
+}
+
+.dare-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.2rem, 3vw, 2.4rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.dare-stats li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dare-stats strong {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--d30-orange-2);
+}
+
+.dare-stats span {
+    font-size: 0.82rem;
+    color: var(--d30-muted);
+}
+
+/* ===== Hero visual: streak / grass card ===== */
+.dare-hero__visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 360px;
+}
+
+.dare-card {
+    width: min(380px, 92%);
+    padding: 24px 24px 22px;
+    border-radius: 28px;
+    background: var(--d30-surface);
+    border: 1px solid var(--d30-line);
+    box-shadow: 0 40px 80px -34px rgba(242, 111, 31, 0.4), 0 12px 28px -18px rgba(90, 74, 55, 0.25);
+    z-index: 2;
+}
+
+.dare-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.dare-streak {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--d30-ink);
+}
+
+.dare-coin {
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: #fff3da;
+    color: #c9881f;
+    font-weight: 700;
+    font-size: 0.82rem;
+    border: 1px solid rgba(201, 136, 31, 0.2);
+}
+
+.dare-card__label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--d30-muted);
+    margin-bottom: 10px;
+}
+
+.dare-grass {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.dare-grass .g {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    background: var(--d30-g0);
+}
+
+.dare-grass .g1 { background: var(--d30-g1); }
+.dare-grass .g2 { background: var(--d30-g2); }
+.dare-grass .g3 { background: var(--d30-g3); }
+.dare-grass .g4 { background: var(--d30-g4); }
+
+.dare-checkin {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--d30-orange), var(--d30-orange-2));
+    color: #fff;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: default;
+    box-shadow: 0 16px 30px -16px rgba(242, 111, 31, 0.7);
+}
+
+.dare-checkin span { margin-left: 4px; }
+
+.dare-bubble {
+    position: absolute;
+    bottom: 2%;
+    left: -2%;
+    padding: 10px 16px;
+    border-radius: 16px 16px 16px 4px;
+    background: #fff;
+    border: 1px solid var(--d30-line);
+    color: var(--d30-ink);
+    font-size: 0.82rem;
+    font-weight: 700;
+    box-shadow: 0 22px 44px -24px rgba(90, 74, 55, 0.5);
+    z-index: 3;
+    animation: dare-float 6s ease-in-out infinite;
+}
+
+@keyframes dare-float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-9px) rotate(-2deg); }
+}
+
+/* ===== Section heads ===== */
+.dare-section__head {
+    max-width: 44rem;
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
+    text-align: center;
+}
+
+.dare-section__eyebrow {
+    display: inline-block;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    color: var(--d30-orange-2);
+    margin-bottom: 0.7rem;
+}
+
+.dare-section__title {
+    margin: 0;
+    font-family: "Gmarket Sans", "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.dare-section__title span {
+    color: var(--d30-orange-2);
+}
+
+/* ===== Flow steps ===== */
+.dare-flow {
+    padding-top: clamp(2rem, 5vw, 3.5rem);
+}
+
+.dare-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.dare-step {
+    position: relative;
+    padding: 28px 24px 24px;
+    border-radius: 22px;
+    background: var(--d30-surface);
+    border: 1px solid var(--d30-line);
+    box-shadow: 0 26px 56px -38px rgba(90, 74, 55, 0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dare-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 32px 62px -36px rgba(242, 111, 31, 0.4);
+}
+
+.dare-step__num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    color: var(--d30-orange-2);
+    letter-spacing: 0.08em;
+}
+
+.dare-step__icon {
+    display: block;
+    font-size: 2rem;
+    margin: 12px 0;
+}
+
+.dare-step h3 {
+    margin: 0 0 8px;
+    font-size: 1.22rem;
+    font-weight: 700;
+}
+
+.dare-step p {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: var(--d30-muted);
+}
+
+/* ===== Features ===== */
+.dare-features {
+    padding-top: clamp(3rem, 7vw, 5rem);
+}
+
+.dare-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.dare-feature {
+    padding: 26px 22px;
+    border-radius: 22px;
+    background: var(--d30-surface);
+    border: 1px solid var(--d30-line);
+    box-shadow: 0 24px 52px -38px rgba(90, 74, 55, 0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dare-feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 58px -36px rgba(242, 111, 31, 0.4);
+}
+
+.dare-feature__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    font-size: 1.5rem;
+    background: linear-gradient(150deg, #fff0d6, #ffe2c4);
+}
+
+.dare-feature h3 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.dare-feature p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--d30-muted);
+}
+
+/* ===== Screenshots ===== */
+.dare-shots {
+    padding-top: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+.dare-shot-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(1.4rem, 4vw, 3rem);
+}
+
+.dare-phone {
+    margin: 0;
+    width: min(260px, 70vw);
+    padding: 10px;
+    border-radius: 38px;
+    background: linear-gradient(160deg, #fff, #fdeed4);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 50px 90px -38px rgba(90, 74, 55, 0.45), inset 0 0 0 2px rgba(90, 74, 55, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.dare-phone:first-child { transform: rotate(-3deg); }
+.dare-phone:last-child { transform: rotate(3deg); }
+.dare-phone:hover { transform: rotate(0deg) translateY(-6px); }
+
+.dare-phone img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+}
+
+/* ===== CTA ===== */
+.dare-cta {
+    padding-top: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+.dare-cta__card {
+    position: relative;
+    overflow: hidden;
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: clamp(2.6rem, 6vw, 4rem);
+    text-align: center;
+    border-radius: 32px;
+    background: linear-gradient(150deg, #ff9a52, #f2691a);
+    box-shadow: 0 44px 90px -40px rgba(242, 111, 31, 0.7);
+}
+
+.dare-cta__sticker {
+    position: absolute;
+    top: 18px;
+    right: 26px;
+    font-size: 2.4rem;
+    opacity: 0.9;
+    animation: dare-float 6s ease-in-out infinite;
+}
+
+.dare-cta__card h2 {
+    position: relative;
+    margin: 0 0 14px;
+    font-family: "Gmarket Sans", "Space Grotesk", sans-serif;
+    font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fff;
+}
+
+.dare-cta__card p {
+    position: relative;
+    margin: 0 auto 1.8rem;
+    max-width: 32rem;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.75;
+}
+
+.dare-cta__actions {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.dare-cta .dare-btn--primary {
+    background: #fff;
+    color: var(--d30-orange-2);
+    box-shadow: 0 18px 38px -16px rgba(0, 0, 0, 0.3);
+}
+
+.dare-cta .dare-btn--ghost {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.dare-cta .dare-btn--ghost:hover,
+.dare-cta .dare-btn--ghost:focus-visible {
+    background: rgba(255, 255, 255, 0.26);
+}
+
+/* ===== Footer ===== */
+.service-footer {
+    position: relative;
+    z-index: 1;
+    padding: 2.4rem 0;
+    text-align: center;
+    border-top: 1px solid var(--d30-line);
+    color: var(--d30-muted);
+    font-size: 0.88rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+    .dare-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .dare-hero__copy { order: 2; }
+    .dare-hero__visual { order: 1; }
+    .dare-kicker,
+    .dare-hero__actions,
+    .dare-stats { justify-content: center; }
+    .dare-hero__lead { margin-inline: auto; }
+    .dare-feature-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 620px) {
+    .dare-topbar__brand { display: none; }
+    .dare-steps { grid-template-columns: 1fr; }
+    .dare-feature-grid { grid-template-columns: 1fr; }
+    .dare-stats { gap: 1.4rem; }
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    .dare-bubble,
+    .dare-cta__sticker {
+        animation: none !important;
+    }
+}
