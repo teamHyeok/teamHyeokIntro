@@ -61,6 +61,11 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
 /* radial accent glow */
 body::before {
     content: "";
@@ -929,6 +934,7 @@ a.app-card:hover .app-card__cta {
 .footer-link {
     color: var(--text-muted);
     text-decoration: none;
+    padding: 4px 0;
     transition: color 0.18s ease;
 }
 
@@ -950,6 +956,7 @@ a.app-card:hover .app-card__cta {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    padding: 6px 0;
     transition: color 0.18s ease;
 }
 
