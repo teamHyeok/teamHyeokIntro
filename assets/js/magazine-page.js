@@ -58,6 +58,11 @@ const renderList = (entries, activeSlug) => {
             window.history.replaceState({}, '', `${url.pathname}?${url.searchParams.toString()}#magazineDetail`);
             renderDetail(entry);
             renderList(entries, entry.slug);
+            // On the stacked mobile layout the detail sits below the list, so
+            // bring it into view to confirm the selection changed.
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                detailEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
 
         listEl.appendChild(item);
