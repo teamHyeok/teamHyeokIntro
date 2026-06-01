@@ -26,7 +26,7 @@ const TEAMHYEOK_APPS = [
         icon: 'assets/images/apps/self-affirm.jpg',
         page: 'services/self-affirm/',
         appStoreId: '6754752885',
-        detail: true,
+        detail: false,
         shots: [
             'assets/images/apps/shots/self-affirm-1.webp',
             'assets/images/apps/shots/self-affirm-2.webp'
