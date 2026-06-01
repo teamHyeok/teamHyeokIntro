@@ -145,10 +145,30 @@ const buildHomeCard = () => {
     return path.join(outDir, 'home.jpg');
 };
 
+const buildMagazineCard = () => {
+    const base = path.join(tmpDir, 'magazine-base.png');
+    baseCanvas(base);
+    const headline = caption('팀혁\n매거진', FONT_BOLD, 96, TEXT, 700, path.join(tmpDir, 'mag-head.png'));
+    magick([
+        base,
+        '-font', FONT_BOLD, '-pointsize', '26', '-fill', ACCENT, '-kerning', '6',
+        '-annotate', '+90+150', 'TEAMHYEOK  ·  INSPIRATION MAGAZINE',
+        headline, '-geometry', '+86+225', '-compose', 'over', '-composite',
+        '-font', FONT_MED, '-pointsize', '32', '-fill', MUTED,
+        '-annotate', '+92+560', '제품을 만들며 배운 것들의 솔직한 기록.',
+        '-font', FONT_BOLD, '-pointsize', '26', '-fill', ACCENT, '-gravity', 'SouthEast',
+        '-annotate', '+70+58', 'teamhyeok.com',
+        '-gravity', 'NorthWest',
+        '-quality', '86', path.join(outDir, 'magazine.jpg'),
+    ]);
+    return path.join(outDir, 'magazine.jpg');
+};
+
 const target = process.argv[2];
 let made = [];
 if (target && target !== 'all') {
     if (target === 'home') made.push(buildHomeCard());
+    else if (target === 'magazine') made.push(buildMagazineCard());
     else {
         const app = apps.find(a => a.slug === target);
         if (!app) { console.error('no app', target); process.exit(1); }
@@ -156,6 +176,7 @@ if (target && target !== 'all') {
     }
 } else {
     made.push(buildHomeCard());
+    made.push(buildMagazineCard());
     apps.forEach(a => made.push(buildAppCard(a)));
 }
 
