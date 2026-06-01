@@ -122,7 +122,7 @@ const TEAMHYEOK_APPS = [
         icon: 'assets/images/apps/aeiou-jp.jpg',
         page: 'services/aeiou-jp/',
         appStoreId: '6761683071',
-        detail: true,
+        detail: false,
         shots: [
             'assets/images/apps/shots/aeiou-jp-1.webp',
             'assets/images/apps/shots/aeiou-jp-2.webp'
