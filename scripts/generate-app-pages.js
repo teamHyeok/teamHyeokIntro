@@ -63,6 +63,7 @@ const renderPage = (app) => {
     const url = `${baseUrl}/${app.page}`;
     const iconRel = `../../${app.icon}`;
     const iconAbs = `${baseUrl}/${app.icon}`;
+    const ogAbs = `${baseUrl}/assets/images/og/${app.slug}.jpg`;
     const isSoon = app.status === 'soon';
     const title = `${app.name} — 팀혁 TeamHyeok`;
     const desc = app.description;
@@ -128,12 +129,14 @@ ${app.shots
     <meta property="og:title" content="${esc(app.name)} · 팀혁">
     <meta property="og:description" content="${esc(app.tagline)}">
     <meta property="og:url" content="${url}">
-    <meta property="og:image" content="${iconAbs}">
+    <meta property="og:image" content="${ogAbs}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="팀혁 TeamHyeok">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${esc(app.name)} · 팀혁">
     <meta name="twitter:description" content="${esc(app.tagline)}">
-    <meta name="twitter:image" content="${iconAbs}">
+    <meta name="twitter:image" content="${ogAbs}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
