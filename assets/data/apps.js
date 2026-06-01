@@ -172,7 +172,7 @@ const TEAMHYEOK_APPS = [
         icon: 'assets/images/apps/please-sleep.jpg',
         page: 'services/please-sleep/',
         appStoreId: '6758732586',
-        detail: true,
+        detail: false,
         shots: [
             'assets/images/apps/shots/please-sleep-1.webp',
             'assets/images/apps/shots/please-sleep-2.webp'
