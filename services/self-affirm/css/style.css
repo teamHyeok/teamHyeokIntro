@@ -509,48 +509,61 @@
     padding-top: clamp(3rem, 7vw, 5rem);
 }
 
-.affirm-feature-grid {
+/* row-list layout — distinct from the timeline cards above */
+.affirm-feat-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 1.4rem;
 }
 
-.affirm-feature {
-    padding: 26px 22px;
-    border-radius: 22px;
+.affirm-feat-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px 18px 18px;
+    border-radius: 16px;
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid var(--af-line);
-    box-shadow: 0 24px 52px -36px rgba(42, 46, 51, 0.4);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-left: 3px solid rgba(95, 174, 99, 0.5);
+    box-shadow: 0 18px 42px -38px rgba(42, 46, 51, 0.4);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.affirm-feature:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 30px 58px -34px rgba(47, 125, 79, 0.4);
+.affirm-feat-row:hover {
+    transform: translateX(4px);
+    border-left-color: var(--af-leaf);
+    box-shadow: 0 24px 52px -34px rgba(47, 125, 79, 0.4);
 }
 
-.affirm-feature__icon {
-    display: inline-grid;
+.affirm-feat-row__icon {
+    flex: 0 0 auto;
+    display: grid;
     place-items: center;
     width: 50px;
     height: 50px;
-    margin-bottom: 14px;
-    border-radius: 16px;
-    font-size: 1.5rem;
+    border-radius: 50%;
+    font-size: 1.4rem;
     background: linear-gradient(150deg, rgba(95, 174, 99, 0.18), rgba(155, 198, 219, 0.18));
 }
 
-.affirm-feature h3 {
-    margin: 0 0 8px;
-    font-size: 1.12rem;
+.affirm-feat-row__text {
+    min-width: 0;
+}
+
+.affirm-feat-row h3 {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--af-ink);
 }
 
-.affirm-feature p {
+.affirm-feat-row p {
     margin: 0;
-    font-size: 0.92rem;
-    line-height: 1.65;
+    font-size: 0.89rem;
+    line-height: 1.55;
     color: var(--af-muted);
 }
 
@@ -725,14 +738,13 @@
     .affirm-hero__actions,
     .affirm-stats { justify-content: center; }
     .affirm-hero__lead { margin-inline: auto; }
-    .affirm-feature-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 620px) {
     .affirm-topbar__brand { display: none; }
     .affirm-timeline { grid-template-columns: 1fr; }
     .affirm-timeline::before { display: none; }
-    .affirm-feature-grid { grid-template-columns: 1fr; }
+    .affirm-feat-list { grid-template-columns: 1fr; }
     .affirm-stats { gap: 1.4rem; }
     .affirm-chip { left: 50%; transform: translateX(-50%); }
 }
