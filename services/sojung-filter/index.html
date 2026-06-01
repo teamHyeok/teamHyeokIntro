@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#08090c">
+    <meta name="theme-color" content="#f1ece1">
     <title>소중필터 — 팀혁 TeamHyeok</title>
     <meta name="description" content="소중필터는 아날로그 필름의 감성을 사진과 영상에 입히는 필터 앱입니다. 산책·여름·소중·기억·새벽 5가지 필터로 무드를 완성하고, 강도·그레인·밝기·색온도를 미세하게 조정할 수 있습니다. 사진은 물론 영상도 원본 화질 그대로 내보내고, 비교 슬라이더로 원본과 나란히 확인하세요.">
     <meta name="keywords" content="소중필터, 사진 필터, 영상 필터, 감성 필터, 필름 필터, photo filter, 팀혁">
@@ -30,6 +30,7 @@
     <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/GmarketSansBold.woff2" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="css/style.css">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -56,70 +57,199 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370970936034063"
         crossorigin="anonymous"></script>
 </head>
-<body>
-    <div class="aurora aurora--one"></div>
-    <div class="aurora aurora--two"></div>
+<body class="service-body service-body--sojung">
+    <div class="sj-grain" aria-hidden="true"></div>
 
-    <header class="top-bar">
-        <div class="container top-bar__inner">
-            <a href="../../index.html" class="brand" aria-label="팀혁 홈">TEAMHYEOK</a>
-            <nav class="nav" aria-label="Primary">
-                <a href="../../index.html#apps">Works</a>
-                <a href="../../index.html#about">About</a>
-            </nav>
+    <header class="sj-topbar">
+        <div class="container sj-topbar__inner">
+            <a class="back-link" href="../../index.html" aria-label="팀혁 소개로 돌아가기">
+                <span class="back-link__icon" aria-hidden="true">←</span>
+                <span class="back-link__label">홈으로</span>
+            </a>
+            <span class="sj-topbar__brand">TeamHyeok&nbsp;Works</span>
         </div>
     </header>
 
-    <main class="detail">
-        <div class="container">
-            <a class="detail__back" href="../../index.html#apps">← 모든 제품 보기</a>
+    <main class="service-main">
+        <section class="container sj-hero">
+            <div class="sj-hero__copy" data-animate>
+                <span class="sj-kicker"><span aria-hidden="true">🎞️</span>아날로그 필름 감성 필터</span>
+                <h1 class="sj-hero__title">순간을, 필름처럼<br><span>물들이다</span></h1>
+                <p class="sj-hero__lead">평범한 일상 사진과 영상에 부드러운 필름 톤을 입혀요. 다섯 가지 무드 중 하나를 고르고, 강도만 살짝 조절하면 감성적인 한 장이 완성됩니다.</p>
+                <div class="sj-hero__actions">
+                    <a class="sj-btn sj-btn--primary" href="https://apps.apple.com/kr/app/id6762511423" target="_blank" rel="noopener">App Store에서 받기 <span aria-hidden="true">→</span></a>
+                    <a class="sj-btn sj-btn--ghost" href="#moods">5가지 무드 보기</a>
+                </div>
+                <ul class="sj-stats">
+                    <li><strong>5가지 필름</strong><span>무드 필터</span></li>
+                    <li><strong>사진 · 영상</strong><span>원본 화질</span></li>
+                    <li><strong>미세 조정</strong><span>그레인 · 색온도</span></li>
+                </ul>
+            </div>
 
-            <section class="detail__hero" data-animate>
-                <span class="detail__icon">
-                    <img src="../../assets/images/apps/sojung-filter.jpg" alt="소중필터 아이콘" width="512" height="512">
+            <div class="sj-hero__visual" data-animate>
+                <figure class="sj-frame">
+                    <div class="sj-frame__photo" role="img" aria-label="여름 무드 필터가 적용된 거리 사진">
+                        <span class="sj-frame__split" aria-hidden="true"></span>
+                        <span class="sj-frame__handle" aria-hidden="true"></span>
+                        <span class="sj-frame__badge sj-frame__badge--before">ORIGINAL</span>
+                        <span class="sj-frame__badge sj-frame__badge--after">SOJUNG</span>
+                    </div>
+                    <figcaption class="sj-frame__caption">
+                        <span class="sj-frame__eyebrow">SUMMER</span>
+                        <span class="sj-frame__name">여름</span>
+                        <span class="sj-frame__desc">상쾌한 햇살 아래</span>
+                    </figcaption>
+                </figure>
+                <span class="sj-strip" aria-hidden="true">
+                    <i style="--c:#8fae8b"></i><i style="--c:#7fa9c4"></i><i style="--c:#d6a07a"></i><i style="--c:#b39aa6"></i><i style="--c:#9aa0c4"></i>
                 </span>
-                <div class="detail__heading">
-                    <div class="detail__badges">
-                        <span class="detail__platform">iOS</span>
-                        <span class="detail__group">도구</span>
-                    </div>
-                    <h1 class="detail__title">소중필터</h1>
-                    <p class="detail__tagline">아날로그 필름 감성을 입히는 사진·영상 필터. 5가지 무드로 순간을 물들입니다.</p>
-                    <div class="detail__actions">
-                        <a class="cta-button" href="https://apps.apple.com/kr/app/id6762511423" target="_blank" rel="noopener">App Store에서 다운로드 →</a>
-                    </div>
-                </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="detail__shots" data-animate>
-                <span class="section__eyebrow">Screenshots</span>
-                <div class="shot-gallery">
-                    <figure class="shot"><img src="../../assets/images/apps/shots/sojung-filter-1.webp" alt="소중필터 스크린샷 1" width="900" height="1947" loading="lazy"></figure>
-                    <figure class="shot"><img src="../../assets/images/apps/shots/sojung-filter-2.webp" alt="소중필터 스크린샷 2" width="900" height="1947" loading="lazy"></figure>
+        <section class="container sj-moods" id="moods">
+            <header class="sj-section__head" data-animate>
+                <span class="sj-section__eyebrow">Five moods</span>
+                <h2 class="sj-section__title">하나의 순간, <span>다섯 가지 결</span></h2>
+                <p class="sj-section__sub">같은 사진도 무드에 따라 완전히 다른 분위기가 돼요. 오늘 기분에 맞는 필름을 골라보세요.</p>
+            </header>
+            <div class="sj-mood-grid" data-animate>
+                <article class="sj-mood" style="--m:#8fae8b">
+                    <span class="sj-mood__swatch"></span>
+                    <span class="sj-mood__en">Stroll</span>
+                    <h3>산책</h3>
+                    <p>자연 속으로의 산책, 부드러운 풀빛 톤.</p>
+                </article>
+                <article class="sj-mood" style="--m:#7fa9c4">
+                    <span class="sj-mood__swatch"></span>
+                    <span class="sj-mood__en">Summer</span>
+                    <h3>여름</h3>
+                    <p>상쾌한 햇살 아래, 산뜻한 계절의 빛.</p>
+                </article>
+                <article class="sj-mood" style="--m:#d6a07a">
+                    <span class="sj-mood__swatch"></span>
+                    <span class="sj-mood__en">Precious</span>
+                    <h3>소중</h3>
+                    <p>따뜻하게 물든, 아껴 담고 싶은 색.</p>
+                </article>
+                <article class="sj-mood" style="--m:#b39aa6">
+                    <span class="sj-mood__swatch"></span>
+                    <span class="sj-mood__en">Memory</span>
+                    <h3>기억</h3>
+                    <p>빛바랜 필름처럼, 아련한 추억의 톤.</p>
+                </article>
+                <article class="sj-mood" style="--m:#9aa0c4">
+                    <span class="sj-mood__swatch"></span>
+                    <span class="sj-mood__en">Dawn</span>
+                    <h3>새벽</h3>
+                    <p>고요한 새벽의 푸름, 차분한 무드.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container sj-compare">
+            <header class="sj-section__head" data-animate>
+                <span class="sj-section__eyebrow">Fine tune</span>
+                <h2 class="sj-section__title">고른 다음엔, <span>내 손끝에서 완성</span></h2>
+                <p class="sj-section__sub">필터를 입힌 뒤에도 강도·그레인·밝기·색온도를 미세하게 조정하고, 비교 슬라이더로 원본과 나란히 확인할 수 있어요.</p>
+            </header>
+            <div class="sj-sliders" data-animate>
+                <div class="sj-slider"><span class="sj-slider__label">강도</span><span class="sj-slider__track"><i style="left:72%"></i></span></div>
+                <div class="sj-slider"><span class="sj-slider__label">그레인</span><span class="sj-slider__track"><i style="left:40%"></i></span></div>
+                <div class="sj-slider"><span class="sj-slider__label">밝기</span><span class="sj-slider__track"><i style="left:58%"></i></span></div>
+                <div class="sj-slider"><span class="sj-slider__label">색온도</span><span class="sj-slider__track"><i style="left:46%"></i></span></div>
+            </div>
+        </section>
+
+        <section class="container sj-flow">
+            <header class="sj-section__head" data-animate>
+                <span class="sj-section__eyebrow">How it works</span>
+                <h2 class="sj-section__title">세 번의 손길이면, <span>충분해요</span></h2>
+            </header>
+            <ol class="sj-steps" data-animate>
+                <li class="sj-step">
+                    <span class="sj-step__num">01</span>
+                    <span class="sj-step__icon" aria-hidden="true">🖼️</span>
+                    <h3>사진·영상 고르기</h3>
+                    <p>앨범에서 물들이고 싶은 사진이나 영상을 선택해요.</p>
+                </li>
+                <li class="sj-step">
+                    <span class="sj-step__num">02</span>
+                    <span class="sj-step__icon" aria-hidden="true">🎨</span>
+                    <h3>무드 고르기</h3>
+                    <p>다섯 가지 필름 무드 중 오늘의 분위기를 골라요.</p>
+                </li>
+                <li class="sj-step">
+                    <span class="sj-step__num">03</span>
+                    <span class="sj-step__icon" aria-hidden="true">💾</span>
+                    <h3>원본 화질로 저장</h3>
+                    <p>미세 조정을 마치면 원본 화질 그대로 내보내요.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="container sj-features">
+            <header class="sj-section__head" data-animate>
+                <span class="sj-section__eyebrow">What's inside</span>
+                <h2 class="sj-section__title">감성은 깊게, <span>조작은 가볍게</span></h2>
+            </header>
+            <div class="sj-feature-grid" data-animate>
+                <article class="sj-feature">
+                    <span class="sj-feature__icon" aria-hidden="true">🎞️</span>
+                    <h3>5가지 필름 필터</h3>
+                    <p>산책·여름·소중·기억·새벽, 무드별 필름 톤을 담았어요.</p>
+                </article>
+                <article class="sj-feature">
+                    <span class="sj-feature__icon" aria-hidden="true">🎬</span>
+                    <h3>사진 · 영상 모두</h3>
+                    <p>사진은 물론 영상에도 필터를 적용해 내보낼 수 있어요.</p>
+                </article>
+                <article class="sj-feature">
+                    <span class="sj-feature__icon" aria-hidden="true">🎚️</span>
+                    <h3>미세 조정</h3>
+                    <p>강도·그레인·밝기·색온도를 디테일하게 다듬어요.</p>
+                </article>
+                <article class="sj-feature">
+                    <span class="sj-feature__icon" aria-hidden="true">↔️</span>
+                    <h3>비교 슬라이더</h3>
+                    <p>원본과 결과를 나란히 비교하며 마무리해요.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container sj-shots">
+            <header class="sj-section__head" data-animate>
+                <span class="sj-section__eyebrow">Screenshots</span>
+                <h2 class="sj-section__title">일상이, <span>필름이 되는 순간</span></h2>
+            </header>
+            <div class="sj-shot-row" data-animate>
+                <figure class="sj-phone">
+                    <img src="../../assets/images/apps/shots/sojung-filter-1.webp" alt="소중필터 — 여름(Summer) 무드 필터가 적용된 거리 사진" width="900" height="1948" loading="lazy">
+                </figure>
+                <figure class="sj-phone">
+                    <img src="../../assets/images/apps/shots/sojung-filter-2.webp" alt="소중필터 — 산책(Stroll) 무드 필터가 적용된 자연 사진" width="900" height="1948" loading="lazy">
+                </figure>
+            </div>
+        </section>
+
+        <section class="container sj-cta">
+            <div class="sj-cta__card" data-animate>
+                <span class="sj-cta__strip" aria-hidden="true">
+                    <i style="--c:#8fae8b"></i><i style="--c:#7fa9c4"></i><i style="--c:#d6a07a"></i><i style="--c:#b39aa6"></i><i style="--c:#9aa0c4"></i>
+                </span>
+                <h2>오늘의 사진을,<br>한 톤 더 소중하게</h2>
+                <p>특별할 것 없던 순간도 필름 한 장의 무드를 입으면 오래 간직하고 싶어집니다. 소중필터로 당신의 일상을 물들여보세요.</p>
+                <div class="sj-cta__actions">
+                    <a class="sj-btn sj-btn--primary" href="https://apps.apple.com/kr/app/id6762511423" target="_blank" rel="noopener">App Store에서 받기 <span aria-hidden="true">→</span></a>
+                    <a class="sj-btn sj-btn--ghost" href="mailto:teamhyeok@gmail.com">의견 보내기</a>
                 </div>
-            </section>
-            <section class="detail__body" data-animate>
-                <div class="detail__about">
-                    <span class="section__eyebrow">About</span>
-                    <p>소중필터는 아날로그 필름의 감성을 사진과 영상에 입히는 필터 앱입니다. 산책·여름·소중·기억·새벽 5가지 필터로 무드를 완성하고, 강도·그레인·밝기·색온도를 미세하게 조정할 수 있습니다. 사진은 물론 영상도 원본 화질 그대로 내보내고, 비교 슬라이더로 원본과 나란히 확인하세요.</p>
-                </div>
-                <div class="detail__features">
-                    <span class="section__eyebrow">Features</span>
-                    <ul class="feature-list">
-                        <li>산책·여름·소중·기억·새벽 5가지 필름 필터</li>
-                        <li>사진·영상 모두 필터 적용 · 원본 화질 내보내기</li>
-                        <li>강도·그레인·밝기·색온도 미세 조정</li>
-                        <li>비교 슬라이더로 원본과 나란히 확인</li>
-                    </ul>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container site-footer__inner">
-            <p>대표 최찬혁 · &copy; <span id="currentYear"></span> 팀혁(TeamHyeok). All rights reserved.</p>
-            <a class="footer-link" href="../../index.html">팀혁 홈으로</a>
+    <footer class="service-footer">
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> 팀혁. All rights reserved.</p>
         </div>
     </footer>
 

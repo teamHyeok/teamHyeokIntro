@@ -223,7 +223,7 @@ const TEAMHYEOK_APPS = [
         icon: 'assets/images/apps/sojung-filter.jpg',
         page: 'services/sojung-filter/',
         appStoreId: '6762511423',
-        detail: true,
+        detail: false,
         shots: [
             'assets/images/apps/shots/sojung-filter-1.webp',
             'assets/images/apps/shots/sojung-filter-2.webp'
