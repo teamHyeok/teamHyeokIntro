@@ -147,7 +147,7 @@ const TEAMHYEOK_APPS = [
         icon: 'assets/images/apps/study-timer.jpg',
         page: 'services/study-timer/',
         appStoreId: '6766282371',
-        detail: true,
+        detail: false,
         shots: [
             'assets/images/apps/shots/study-timer-1.webp',
             'assets/images/apps/shots/study-timer-2.webp'

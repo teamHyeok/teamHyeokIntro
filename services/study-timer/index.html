@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#08090c">
+    <meta name="theme-color" content="#05100e">
     <title>순공야르 — 팀혁 TeamHyeok</title>
     <meta name="description" content="순공야르는 카메라로 자리 비움을 감지하는 순공(순수 공부) 타이머입니다. 자리를 비우면 자동으로 멈춰 진짜 집중한 시간만 정확히 측정하고, 공부 중·자리 비움·복귀 상태를 실시간으로 표시합니다. 주간·월간 통계와 위젯, 라이브 액티비티, iCloud 동기화를 지원합니다.">
     <meta name="keywords" content="순공야르, 순공 타이머, 공부 타이머, 자리비움, study timer, 집중 타이머, 팀혁">
@@ -30,6 +30,7 @@
     <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/GmarketSansBold.woff2" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="css/style.css">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -56,70 +57,169 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370970936034063"
         crossorigin="anonymous"></script>
 </head>
-<body>
-    <div class="aurora aurora--one"></div>
-    <div class="aurora aurora--two"></div>
+<body class="service-body service-body--study">
+    <div class="st-grid" aria-hidden="true"></div>
 
-    <header class="top-bar">
-        <div class="container top-bar__inner">
-            <a href="../../index.html" class="brand" aria-label="팀혁 홈">TEAMHYEOK</a>
-            <nav class="nav" aria-label="Primary">
-                <a href="../../index.html#apps">Works</a>
-                <a href="../../index.html#about">About</a>
-            </nav>
+    <header class="st-topbar">
+        <div class="container st-topbar__inner">
+            <a class="back-link" href="../../index.html" aria-label="팀혁 소개로 돌아가기">
+                <span class="back-link__icon" aria-hidden="true">←</span>
+                <span class="back-link__label">홈으로</span>
+            </a>
+            <span class="st-topbar__brand">TeamHyeok&nbsp;Works</span>
         </div>
     </header>
 
-    <main class="detail">
-        <div class="container">
-            <a class="detail__back" href="../../index.html#apps">← 모든 제품 보기</a>
+    <main class="service-main">
+        <section class="container st-hero">
+            <div class="st-hero__copy" data-animate>
+                <span class="st-kicker"><span class="st-dot" aria-hidden="true"></span>카메라가 자리 비움을 감지해요</span>
+                <h1 class="st-hero__title">딴짓은 빼고,<br><span>순공만 남겨요</span></h1>
+                <p class="st-hero__lead">자리를 비우면 타이머가 알아서 멈춥니다. 잠깐 폰을 보든 화장실을 가든, 진짜 책상 앞에 앉아 집중한 시간만 또렷하게 기록돼요.</p>
+                <div class="st-hero__actions">
+                    <a class="st-btn st-btn--primary" href="https://apps.apple.com/kr/app/id6766282371" target="_blank" rel="noopener">App Store에서 받기 <span aria-hidden="true">→</span></a>
+                    <a class="st-btn st-btn--ghost" href="#states">자리 감지 보기</a>
+                </div>
+                <ul class="st-stats">
+                    <li><strong>자동 멈춤</strong><span>자리 비우면</span></li>
+                    <li><strong>순공만</strong><span>진짜 집중 시간</span></li>
+                    <li><strong>주·월 통계</strong><span>위젯 · iCloud</span></li>
+                </ul>
+            </div>
 
-            <section class="detail__hero" data-animate>
-                <span class="detail__icon">
-                    <img src="../../assets/images/apps/study-timer.jpg" alt="순공야르 아이콘" width="512" height="512">
-                </span>
-                <div class="detail__heading">
-                    <div class="detail__badges">
-                        <span class="detail__platform">iOS</span>
-                        <span class="detail__group">학습</span>
+            <div class="st-hero__visual" data-animate>
+                <div class="st-ring-card">
+                    <div class="st-ring-card__top">
+                        <span class="st-chip st-chip--live"><span class="st-pulse" aria-hidden="true"></span>공부 중</span>
+                        <span class="st-chip st-chip--cam">📷 자리 감지 ON</span>
                     </div>
-                    <h1 class="detail__title">순공야르</h1>
-                    <p class="detail__tagline">카메라로 자리 비움을 잡아내는 순공 타이머. 진짜 집중한 시간만 기록합니다.</p>
-                    <div class="detail__actions">
-                        <a class="cta-button" href="https://apps.apple.com/kr/app/id6766282371" target="_blank" rel="noopener">App Store에서 다운로드 →</a>
+                    <div class="st-ring" role="img" aria-label="오늘 순공 시간 2시간 6분, 목표 3시간의 70 퍼센트 진행">
+                        <div class="st-ring__core">
+                            <span class="st-ring__label">오늘 순공시간</span>
+                            <span class="st-ring__time">02:06:00</span>
+                            <span class="st-ring__goal">오늘 목표 3시간</span>
+                        </div>
                     </div>
+                    <button class="st-start" type="button" tabindex="-1" aria-hidden="true">오늘 순공 시작</button>
                 </div>
-            </section>
+                <span class="st-bubble" aria-hidden="true">어제보다 +24분 ↑</span>
+            </div>
+        </section>
 
-            <section class="detail__shots" data-animate>
-                <span class="section__eyebrow">Screenshots</span>
-                <div class="shot-gallery">
-                    <figure class="shot"><img src="../../assets/images/apps/shots/study-timer-1.webp" alt="순공야르 스크린샷 1" width="900" height="1947" loading="lazy"></figure>
-                    <figure class="shot"><img src="../../assets/images/apps/shots/study-timer-2.webp" alt="순공야르 스크린샷 2" width="900" height="1947" loading="lazy"></figure>
+        <section class="container st-states" id="states">
+            <header class="st-section__head" data-animate>
+                <span class="st-section__eyebrow">Presence detection</span>
+                <h2 class="st-section__title">앉으면 흐르고, <span>일어나면 멈춰요</span></h2>
+                <p class="st-section__sub">전면 카메라가 자리 비움을 알아서 구분합니다. 영상은 기기 안에서만 처리돼요.</p>
+            </header>
+            <div class="st-state-row" data-animate>
+                <article class="st-state st-state--on">
+                    <span class="st-state__tag">공부 중</span>
+                    <span class="st-state__time">00:42:18</span>
+                    <p>자리에 앉아 집중하는 동안엔 시간이 또박또박 흘러가요.</p>
+                </article>
+                <span class="st-state__arrow" aria-hidden="true">→</span>
+                <article class="st-state st-state--away">
+                    <span class="st-state__tag">자리 비움</span>
+                    <span class="st-state__time">일시정지</span>
+                    <p>일어서면 “자리 감지 끊김”으로 바뀌고 타이머가 멈춰요.</p>
+                </article>
+                <span class="st-state__arrow" aria-hidden="true">→</span>
+                <article class="st-state st-state--back">
+                    <span class="st-state__tag">복귀</span>
+                    <span class="st-state__time">이어서</span>
+                    <p>다시 앉으면 끊긴 지점부터 자연스럽게 이어집니다.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container st-flow">
+            <header class="st-section__head" data-animate>
+                <span class="st-section__eyebrow">How it works</span>
+                <h2 class="st-section__title">시작 버튼 하나로, <span>나머지는 자동</span></h2>
+            </header>
+            <ol class="st-steps" data-animate>
+                <li class="st-step">
+                    <span class="st-step__num">01</span>
+                    <span class="st-step__icon" aria-hidden="true">▶</span>
+                    <h3>순공 시작</h3>
+                    <p>오늘 목표를 정하고 ‘순공 시작’만 누르면 끝이에요.</p>
+                </li>
+                <li class="st-step">
+                    <span class="st-step__num">02</span>
+                    <span class="st-step__icon" aria-hidden="true">📷</span>
+                    <h3>자리 자동 감지</h3>
+                    <p>카메라가 자리 비움을 감지해 알아서 멈추고 이어가요.</p>
+                </li>
+                <li class="st-step">
+                    <span class="st-step__num">03</span>
+                    <span class="st-step__icon" aria-hidden="true">📊</span>
+                    <h3>순공만 기록</h3>
+                    <p>딴짓은 빠진 진짜 집중 시간이 통계로 차곡차곡 쌓여요.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="container st-features">
+            <header class="st-section__head" data-animate>
+                <span class="st-section__eyebrow">What's inside</span>
+                <h2 class="st-section__title">정확한 측정에 <span>집중한 기능들</span></h2>
+            </header>
+            <div class="st-feature-grid" data-animate>
+                <article class="st-feature">
+                    <span class="st-feature__icon" aria-hidden="true">🎯</span>
+                    <h3>카메라 자리 감지</h3>
+                    <p>자리를 비우면 자동으로 멈춰 순공 시간만 정확히 측정해요.</p>
+                </article>
+                <article class="st-feature">
+                    <span class="st-feature__icon" aria-hidden="true">🟢</span>
+                    <h3>실시간 상태 표시</h3>
+                    <p>공부 중·자리 비움·복귀를 한눈에 보이게 표시해요.</p>
+                </article>
+                <article class="st-feature">
+                    <span class="st-feature__icon" aria-hidden="true">📈</span>
+                    <h3>주간·월간 통계</h3>
+                    <p>쌓인 순공을 통계와 공유 카드로 깔끔하게 돌아봐요.</p>
+                </article>
+                <article class="st-feature">
+                    <span class="st-feature__icon" aria-hidden="true">📲</span>
+                    <h3>위젯 · 라이브 액티비티</h3>
+                    <p>홈 위젯과 잠금화면 라이브 액티비티, iCloud 동기화까지.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container st-shots">
+            <header class="st-section__head" data-animate>
+                <span class="st-section__eyebrow">Screenshots</span>
+                <h2 class="st-section__title">딴짓은 덜어내고, <span>순공만 선명하게</span></h2>
+            </header>
+            <div class="st-shot-row" data-animate>
+                <figure class="st-phone">
+                    <img src="../../assets/images/apps/shots/study-timer-1.webp" alt="순공야르 메인 — 오늘 순공시간 2시간 6분, 목표까지 진행률 링" width="900" height="1948" loading="lazy">
+                </figure>
+                <figure class="st-phone">
+                    <img src="../../assets/images/apps/shots/study-timer-2.webp" alt="순공야르 자리 감지 — 자리 비움 감지로 타이머 일시정지" width="900" height="1948" loading="lazy">
+                </figure>
+            </div>
+        </section>
+
+        <section class="container st-cta">
+            <div class="st-cta__card" data-animate>
+                <span class="st-cta__glow" aria-hidden="true"></span>
+                <h2>오늘부터,<br>순공만 남겨볼까요?</h2>
+                <p>흘려보낸 시간 말고 진짜 집중한 시간을 기록하면, 공부의 밀도가 보입니다. 순공야르와 함께 오늘 순공을 시작해보세요.</p>
+                <div class="st-cta__actions">
+                    <a class="st-btn st-btn--primary" href="https://apps.apple.com/kr/app/id6766282371" target="_blank" rel="noopener">App Store에서 받기 <span aria-hidden="true">→</span></a>
+                    <a class="st-btn st-btn--ghost" href="mailto:teamhyeok@gmail.com">의견 보내기</a>
                 </div>
-            </section>
-            <section class="detail__body" data-animate>
-                <div class="detail__about">
-                    <span class="section__eyebrow">About</span>
-                    <p>순공야르는 카메라로 자리 비움을 감지하는 순공(순수 공부) 타이머입니다. 자리를 비우면 자동으로 멈춰 진짜 집중한 시간만 정확히 측정하고, 공부 중·자리 비움·복귀 상태를 실시간으로 표시합니다. 주간·월간 통계와 위젯, 라이브 액티비티, iCloud 동기화를 지원합니다.</p>
-                </div>
-                <div class="detail__features">
-                    <span class="section__eyebrow">Features</span>
-                    <ul class="feature-list">
-                        <li>카메라 자리 감지로 순공 시간 자동 측정</li>
-                        <li>공부 중·자리 비움·복귀 실시간 상태 표시</li>
-                        <li>주간·월간 통계와 공유 카드</li>
-                        <li>위젯·라이브 액티비티·iCloud 동기화</li>
-                    </ul>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container site-footer__inner">
-            <p>대표 최찬혁 · &copy; <span id="currentYear"></span> 팀혁(TeamHyeok). All rights reserved.</p>
-            <a class="footer-link" href="../../index.html">팀혁 홈으로</a>
+    <footer class="service-footer">
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> 팀혁. All rights reserved.</p>
         </div>
     </footer>
 
