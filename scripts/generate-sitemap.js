@@ -4,7 +4,7 @@ const apps = require('../assets/data/apps.js');
 
 const baseUrl = 'https://teamhyeok.com';
 
-const staticRoutes = ['/', '/magazine/', '/services/'];
+const staticRoutes = ['/', '/magazine/'];
 const appRoutes = apps.map((app) => `/${app.page}`);
 const routes = [...new Set([...staticRoutes, ...appRoutes])];
 
@@ -22,6 +22,7 @@ ${routes
 
 const robots = `User-agent: *
 Allow: /
+Disallow: /admin/
 Sitemap: ${baseUrl}/sitemap.xml
 `;
 
