@@ -101,7 +101,7 @@ const TEAMHYEOK_APPS = [
         icon: 'assets/images/apps/aeiou-kr.svg',
         page: 'services/aeiou-kr/',
         status: 'soon',
-        detail: true,
+        detail: false,
         features: [
             '손글씨 인식으로 익히는 한글 쓰기',
             '음성 인식 발음 연습',
