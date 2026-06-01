@@ -546,48 +546,59 @@
     padding-top: clamp(3rem, 7vw, 5.5rem);
 }
 
-.sl-feature-grid {
+/* row-list layout — distinct from the numbered step cards */
+.sl-feat-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 1.4rem;
 }
 
-.sl-feature {
-    padding: 26px 22px;
-    border-radius: 20px;
-    background: var(--sl-surface);
-    border: 1px solid var(--sl-line);
-    backdrop-filter: blur(10px);
-    transition: transform 0.25s ease, border-color 0.25s ease;
+.sl-feat-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px 18px 18px;
+    border-radius: 16px;
+    background: linear-gradient(90deg, rgba(255, 210, 122, 0.06), rgba(255, 210, 122, 0) 60%);
+    border-left: 2px solid rgba(255, 210, 122, 0.4);
+    transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
 }
 
-.sl-feature:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 210, 122, 0.4);
+.sl-feat-row:hover {
+    transform: translateX(4px);
+    border-left-color: var(--sl-gold);
+    background: linear-gradient(90deg, rgba(255, 210, 122, 0.12), rgba(255, 210, 122, 0) 60%);
 }
 
-.sl-feature__icon {
+.sl-feat-row__icon {
+    flex: 0 0 auto;
     display: grid;
     place-items: center;
-    width: 48px;
-    height: 48px;
-    margin-bottom: 15px;
-    border-radius: 14px;
-    background: rgba(143, 166, 255, 0.09);
-    font-size: 1.35rem;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(143, 166, 255, 0.1);
+    font-size: 1.3rem;
 }
 
-.sl-feature h3 {
-    margin: 0 0 8px;
-    font-size: 1.06rem;
+.sl-feat-row__text {
+    min-width: 0;
+}
+
+.sl-feat-row h3 {
+    margin: 0 0 4px;
+    font-size: 1.02rem;
     font-weight: 700;
 }
 
-.sl-feature p {
+.sl-feat-row p {
     margin: 0;
     color: var(--sl-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.88rem;
+    line-height: 1.55;
 }
 
 /* ===== Screenshots ===== */
@@ -751,7 +762,7 @@
         right: 14px;
     }
 
-    .sl-feature-grid {
+    .sl-feat-list {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -761,7 +772,7 @@
         grid-template-columns: 1fr;
     }
 
-    .sl-feature-grid {
+    .sl-feat-list {
         grid-template-columns: 1fr;
     }
 

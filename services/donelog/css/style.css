@@ -504,47 +504,58 @@
     padding-top: clamp(3rem, 7vw, 5rem);
 }
 
-.done-feature-grid {
+/* row-list layout — distinct from the numbered step cards */
+.done-feat-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 1.4rem;
 }
 
-.done-feature {
-    padding: 26px 22px;
-    border-radius: 20px;
-    background: linear-gradient(160deg, var(--done-surface), var(--done-surface-2));
-    border: 1px solid var(--done-line);
-    box-shadow: 0 24px 52px -38px rgba(0, 0, 0, 0.8);
-    transition: transform 0.25s ease, border-color 0.25s ease;
+.done-feat-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px 18px 18px;
+    border-radius: 16px;
+    background: linear-gradient(90deg, rgba(245, 185, 85, 0.07), rgba(245, 185, 85, 0) 60%);
+    border-left: 2px solid rgba(245, 185, 85, 0.4);
+    transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
 }
 
-.done-feature:hover {
-    transform: translateY(-5px);
-    border-color: rgba(245, 185, 85, 0.3);
+.done-feat-row:hover {
+    transform: translateX(4px);
+    border-left-color: var(--done-amber);
+    background: linear-gradient(90deg, rgba(245, 185, 85, 0.14), rgba(245, 185, 85, 0) 60%);
 }
 
-.done-feature__icon {
-    display: inline-grid;
+.done-feat-row__icon {
+    flex: 0 0 auto;
+    display: grid;
     place-items: center;
-    width: 50px;
-    height: 50px;
-    margin-bottom: 14px;
-    border-radius: 14px;
-    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
     background: rgba(245, 185, 85, 0.12);
+    font-size: 1.4rem;
 }
 
-.done-feature h3 {
-    margin: 0 0 8px;
-    font-size: 1.12rem;
+.done-feat-row__text {
+    min-width: 0;
+}
+
+.done-feat-row h3 {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
     font-weight: 700;
 }
 
-.done-feature p {
+.done-feat-row p {
     margin: 0;
-    font-size: 0.92rem;
-    line-height: 1.65;
+    font-size: 0.9rem;
+    line-height: 1.55;
     color: var(--done-muted);
 }
 
@@ -678,13 +689,13 @@
     .done-hero__actions,
     .done-stats { justify-content: center; }
     .done-hero__lead { margin-inline: auto; }
-    .done-feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .done-feat-list { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 620px) {
     .done-topbar__brand { display: none; }
     .done-steps { grid-template-columns: 1fr; }
-    .done-feature-grid { grid-template-columns: 1fr; }
+    .done-feat-list { grid-template-columns: 1fr; }
     .done-stats { gap: 1.4rem; }
 }
 

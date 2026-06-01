@@ -575,48 +575,61 @@
     padding-top: clamp(3rem, 7vw, 5.5rem);
 }
 
-.sj-feature-grid {
+/* row-list layout — distinct from the numbered step cards */
+.sj-feat-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 1.4rem;
 }
 
-.sj-feature {
-    padding: 26px 22px;
-    border-radius: 16px;
+.sj-feat-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px 18px 18px;
+    border-radius: 14px;
     background: var(--sj-paper);
     border: 1px solid var(--sj-line);
-    box-shadow: 0 22px 46px -42px rgba(43, 42, 38, 0.4);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-left: 3px solid rgba(63, 107, 83, 0.5);
+    box-shadow: 0 18px 40px -38px rgba(43, 42, 38, 0.4);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.sj-feature:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 54px -38px rgba(48, 85, 64, 0.45);
+.sj-feat-row:hover {
+    transform: translateX(4px);
+    border-left-color: var(--sj-green);
+    box-shadow: 0 24px 50px -36px rgba(48, 85, 64, 0.45);
 }
 
-.sj-feature__icon {
+.sj-feat-row__icon {
+    flex: 0 0 auto;
     display: grid;
     place-items: center;
     width: 48px;
     height: 48px;
-    margin-bottom: 15px;
-    border-radius: 13px;
+    border-radius: 50%;
     background: var(--sj-bg);
     font-size: 1.35rem;
 }
 
-.sj-feature h3 {
-    margin: 0 0 8px;
-    font-size: 1.06rem;
+.sj-feat-row__text {
+    min-width: 0;
+}
+
+.sj-feat-row h3 {
+    margin: 0 0 4px;
+    font-size: 1.04rem;
     font-weight: 700;
 }
 
-.sj-feature p {
+.sj-feat-row p {
     margin: 0;
     color: var(--sj-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.89rem;
+    line-height: 1.55;
 }
 
 /* ===== Screenshots ===== */
@@ -760,10 +773,6 @@
     .sj-hero__visual {
         order: -1;
     }
-
-    .sj-feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 @media (max-width: 620px) {
@@ -776,7 +785,7 @@
     }
 
     .sj-steps,
-    .sj-feature-grid {
+    .sj-feat-list {
         grid-template-columns: 1fr;
     }
 

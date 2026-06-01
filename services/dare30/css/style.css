@@ -423,47 +423,60 @@
     padding-top: clamp(3rem, 7vw, 5rem);
 }
 
-.dare-feature-grid {
+/* row-list layout — distinct from the numbered step cards */
+.dare-feat-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 1.4rem;
 }
 
-.dare-feature {
-    padding: 26px 22px;
-    border-radius: 22px;
+.dare-feat-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px 18px 18px;
+    border-radius: 18px;
     background: var(--d30-surface);
     border: 1px solid var(--d30-line);
-    box-shadow: 0 24px 52px -38px rgba(90, 74, 55, 0.4);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-left: 3px solid rgba(255, 142, 68, 0.5);
+    box-shadow: 0 18px 40px -34px rgba(90, 74, 55, 0.4);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.dare-feature:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 30px 58px -36px rgba(242, 111, 31, 0.4);
+.dare-feat-row:hover {
+    transform: translateX(4px);
+    border-left-color: var(--d30-orange);
+    box-shadow: 0 22px 46px -32px rgba(242, 111, 31, 0.4);
 }
 
-.dare-feature__icon {
-    display: inline-grid;
+.dare-feat-row__icon {
+    flex: 0 0 auto;
+    display: grid;
     place-items: center;
-    width: 50px;
-    height: 50px;
-    margin-bottom: 14px;
-    border-radius: 16px;
-    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.4rem;
     background: linear-gradient(150deg, #fff0d6, #ffe2c4);
 }
 
-.dare-feature h3 {
-    margin: 0 0 8px;
-    font-size: 1.1rem;
+.dare-feat-row__text {
+    min-width: 0;
+}
+
+.dare-feat-row h3 {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
     font-weight: 700;
 }
 
-.dare-feature p {
+.dare-feat-row p {
     margin: 0;
-    font-size: 0.92rem;
-    line-height: 1.65;
+    font-size: 0.9rem;
+    line-height: 1.55;
     color: var(--d30-muted);
 }
 
@@ -593,13 +606,13 @@
     .dare-hero__actions,
     .dare-stats { justify-content: center; }
     .dare-hero__lead { margin-inline: auto; }
-    .dare-feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .dare-feat-list { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 620px) {
     .dare-topbar__brand { display: none; }
     .dare-steps { grid-template-columns: 1fr; }
-    .dare-feature-grid { grid-template-columns: 1fr; }
+    .dare-feat-list { grid-template-columns: 1fr; }
     .dare-stats { gap: 1.4rem; }
 }
 

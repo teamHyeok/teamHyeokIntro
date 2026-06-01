@@ -495,48 +495,61 @@
     padding-top: clamp(3rem, 7vw, 5.5rem);
 }
 
-.ny-feature-grid {
+/* row-list layout — distinct from the numbered step cards */
+.ny-feat-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 1.4rem;
 }
 
-.ny-feature {
-    padding: 26px 22px;
-    border-radius: 22px;
+.ny-feat-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px 18px 18px;
+    border-radius: 16px;
     background: var(--ny-surface);
     border: 1px solid var(--ny-line);
-    box-shadow: 0 24px 50px -42px rgba(44, 58, 42, 0.4);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-left: 3px solid rgba(79, 179, 106, 0.5);
+    box-shadow: 0 18px 40px -36px rgba(44, 58, 42, 0.4);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.ny-feature:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 56px -38px rgba(58, 154, 86, 0.5);
+.ny-feat-row:hover {
+    transform: translateX(4px);
+    border-left-color: var(--ny-green);
+    box-shadow: 0 24px 50px -34px rgba(58, 154, 86, 0.5);
 }
 
-.ny-feature__icon {
+.ny-feat-row__icon {
+    flex: 0 0 auto;
     display: grid;
     place-items: center;
     width: 48px;
     height: 48px;
-    margin-bottom: 15px;
-    border-radius: 14px;
+    border-radius: 50%;
     background: var(--ny-surface-soft);
     font-size: 1.35rem;
 }
 
-.ny-feature h3 {
-    margin: 0 0 8px;
-    font-size: 1.06rem;
+.ny-feat-row__text {
+    min-width: 0;
+}
+
+.ny-feat-row h3 {
+    margin: 0 0 4px;
+    font-size: 1.04rem;
     font-weight: 700;
 }
 
-.ny-feature p {
+.ny-feat-row p {
     margin: 0;
     color: var(--ny-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.89rem;
+    line-height: 1.55;
 }
 
 /* ===== Screenshots — landscape ===== */
@@ -684,16 +697,12 @@
     .ny-hero__visual {
         order: -1;
     }
-
-    .ny-feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 @media (max-width: 620px) {
     .ny-state-row,
     .ny-steps,
-    .ny-feature-grid {
+    .ny-feat-list {
         grid-template-columns: 1fr;
     }
 
