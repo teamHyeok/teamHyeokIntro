@@ -44,92 +44,124 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="service-body service-body--bjj">
-    <header class="service-header service-header--bjj">
-        <div class="container service-header__inner" data-animate>
+    <header class="bjj-topbar">
+        <div class="container bjj-topbar__inner">
             <a class="back-link" href="../../index.html" aria-label="팀혁 소개로 돌아가기">
                 <span class="back-link__icon" aria-hidden="true">←</span>
                 <span class="back-link__label">홈으로</span>
             </a>
-            <span class="service-chip">TeamHyeok Works</span>
-            <h1 class="service-header__title">주짓수 대회 정보 사이트</h1>
-            <p class="service-header__subtitle">국내 주짓수 대회 일정을 한눈에 모아 확인해보세요! 지역별 분포 지도도 제공해서 간편하게 출전 가능 시합들을 확인할 수 있어요!</p>
+            <span class="bjj-topbar__brand">TeamHyeok&nbsp;Works</span>
         </div>
     </header>
 
     <main class="service-main">
-        <section class="container bjj-stage" data-animate>
-            <div class="bjj-window">
-                <div class="bjj-window__bar">
-                    <span class="bjj-window__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                    <span class="bjj-window__url">jiujitsu.teamhyeok.com</span>
-                </div>
-                <div class="bjj-window__screen">
-                    <img src="../../assets/images/jiujitsu_main.webp" alt="주짓수 대회 정보 사이트 실제 화면 — 달력과 지도로 정리된 대회 목록" width="1440" height="1648" loading="eager" fetchpriority="high">
-                </div>
-                <span class="bjj-float bjj-float--cal" aria-hidden="true">📅 이번 주 신규 대회</span>
-                <span class="bjj-float bjj-float--map" aria-hidden="true">📍 지역별 핀 보기</span>
-                <span class="bjj-float bjj-float--live" aria-hidden="true"><i></i> 실시간 업데이트</span>
-            </div>
-
-            <div class="bjj-stage__actions">
-                <a class="bjj-button" href="https://jiujitsu.teamhyeok.com/" target="_blank" rel="noopener">지금 대회 찾아보기</a>
-                <div class="hero__badges">
-                    <span class="hero-badge">Web</span>
-                    <span class="hero-badge">Realtime</span>
-                    <span class="hero-badge">Community friendly</span>
+        <section class="bjj-hero">
+            <div class="bjj-hero__bg" aria-hidden="true"></div>
+            <div class="container bjj-hero__inner">
+                <div class="bjj-hero__copy" data-animate>
+                    <span class="bjj-kicker"><span class="bjj-kicker__dot" aria-hidden="true"></span>전국 주짓수 대회 정보 · 실시간</span>
+                    <h1 class="bjj-hero__title">다음 매트 위,<br><span>어디서 설지</span> 정하세요</h1>
+                    <p class="bjj-hero__lead">전국 그리고 일본 주짓수 대회 일정을 달력과 지도로 한곳에 모았어요. 출전할 시합을 빠르게 찾고 바로 신청 페이지로 이동하세요.</p>
+                    <div class="bjj-hero__actions">
+                        <a class="bjj-btn bjj-btn--primary" href="https://jiujitsu.teamhyeok.com/" target="_blank" rel="noopener">대회 찾아보기 <span aria-hidden="true">→</span></a>
+                        <a class="bjj-btn bjj-btn--ghost" href="#how">어떻게 쓰나요?</a>
+                    </div>
+                    <ul class="bjj-stats">
+                        <li><strong>상시</strong><span>업데이트</span></li>
+                        <li><strong>전국 + 일본</strong><span>대회 커버</span></li>
+                        <li><strong>일정·위치·신청</strong><span>한 번에</span></li>
+                    </ul>
                 </div>
             </div>
-        </section>
 
-        <section class="container hero-features-wrap">
-            <ul class="hero-features" data-animate>
-                <li class="hero-feature">
-                    <span class="hero-feature__num">01</span>
-                    <span class="hero-feature__tag">실시간 업데이트</span>
-                    <p>새롭게 열린 대회를 놓치지 않아요.</p>
-                </li>
-                <li class="hero-feature">
-                    <span class="hero-feature__num">02</span>
-                    <span class="hero-feature__tag">카테고리 필터</span>
-                    <p>지역·기타 이벤트를 빠르게 탐색할 수 있어요.</p>
-                </li>
-                <li class="hero-feature">
-                    <span class="hero-feature__num">03</span>
-                    <span class="hero-feature__tag">상세 링크</span>
-                    <p>접수 페이지까지 한 번에 이동해요.</p>
-                </li>
-            </ul>
-        </section>
+            <div class="bjj-ticker" aria-hidden="true">
+                <div class="bjj-ticker__track">
+                    <span>IBJJF SEOUL OPEN</span><b>·</b><span>MARIANAS PRO KOREA</span><b>·</b><span>KBJJF KOREA OPEN</span><b>·</b><span>그래플링 인더스트리즈</span><b>·</b><span>GI &amp; NO-GI</span><b>·</b>
+                    <span>IBJJF SEOUL OPEN</span><b>·</b><span>MARIANAS PRO KOREA</span><b>·</b><span>KBJJF KOREA OPEN</span><b>·</b><span>그래플링 인더스트리즈</span><b>·</b><span>GI &amp; NO-GI</span><b>·</b>
+                </div>
+            </div>
 
-        <section class="container overview">
-            <div class="overview-card" data-animate>
-                <div class="overview-card__eyebrow">Site Overview</div>
-                <h2 class="overview-card__title">누구나 대회 정보를 바로 찾을 수 있는 구조</h2>
-                <p class="overview-card__description">대회 정보가 여러 SNS와 카페에 흩어져 있어도 괜찮아요. 캘린더, 카드 리스트, 지도 시각화로 한 번에 정리하고, 원하는 방식으로 탐색할 수 있게 했습니다.</p>
-                <div class="overview-metrics">
-                    <div class="metric">
-                        <span class="metric__label">업데이트 주기</span>
-                        <span class="metric__value">상시</span>
+            <div class="container bjj-showcase" data-animate>
+                <div class="bjj-window">
+                    <div class="bjj-window__bar">
+                        <span class="bjj-window__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <span class="bjj-window__url">jiujitsu.teamhyeok.com</span>
                     </div>
-                    <div class="metric">
-                        <span class="metric__label">주요 지역</span>
-                        <span class="metric__value">수도권 · 전국 · 일본</span>
+                    <div class="bjj-window__screen">
+                        <img src="../../assets/images/jiujitsu_main.webp" alt="주짓수 대회 정보 사이트 실제 화면 — 달력과 지도로 정리된 대회 목록" width="1440" height="1648" loading="eager" fetchpriority="high">
                     </div>
-                    <div class="metric">
-                        <span class="metric__label">제공 정보</span>
-                        <span class="metric__value">일정 · 위치 · 모집 링크</span>
-                    </div>
+                    <span class="bjj-float bjj-float--cal" aria-hidden="true">📅 이번 주 신규 대회</span>
+                    <span class="bjj-float bjj-float--map" aria-hidden="true">📍 지역별 핀 보기</span>
+                    <span class="bjj-float bjj-float--live" aria-hidden="true"><i></i> 실시간 업데이트</span>
                 </div>
             </div>
         </section>
 
-        <section class="container cta">
-            <div class="cta-card" data-animate>
+        <section class="container bjj-how" id="how">
+            <header class="bjj-section__head" data-animate>
+                <span class="bjj-section__eyebrow">How it works</span>
+                <h2 class="bjj-section__title">대회 찾고 신청까지, <span>세 단계</span></h2>
+            </header>
+            <ol class="bjj-steps" data-animate>
+                <li class="bjj-step">
+                    <span class="bjj-step__belt bjj-step__belt--white" aria-hidden="true"></span>
+                    <span class="bjj-step__num">01</span>
+                    <h3 class="bjj-step__title">찾기</h3>
+                    <p>달력과 지도에서 전국 대회를 한눈에 훑어봐요.</p>
+                </li>
+                <li class="bjj-step">
+                    <span class="bjj-step__belt bjj-step__belt--blue" aria-hidden="true"></span>
+                    <span class="bjj-step__num">02</span>
+                    <h3 class="bjj-step__title">확인</h3>
+                    <p>일정·장소·체급·요강 같은 상세 정보를 확인해요.</p>
+                </li>
+                <li class="bjj-step">
+                    <span class="bjj-step__belt bjj-step__belt--black" aria-hidden="true"></span>
+                    <span class="bjj-step__num">03</span>
+                    <h3 class="bjj-step__title">신청</h3>
+                    <p>공식 접수 페이지로 클릭 한 번에 이동해요.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="container bjj-features">
+            <header class="bjj-section__head" data-animate>
+                <span class="bjj-section__eyebrow">What's inside</span>
+                <h2 class="bjj-section__title">흩어진 대회 정보를 <span>한 화면</span>에</h2>
+                <p class="bjj-section__lead">여러 SNS와 카페에 흩어져 있던 정보를 한곳에 모아, 원하는 방식으로 탐색할 수 있게 정리했어요.</p>
+            </header>
+            <div class="bjj-feature-grid" data-animate>
+                <article class="bjj-feature">
+                    <span class="bjj-feature__icon" aria-hidden="true">🔔</span>
+                    <h3>실시간 업데이트</h3>
+                    <p>새롭게 열린 대회를 상시 반영해 놓치지 않아요.</p>
+                </article>
+                <article class="bjj-feature">
+                    <span class="bjj-feature__icon" aria-hidden="true">🗺️</span>
+                    <h3>지역별 지도</h3>
+                    <p>수도권·전국·일본까지 위치를 지도 위 핀으로 확인해요.</p>
+                </article>
+                <article class="bjj-feature">
+                    <span class="bjj-feature__icon" aria-hidden="true">🧭</span>
+                    <h3>카테고리 필터</h3>
+                    <p>지역·기타 이벤트를 빠르게 추려서 탐색해요.</p>
+                </article>
+                <article class="bjj-feature">
+                    <span class="bjj-feature__icon" aria-hidden="true">🔗</span>
+                    <h3>상세 접수 링크</h3>
+                    <p>일정·요강 확인 후 공식 접수까지 바로 연결돼요.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container bjj-cta">
+            <div class="bjj-cta__card" data-animate>
+                <div class="bjj-cta__belt" aria-hidden="true"></div>
                 <h2>다음 대회를 찾고 계신가요?</h2>
                 <p>주짓수 대회 정보 사이트는 선수와 팬이 더 빨리 움직일 수 있도록 돕는 실험 프로젝트입니다. 원하는 기능이나 데이터가 있다면 알려주세요.</p>
-                <div class="cta-actions">
-                    <a class="cta-button" href="https://jiujitsu.teamhyeok.com/" target="_blank" rel="noopener">대회 정보 보러가기</a>
-                    <a class="cta-button" href="mailto:teamhyeok@gmail.com">제안 보내기</a>
+                <div class="bjj-cta__actions">
+                    <a class="bjj-btn bjj-btn--primary" href="https://jiujitsu.teamhyeok.com/" target="_blank" rel="noopener">대회 정보 보러가기 <span aria-hidden="true">→</span></a>
+                    <a class="bjj-btn bjj-btn--ghost" href="mailto:teamhyeok@gmail.com">제안 보내기</a>
                 </div>
             </div>
         </section>
