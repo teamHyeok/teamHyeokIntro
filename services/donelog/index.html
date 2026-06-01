@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#08090c">
+    <meta name="theme-color" content="#16120e">
     <title>갓생로그 — 팀혁 TeamHyeok</title>
-    <meta name="description" content="갓생로그는 매일 해낸 일을 3초 영상 클립으로 기록하는 앱입니다. 할 일을 완료할 때마다 3초를 촬영하면, 하루가 끝날 때 클립들이 하나의 데일리 브이로그로 자동 합쳐집니다. 추억 탭에서 지난 영상을 다시 보고, 주간·월간 통계와 연속 기록으로 꾸준함을 눈으로 확인하세요.">
+    <meta name="description" content="갓생로그는 매일 해낸 일을 3초 영상 클립으로 기록하는 앱입니다. 할 일을 완료할 때마다 3초를 촬영하면, 하루가 끝날 때 클립들이 하나의 데일리 브이로그로 자동 합쳐집니다.">
     <meta name="keywords" content="갓생로그, 갓생, 브이로그 기록, 데일리 브이로그, 성취 기록, done log, 팀혁">
     <link rel="canonical" href="https://teamhyeok.com/services/donelog/">
     <meta name="robots" content="index, follow">
@@ -30,6 +30,7 @@
     <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/GmarketSansBold.woff2" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="css/style.css">
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -56,70 +57,146 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370970936034063"
         crossorigin="anonymous"></script>
 </head>
-<body>
-    <div class="aurora aurora--one"></div>
-    <div class="aurora aurora--two"></div>
-
-    <header class="top-bar">
-        <div class="container top-bar__inner">
-            <a href="../../index.html" class="brand" aria-label="팀혁 홈">TEAMHYEOK</a>
-            <nav class="nav" aria-label="Primary">
-                <a href="../../index.html#apps">Works</a>
-                <a href="../../index.html#about">About</a>
-            </nav>
+<body class="service-body service-body--done">
+    <header class="done-topbar">
+        <div class="container done-topbar__inner">
+            <a class="back-link" href="../../index.html" aria-label="팀혁 소개로 돌아가기">
+                <span class="back-link__icon" aria-hidden="true">←</span>
+                <span class="back-link__label">홈으로</span>
+            </a>
+            <span class="done-topbar__brand">TeamHyeok&nbsp;Works</span>
         </div>
     </header>
 
-    <main class="detail">
-        <div class="container">
-            <a class="detail__back" href="../../index.html#apps">← 모든 제품 보기</a>
+    <main class="service-main">
+        <section class="container done-hero">
+            <div class="done-hero__copy" data-animate>
+                <span class="done-kicker"><span class="done-rec-dot" aria-hidden="true"></span>REC · 오늘의 갓생 기록 중</span>
+                <h1 class="done-hero__title">오늘 해낸 일,<br><span>3초면 한 편의 영화</span></h1>
+                <p class="done-hero__lead">할 일을 끝낼 때마다 3초만 찍어두세요. 하루가 저물면 흩어진 클립이 한 편의 데일리 브이로그로 알아서 합쳐집니다.</p>
+                <div class="done-hero__actions">
+                    <a class="done-btn done-btn--primary" href="https://apps.apple.com/kr/app/id6765966189" target="_blank" rel="noopener"><span class="done-btn__play" aria-hidden="true">▶</span> App Store에서 받기</a>
+                    <a class="done-btn done-btn--ghost" href="#flow">어떻게 만들어지나요?</a>
+                </div>
+                <ul class="done-stats">
+                    <li><strong>3초</strong><span>클립 한 컷</span></li>
+                    <li><strong>자동 합성</strong><span>데일리 브이로그</span></li>
+                    <li><strong>연속 기록</strong><span>꾸준함 추적</span></li>
+                </ul>
+            </div>
 
-            <section class="detail__hero" data-animate>
-                <span class="detail__icon">
-                    <img src="../../assets/images/apps/donelog.jpg" alt="갓생로그 아이콘" width="512" height="512">
-                </span>
-                <div class="detail__heading">
-                    <div class="detail__badges">
-                        <span class="detail__platform">iOS</span>
-                        <span class="detail__group">라이프스타일</span>
-                    </div>
-                    <h1 class="detail__title">갓생로그</h1>
-                    <p class="detail__tagline">매일 해낸 일을 3초 영상으로 남기는 기록 앱. 하루의 클립이 자동으로 데일리 브이로그가 됩니다.</p>
-                    <div class="detail__actions">
-                        <a class="cta-button" href="https://apps.apple.com/kr/app/id6765966189" target="_blank" rel="noopener">App Store에서 다운로드 →</a>
-                    </div>
+            <div class="done-hero__visual" data-animate>
+                <div class="done-frame">
+                    <span class="done-frame__rec"><i aria-hidden="true"></i> REC&nbsp; 2026.05.10</span>
+                    <span class="done-frame__time" aria-hidden="true">00:03</span>
+                    <span class="done-frame__play" aria-hidden="true">▶</span>
+                    <span class="done-frame__date">5월 10일 · 오늘의 한 편</span>
                 </div>
-            </section>
+                <div class="done-reel" aria-hidden="true">
+                    <span class="done-reel__clip done-reel__clip--1"></span>
+                    <span class="done-reel__clip done-reel__clip--2"></span>
+                    <span class="done-reel__clip done-reel__clip--3"></span>
+                    <span class="done-reel__clip done-reel__clip--4"></span>
+                </div>
+                <span class="done-chip done-chip--streak" aria-hidden="true">🔥 연속 42일</span>
+            </div>
+        </section>
 
-            <section class="detail__shots" data-animate>
-                <span class="section__eyebrow">Screenshots</span>
-                <div class="shot-gallery">
-                    <figure class="shot"><img src="../../assets/images/apps/shots/donelog-1.webp" alt="갓생로그 스크린샷 1" width="900" height="1948" loading="lazy"></figure>
-                    <figure class="shot"><img src="../../assets/images/apps/shots/donelog-2.webp" alt="갓생로그 스크린샷 2" width="900" height="1948" loading="lazy"></figure>
-                </div>
-            </section>
-            <section class="detail__body" data-animate>
-                <div class="detail__about">
-                    <span class="section__eyebrow">About</span>
-                    <p>갓생로그는 매일 해낸 일을 3초 영상 클립으로 기록하는 앱입니다. 할 일을 완료할 때마다 3초를 촬영하면, 하루가 끝날 때 클립들이 하나의 데일리 브이로그로 자동 합쳐집니다. 추억 탭에서 지난 영상을 다시 보고, 주간·월간 통계와 연속 기록으로 꾸준함을 눈으로 확인하세요.</p>
-                </div>
-                <div class="detail__features">
-                    <span class="section__eyebrow">Features</span>
-                    <ul class="feature-list">
-                        <li>할 일 완료마다 3초 클립 촬영</li>
-                        <li>하루 클립이 자동으로 데일리 브이로그로 합성</li>
-                        <li>추억 탭에서 지난 기록 영상 감상</li>
-                        <li>주간·월간 통계와 연속 기록 추적</li>
-                    </ul>
-                </div>
-            </section>
+        <div class="done-filmstrip" aria-hidden="true">
+            <div class="done-filmstrip__track">
+                <span>3초 촬영</span><b>●</b><span>데일리 브이로그</span><b>●</b><span>추억 다시보기</span><b>●</b><span>연속 기록</span><b>●</b><span>주간·월간 통계</span><b>●</b>
+                <span>3초 촬영</span><b>●</b><span>데일리 브이로그</span><b>●</b><span>추억 다시보기</span><b>●</b><span>연속 기록</span><b>●</b><span>주간·월간 통계</span><b>●</b>
+            </div>
         </div>
+
+        <section class="container done-flow" id="flow">
+            <header class="done-section__head" data-animate>
+                <span class="done-section__eyebrow">How it works</span>
+                <h2 class="done-section__title">찍기만 하면, <span>한 편이 완성돼요</span></h2>
+            </header>
+            <ol class="done-steps" data-animate>
+                <li class="done-step">
+                    <span class="done-step__num">01</span>
+                    <span class="done-step__icon" aria-hidden="true">🎬</span>
+                    <h3>3초 촬영</h3>
+                    <p>할 일을 해낼 때마다 딱 3초. 부담 없이 순간을 남겨요.</p>
+                </li>
+                <li class="done-step">
+                    <span class="done-step__num">02</span>
+                    <span class="done-step__icon" aria-hidden="true">🎞️</span>
+                    <h3>자동 합성</h3>
+                    <p>하루가 끝나면 클립들이 한 편의 데일리 브이로그로 합쳐져요.</p>
+                </li>
+                <li class="done-step">
+                    <span class="done-step__num">03</span>
+                    <span class="done-step__icon" aria-hidden="true">💞</span>
+                    <h3>추억 다시보기</h3>
+                    <p>추억 탭에서 지난 하루를 영화처럼 넘겨보고 되새겨요.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="container done-features">
+            <header class="done-section__head" data-animate>
+                <span class="done-section__eyebrow">What's inside</span>
+                <h2 class="done-section__title">꾸준함을 <span>눈으로 확인</span>해요</h2>
+            </header>
+            <div class="done-feature-grid" data-animate>
+                <article class="done-feature">
+                    <span class="done-feature__icon" aria-hidden="true">⏱️</span>
+                    <h3>3초 클립</h3>
+                    <p>할 일 완료마다 3초씩. 기록이 습관이 되도록 가볍게 설계했어요.</p>
+                </article>
+                <article class="done-feature">
+                    <span class="done-feature__icon" aria-hidden="true">🎞️</span>
+                    <h3>자동 브이로그</h3>
+                    <p>하루 클립이 하나의 영상으로 자동 합성돼 작품이 돼요.</p>
+                </article>
+                <article class="done-feature">
+                    <span class="done-feature__icon" aria-hidden="true">📼</span>
+                    <h3>추억 탭</h3>
+                    <p>지난 기록 영상을 세로 피드처럼 편하게 다시 감상해요.</p>
+                </article>
+                <article class="done-feature">
+                    <span class="done-feature__icon" aria-hidden="true">📊</span>
+                    <h3>통계 · 연속 기록</h3>
+                    <p>주간·월간 통계와 연속 기록으로 꾸준함을 확인해요.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container done-shots">
+            <header class="done-section__head" data-animate>
+                <span class="done-section__eyebrow">Screenshots</span>
+                <h2 class="done-section__title">작은 하루도 <span>영화처럼</span></h2>
+            </header>
+            <div class="done-shot-row" data-animate>
+                <figure class="done-phone">
+                    <img src="../../assets/images/apps/shots/donelog-1.webp" alt="갓생로그 홈 화면 — 오늘의 클립과 지난 갓생 기록" width="900" height="1947" loading="lazy">
+                </figure>
+                <figure class="done-phone">
+                    <img src="../../assets/images/apps/shots/donelog-2.webp" alt="갓생로그 추억 탭 — 세로 영상 피드로 지난 하루 감상" width="900" height="1948" loading="lazy">
+                </figure>
+            </div>
+        </section>
+
+        <section class="container done-cta">
+            <div class="done-cta__card" data-animate>
+                <span class="done-cta__glow" aria-hidden="true"></span>
+                <span class="done-cta__rec"><i aria-hidden="true"></i> NOW RECORDING</span>
+                <h2>오늘의 갓생,<br>한 편으로 남겨볼까요?</h2>
+                <p>오늘 해낸 작은 일들이 모여 나만의 데일리 브이로그가 됩니다. 지금 갓생로그로 첫 3초를 찍어보세요.</p>
+                <div class="done-cta__actions">
+                    <a class="done-btn done-btn--primary" href="https://apps.apple.com/kr/app/id6765966189" target="_blank" rel="noopener"><span class="done-btn__play" aria-hidden="true">▶</span> App Store에서 받기</a>
+                    <a class="done-btn done-btn--ghost" href="mailto:teamhyeok@gmail.com">의견 보내기</a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container site-footer__inner">
-            <p>대표 최찬혁 · &copy; <span id="currentYear"></span> 팀혁(TeamHyeok). All rights reserved.</p>
-            <a class="footer-link" href="../../index.html">팀혁 홈으로</a>
+    <footer class="service-footer">
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> 팀혁. All rights reserved.</p>
         </div>
     </footer>
 

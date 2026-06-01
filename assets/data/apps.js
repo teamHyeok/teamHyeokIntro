@@ -51,7 +51,7 @@ const TEAMHYEOK_APPS = [
         icon: 'assets/images/apps/donelog.jpg',
         page: 'services/donelog/',
         appStoreId: '6765966189',
-        detail: true,
+        detail: false,
         shots: [
             'assets/images/apps/shots/donelog-1.webp',
             'assets/images/apps/shots/donelog-2.webp'
