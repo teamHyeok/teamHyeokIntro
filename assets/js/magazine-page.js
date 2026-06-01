@@ -135,6 +135,32 @@ const renderDetail = entry => {
     }
 };
 
+const injectStructuredData = entries => {
+    if (!entries.length) return;
+    const site = 'https://teamhyeok.com';
+    const data = {
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        name: '팀혁 매거진',
+        description: '제품을 만들며 배운 것들을 기록하는 팀혁의 인사이트 매거진.',
+        url: `${site}/magazine/`,
+        publisher: { '@type': 'Organization', name: '팀혁 TeamHyeok', url: site },
+        blogPost: entries.map(entry => ({
+            '@type': 'BlogPosting',
+            headline: entry.title || '제목 미정',
+            description: entry.excerpt || '',
+            datePublished: entry.publishedAt || undefined,
+            url: `${site}/magazine/?slug=${encodeURIComponent(entry.slug || '')}`,
+            image: entry.image && entry.image.src ? `${site}/${entry.image.src}` : undefined,
+            author: { '@type': 'Organization', name: '팀혁 TeamHyeok' },
+        })),
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(data);
+    document.head.appendChild(script);
+};
+
 const loadMagazinePage = async () => {
     try {
         const res = await fetch('../assets/data/magazine.json', { cache: 'no-cache' });
@@ -146,6 +172,7 @@ const loadMagazinePage = async () => {
         const active = sorted.find(item => item.slug === slug) || sorted[0];
         renderList(sorted, active?.slug);
         renderDetail(active);
+        injectStructuredData(sorted);
     } catch (error) {
         detailEl.innerHTML = '';
         const fallback = document.createElement('p');
