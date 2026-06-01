@@ -197,7 +197,7 @@ const TEAMHYEOK_APPS = [
         icon: 'assets/images/apps/nyangnyang-tuner.jpg',
         page: 'services/nyangnyang-tuner/',
         appStoreId: '6749933012',
-        detail: true,
+        detail: false,
         shots: [
             'assets/images/apps/shots/nyangnyang-tuner-1.webp',
             'assets/images/apps/shots/nyangnyang-tuner-2.webp'
