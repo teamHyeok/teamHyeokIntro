@@ -432,11 +432,19 @@ const initHeroCanvas = () => {
 
         // warp-in: speed eases from a fast burst down to cruise
         const warp = reduceMotion ? 1 : 1 + 2.6 * Math.exp(-elapsed / 0.6);
-        // thrust surges: irregular afterburner pulses that the whole frame reacts to
-        const s1 = 0.5 + 0.5 * Math.sin(elapsed * 0.6);
-        const s2 = 0.5 + 0.5 * Math.sin(elapsed * 0.25 + 1.7);
-        const surge = reduceMotion ? 0 : Math.pow(s1 * 0.6 + s2 * 0.4, 1.6);   // longer, more sustained burns
-        const speed = 0.5 * warp * (1 + 1.6 * surge);
+        // thrust drive: balls-to-the-wall by default, with the occasional brief breather.
+        // matches the team attitude — full throttle, then a quick beat to catch breath.
+        const REST_PERIOD = 8.5;   // a breather rolls around roughly every ~8.5s
+        const REST_DUR = 1.0;      // and eases off for about a second
+        let rest = 0;
+        if (!reduceMotion) {
+            const tt = elapsed % REST_PERIOD;
+            if (tt < REST_DUR) rest = Math.sin((tt / REST_DUR) * Math.PI);   // 0 -> 1 -> 0 smooth dip
+        }
+        // light flutter keeps full throttle alive; the rest pulls the energy down for a moment
+        const flutter = 0.5 + 0.5 * Math.sin(elapsed * 1.5);
+        const surge = reduceMotion ? 0 : (0.8 + 0.2 * flutter) * (1 - 0.82 * rest);
+        const speed = 0.72 * warp * (1 + 1.7 * surge);
         focal = focalBase * (1 - 0.13 * surge);   // FOV widens on thrust — the tunnel lunges forward
 
         ctx.clearRect(0, 0, w, h);
