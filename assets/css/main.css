@@ -348,6 +348,21 @@ html:not(.has-js) body.is-loading {
     animation: cursor-blink 1.1s steps(1) infinite;
 }
 
+.top-bar__crew {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+}
+
+.top-bar__crew span + span::before {
+    content: "·";
+    margin: 0 10px;
+    opacity: 0.55;
+}
+
 .nav {
     display: flex;
     gap: 28px;
@@ -1439,6 +1454,8 @@ a.app-card:hover .app-card__cta {
 /* ---------- responsive ---------- */
 @media (max-width: 768px) {
     .top-bar__inner { padding: 14px 0; }
+
+    .top-bar__crew { display: none; }
 
     .nav {
         gap: 16px;
