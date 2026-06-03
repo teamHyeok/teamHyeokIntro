@@ -76,7 +76,7 @@
         </header>
 
         <main>
-            <section class="hero">
+            <section class="hero" id="hero">
                 <div class="container hero__inner">
                     <div class="hero__content" data-animate>
                         <span class="hero__eyebrow">BUILD FAST. SHIP HARD.</span>
@@ -104,10 +104,14 @@
                         </ul>
                     </div>
                 </div>
+                <a class="scroll-cue" href="#about" aria-label="아래로 스크롤해 팀 소개 보기">
+                    <span class="scroll-cue__text">SCROLL</span>
+                    <span class="scroll-cue__rail"><span class="scroll-cue__dot"></span></span>
+                </a>
             </section>
 
             <section class="stats" aria-label="팀혁 현황">
-                <div class="container stats__inner" data-animate>
+                <div class="container stats__inner" data-stagger>
                     <div class="stat">
                         <span class="stat__value"><span data-count="12">0</span></span>
                         <span class="stat__label">출시한 제품</span>
@@ -133,7 +137,7 @@
                     <h2>팀혁이란?</h2>
                     <p>팀혁은 4인의 개발자로만 구성된 소규모 팀으로, 구현 우선과 최저 비용을 목표로 합니다. 만들고 싶은 제품을 25일 이내에 완성하며, 완성된 프로젝트는 과감하게 다음 단계로 나아갑니다.</p>
                 </div>
-                <ol class="principles" data-animate>
+                <ol class="principles" data-stagger>
                     <li class="principle"><span class="principle__num">01</span><p>우리가 만들고 싶은 걸 만듭니다.</p></li>
                     <li class="principle"><span class="principle__num">02</span><p>팀 대표를 제외하곤, 절대 개발자 동료를 받지 않습니다.</p></li>
                     <li class="principle"><span class="principle__num">03</span><p>구성원은 어떠한 경우에도 4인을 넘기지 않습니다.</p></li>
@@ -179,5 +183,6 @@
 
     <script src="assets/data/apps.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/interactions.js"></script>
 </body>
 </html>
