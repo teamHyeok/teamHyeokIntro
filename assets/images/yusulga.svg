@@ -15,7 +15,7 @@
   <rect x="0" y="40" width="100" height="24" fill="url(#yg-belt)"/>
   <rect x="0" y="40" width="100" height="1.4" fill="#3a3d47"/>
   <rect x="0" y="62.6" width="100" height="1.4" fill="#000" opacity="0.6"/>
-  <!-- red rank bars (signature: 검정 띠 + 빨간 두 줄) -->
-  <rect x="60" y="40" width="7" height="24" fill="#e2342b"/>
-  <rect x="71" y="40" width="7" height="24" fill="#e2342b"/>
+  <!-- red rank bars (signature: 검정 띠 + 빨간 두 줄, 브랜드 레드 #DC2626) -->
+  <rect x="60" y="40" width="7" height="24" fill="#DC2626"/>
+  <rect x="71" y="40" width="7" height="24" fill="#DC2626"/>
 </svg>
