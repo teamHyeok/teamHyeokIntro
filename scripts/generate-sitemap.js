@@ -5,7 +5,9 @@ const apps = require('../assets/data/apps.js');
 const baseUrl = 'https://teamhyeok.com';
 
 const staticRoutes = ['/', '/magazine/'];
-const appRoutes = apps.map((app) => `/${app.page}`);
+const appRoutes = apps
+  .filter((app) => !app.external && !/^https?:\/\//.test(app.page))
+  .map((app) => `/${app.page}`);
 const routes = [...new Set([...staticRoutes, ...appRoutes])];
 
 const today = new Date().toISOString().split('T')[0];

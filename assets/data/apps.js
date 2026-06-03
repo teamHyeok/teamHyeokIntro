@@ -237,6 +237,22 @@ const TEAMHYEOK_APPS = [
         keywords: '소중필터, 사진 필터, 영상 필터, 감성 필터, 필름 필터, photo filter, 팀혁'
     },
     {
+        slug: 'yusulga',
+        name: '유술가들',
+        tagline: '주짓수·레슬링·유도 그래플러를 위한 커뮤니티. 대회·체육관 정보부터 스파링 파트너 찾기까지.',
+        description: '유술가들은 주짓수·레슬링·유도를 수련하는 그래플러를 위한 웹 커뮤니티입니다. 대회 일정과 체육관(PT) 정보를 모아보고, 게시판에서 정보를 나누고, 함께 구를 스파링 파트너를 찾을 수 있습니다.',
+        group: 'web',
+        groupLabel: '웹',
+        platform: 'Web',
+        category: 'WebApplication',
+        icon: 'assets/images/yusulga.svg',
+        page: 'https://yusulga.com/',
+        external: true,
+        detail: false,
+        features: [],
+        keywords: '유술가들, 주짓수 커뮤니티, 레슬링, 유도, 그래플링, 스파링 파트너, 주짓수 대회, BJJ, 팀혁'
+    },
+    {
         slug: 'jiujitsu',
         name: '주짓수 대회 정보 사이트',
         tagline: '전국 주짓수 대회를 달력과 지도에서 한눈에. 바로 신청 페이지로 이동하세요.',

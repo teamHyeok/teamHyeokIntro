@@ -111,6 +111,11 @@ const createAppCard = (app, index) => {
     card.setAttribute('data-animate', '');
     card.href = app.page;
 
+    if (app.external) {
+        card.target = '_blank';
+        card.rel = 'noopener';
+    }
+
     if (isSoon) {
         card.classList.add('app-card--soon');
     }
