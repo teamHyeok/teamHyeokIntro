@@ -102,6 +102,13 @@ const FILTERS = [
     { key: 'web', label: '웹' }
 ];
 
+// Editor's picks: three hand-chosen products with editorial labels.
+const FEATURED = [
+    { slug: 'yusulga', label: '가장 최근 제품' },
+    { slug: 'sojung-filter', label: '가장 인기 있는' },
+    { slug: 'self-affirm', label: '가장 아끼는' }
+];
+
 const createAppCard = (app, index) => {
     const isSoon = app.status === 'soon';
     const indexLabel = String(index + 1).padStart(2, '0');
@@ -177,6 +184,41 @@ const initWorks = () => {
             });
         });
     }
+};
+
+const createFeatureCard = ({ slug, label }) => {
+    const app = apps.find(a => a.slug === slug);
+    if (!app) return null;
+    const card = document.createElement('a');
+    card.className = 'feature-card';
+    card.setAttribute('data-animate', '');
+    card.href = app.page;
+    if (app.external) {
+        card.target = '_blank';
+        card.rel = 'noopener';
+    }
+    const ctaLabel = app.platform === 'Web' ? '사이트 방문 →' : '자세히 보기 →';
+    card.innerHTML = `
+        <span class="feature-card__label">${label}</span>
+        <span class="feature-card__icon">
+            <img src="${app.icon}" alt="${app.name} 아이콘" loading="lazy">
+        </span>
+        <h3 class="feature-card__name">${app.name}</h3>
+        <p class="feature-card__tagline">${app.tagline}</p>
+        <span class="feature-card__cta">${ctaLabel}</span>
+    `;
+    observeAnimateElement(card);
+    return card;
+};
+
+const initFeatured = () => {
+    const list = document.getElementById('featuredList');
+    if (!list) return;
+    list.innerHTML = '';
+    FEATURED.forEach(item => {
+        const card = createFeatureCard(item);
+        if (card) list.appendChild(card);
+    });
 };
 
 const initHeroCanvas = () => {
@@ -784,6 +826,7 @@ const animateCounters = () => {
 };
 
 initAnimateObserver();
+initFeatured();
 initWorks();
 initHeroCanvas();
 animateCounters();
