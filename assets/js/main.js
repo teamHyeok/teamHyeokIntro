@@ -106,6 +106,7 @@ const FILTERS = [
 const FEATURED = [
     { slug: 'yusulga', label: '가장 최근 제품' },
     { slug: 'sojung-filter', label: '가장 인기 있는' },
+    { slug: 'study-timer', label: '가장 추천하는' },
     { slug: 'self-affirm', label: '가장 아끼는' }
 ];
 
