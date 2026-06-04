@@ -97,6 +97,7 @@
     const goTo = idx => {
         const i = Math.max(0, Math.min(stages.length - 1, idx));
         const dir = i >= activeIdx ? 1 : -1;
+        stages[i].el.scrollTop = 0;   // always present the stage from its top (no clipped middle)
         const top = stages[i].el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
         window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? 'auto' : 'smooth' });
         activeIdx = i;

@@ -1928,6 +1928,9 @@ section[id] { scroll-margin-top: 84px; }
     height: 100svh;
     overflow-y: auto;               /* a tall stage scrolls inside its own panel */
     overflow-x: hidden;
+    overscroll-behavior: contain;   /* keep inner scroll from leaking into the page
+                                       (scene changes are handled by JS, so this
+                                       won't trap) — prevents the half-snap clipping */
     display: flex;
     flex-direction: column;
     justify-content: safe center;   /* centre short stages, top-align tall ones */
