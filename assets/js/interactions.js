@@ -222,14 +222,62 @@
     };
 
     /* ================================================================== *
-     *  Keyboard — ← / → step through stages
+     *  Discrete scene navigation — one wheel / swipe / key = one scene
      * ================================================================== */
+    let gestureLock = false;
+    const lockGesture = () => { gestureLock = true; window.setTimeout(() => { gestureLock = false; }, 760); };
+
+    // does the active panel still have room to scroll inside, in this direction?
+    // ignore negligible overflow so a stage that's only a hair taller than the
+    // screen still advances on a flick instead of "eating" the gesture
+    const innerCanScroll = dir => {
+        const panel = stages[activeIdx] && stages[activeIdx].el;
+        if (!panel || panel.scrollHeight - panel.clientHeight <= 40) return false;
+        const atTop = panel.scrollTop <= 4;
+        const atBottom = panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 4;
+        return (dir > 0 && !atBottom) || (dir < 0 && !atTop);
+    };
+
+    const step = dir => {
+        const next = activeIdx + dir;
+        if (next < 0 || next >= stages.length) return;
+        lockGesture();
+        goTo(next);
+    };
+
+    const onWheel = e => {
+        if (reduceMotion || Math.abs(e.deltaY) < 6) return;
+        const dir = e.deltaY > 0 ? 1 : -1;
+        if (innerCanScroll(dir)) return;          // tall stage scrolls inside first
+        e.preventDefault();                        // block the free page scroll
+        if (!gestureLock) step(dir);
+    };
+
+    // touch swipe (mobile): one swipe = one scene, unless the panel scrolls inside
+    let touchY = null;
+    const onTouchStart = e => { touchY = e.touches[0].clientY; };
+    const onTouchEnd = e => {
+        if (reduceMotion || touchY == null) return;
+        const dy = touchY - e.changedTouches[0].clientY;
+        touchY = null;
+        if (Math.abs(dy) < 45) return;
+        const dir = dy > 0 ? 1 : -1;
+        if (innerCanScroll(dir) || gestureLock) return;
+        step(dir);
+    };
+
     const onKeydown = e => {
         if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
         const t = e.target;
         if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable)) return;
-        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(activeIdx + 1); }
-        else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(activeIdx - 1); }
+        const key = e.key;
+        if (key === 'ArrowDown' || key === 'ArrowRight' || key === 'PageDown' || key === ' ') {
+            if (innerCanScroll(1)) return;
+            e.preventDefault(); if (!gestureLock) step(1);
+        } else if (key === 'ArrowUp' || key === 'ArrowLeft' || key === 'PageUp') {
+            if (innerCanScroll(-1)) return;
+            e.preventDefault(); if (!gestureLock) step(-1);
+        }
     };
 
     /* ================================================================== *
@@ -246,6 +294,11 @@
         initMagnetic();
     }
     window.addEventListener('keydown', onKeydown);
+    if (!reduceMotion) {
+        window.addEventListener('wheel', onWheel, { passive: false });
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener('touchend', onTouchEnd, { passive: true });
+    }
 
     // kick off the first stage's entrance once the page has finished revealing
     const startChoreo = () => playStage(activeIdx);

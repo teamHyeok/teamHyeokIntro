@@ -1933,9 +1933,10 @@ section[id] { scroll-margin-top: 84px; }
  *  .has-hud once JS is on, so no-JS / SEO crawling keeps normal flow)
  * ================================================================== */
 .has-hud body {
-    /* mandatory: the page locks to one full screen at a time — you can't
-       free-scroll past everything */
-    scroll-snap-type: y mandatory;
+    /* proximity, because JS turns each wheel/swipe gesture into a single
+       scene jump (see interactions.js); this just keeps things aligned and
+       assists touch */
+    scroll-snap-type: y proximity;
 }
 
 .has-hud .hero,
