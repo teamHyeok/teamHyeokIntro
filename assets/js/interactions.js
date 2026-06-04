@@ -91,13 +91,13 @@
         document.body.appendChild(warpFlash);
     };
 
-    const fireWarp = () => {
+    const fireWarp = (dir = 1) => {
         if (reduceMotion) return;
         window.__warpBoost = 1.4;
         if (warpFlash) {
-            warpFlash.classList.remove('is-firing');
-            void warpFlash.offsetWidth;
-            warpFlash.classList.add('is-firing');
+            warpFlash.classList.remove('is-up', 'is-down');
+            void warpFlash.offsetWidth;            // restart the sweep animation
+            warpFlash.classList.add(dir < 0 ? 'is-up' : 'is-down');
         }
     };
 
@@ -109,12 +109,13 @@
 
     const goTo = idx => {
         const i = Math.max(0, Math.min(stages.length - 1, idx));
+        const dir = i >= activeIdx ? 1 : -1;
         const top = stages[i].el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
         window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? 'auto' : 'smooth' });
         activeIdx = i;
         navLock = Date.now() + 800;
         syncTour();
-        fireWarp();
+        fireWarp(dir);
         playStage(i);
     };
 
@@ -348,9 +349,10 @@
                 if (marker >= s.el.getBoundingClientRect().top + window.scrollY) idx = i;
             });
             if (Date.now() > navLock && idx !== activeIdx) {
+                const dir = idx > activeIdx ? 1 : -1;
                 activeIdx = idx;
                 syncTour();
-                fireWarp();
+                fireWarp(dir);
                 playStage(idx);
             }
             ticking = false;
