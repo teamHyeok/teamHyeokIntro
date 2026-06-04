@@ -1488,16 +1488,22 @@ a.feature-card:hover .feature-card__cta {
     }
 }
 
-/* ---------- scroll reveal ---------- */
+/* ---------- scroll reveal (content comes alive) ----------
+   Entrance is a one-shot @keyframes animation (not a transition) so it never
+   collides with the pointer-tilt transform that cards use on hover.
+   Mobile gets a lighter, blur-free version (see the MOBILE block below). */
 .has-js [data-animate] {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .has-js [data-animate].is-visible {
     opacity: 1;
-    transform: translateY(0);
+    animation: reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes reveal-up {
+    from { opacity: 0; transform: translateY(28px) scale(0.985); }
+    to   { opacity: 1; transform: none; }
 }
 
 /* ---------- keyframes ---------- */
@@ -1622,26 +1628,17 @@ a.feature-card:hover .feature-card__cta {
 }
 
 /* ================================================================== *
- *  Mission HUD — interaction layer (interactions.js)
+ *  Interaction & motion layer (interactions.js)
+ *  Structure:  SHARED  ·  DESKTOP ONLY  ·  MOBILE ONLY
+ *  Desktop and mobile are deliberately kept as separate, self-contained
+ *  blocks so each can be tuned to its own optimum.
  * ================================================================== */
 
 /* smooth anchored navigation + sticky-aware section offsets */
 html { scroll-behavior: smooth; }
 section[id] { scroll-margin-top: 84px; }
 
-/* HUD stays hidden behind the loading screen until the page reveals */
-.nav-rail,
-.scroll-progress {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.is-loaded .nav-rail,
-.is-loaded .scroll-progress {
-    opacity: 1;
-}
-
-/* ---------- top scroll-progress bar ---------- */
+/* ---------- SHARED: top scroll-progress bar ---------- */
 .scroll-progress {
     position: fixed;
     top: 0;
@@ -1650,7 +1647,11 @@ section[id] { scroll-margin-top: 84px; }
     height: 2px;
     z-index: 40;
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;   /* stays hidden behind the loading screen */
 }
+
+.is-loaded .scroll-progress { opacity: 1; }
 
 .scroll-progress__fill {
     display: block;
@@ -1662,178 +1663,30 @@ section[id] { scroll-margin-top: 84px; }
     box-shadow: 0 0 10px rgba(212, 255, 63, 0.6);
 }
 
-/* ---------- vertical section rail (wide screens) ---------- */
-.nav-rail {
-    position: fixed;
-    top: 50%;
-    right: 26px;
-    transform: translateY(-50%);
-    z-index: 30;
-    display: none;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 22px;
-}
-
-@media (min-width: 1200px) {
-    .nav-rail { display: flex; }
-}
-
-.nav-rail__track {
-    position: absolute;
-    right: 3.5px;
-    top: 6px;
-    bottom: 6px;
-    width: 2px;
-    background: var(--line);
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.nav-rail__fill {
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    transform: scaleY(0);
-    transform-origin: top;
-}
-
-.nav-rail__node {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0;
-    background: none;
-    border: 0;
-    cursor: pointer;
-    color: var(--text-dim);
-    font-family: var(--font-mono);
-}
-
-.nav-rail__num {
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    opacity: 0.55;
-    transition: opacity 0.25s ease, color 0.25s ease;
-}
-
-.nav-rail__label {
-    font-size: 11px;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    opacity: 0;
-    transform: translateX(6px);
-    transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
-}
-
-.nav-rail__node::after {
-    content: "";
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    border: 1.5px solid var(--line-strong);
-    background: var(--bg);
-    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-}
-
-.nav-rail__node:hover .nav-rail__label,
-.nav-rail__node:focus-visible .nav-rail__label {
-    opacity: 1;
-    transform: translateX(0);
-    color: var(--text);
-}
-
-.nav-rail__node:hover::after,
-.nav-rail__node:focus-visible::after {
-    border-color: var(--accent-line);
-    transform: scale(1.15);
-}
-
-.nav-rail__node.is-active .nav-rail__num { color: var(--accent); opacity: 1; }
-
-/* the active state reads as a glowing dot + lime number (both sit inside the
-   page margin); the text label only appears on hover/focus so it never
-   overlaps content on mid-width screens */
-.nav-rail__node.is-active .nav-rail__label { color: var(--accent); }
-
-.nav-rail__node.is-active::after {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 10px rgba(212, 255, 63, 0.75);
-}
-
-/* ---------- hero scroll cue ---------- */
+/* ---------- SHARED: hero depart parallax ---------- */
 .hero { position: relative; }
+.has-js .hero__content,
+.has-js .hero__visual { will-change: transform; }
 
-.scroll-cue {
-    position: absolute;
-    left: 50%;
-    bottom: 14px;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 9px;
-    text-decoration: none;
-    color: var(--text-dim);
-    z-index: 4;
-    transition: opacity 0.4s ease, transform 0.4s ease, color 0.25s ease;
-}
-
-.scroll-cue:hover { color: var(--text); }
-
-.scroll-cue__text {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.3em;
-}
-
-.scroll-cue__rail {
-    position: relative;
-    width: 2px;
-    height: 40px;
-    border-radius: 2px;
-    background: linear-gradient(var(--line-strong), transparent);
-    overflow: hidden;
-}
-
-.scroll-cue__dot {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 5px;
-    height: 5px;
-    margin-left: -2.5px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 8px rgba(212, 255, 63, 0.8);
-    animation: scroll-cue-fall 1.8s ease-in-out infinite;
-}
-
-@keyframes scroll-cue-fall {
-    0% { transform: translateY(-5px); opacity: 0; }
-    25% { opacity: 1; }
-    78% { opacity: 1; }
-    100% { transform: translateY(38px); opacity: 0; }
-}
-
-.scroll-cue.is-gone {
+/* ---------- SHARED: staggered group reveal (stats, principles) ---------- */
+.has-hud [data-stagger] > * {
     opacity: 0;
-    transform: translateX(-50%) translateY(10px);
-    pointer-events: none;
+    transform: translateY(22px) scale(0.98);
 }
 
-@media (max-width: 768px) {
-    .scroll-cue { display: none; }
+.has-hud [data-stagger].stagger-in > * {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ---------- card tilt + spotlight ---------- */
-.has-js .feature-card,
-.has-js .app-card {
-    transition: transform 0.2s ease, opacity 0.5s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+.has-hud [data-stagger].stagger-done > * {
+    opacity: 1;
+    transform: none;
 }
 
+/* ---------- SHARED: card spotlight scaffold ---------- */
 .feature-card > *,
 .app-card > * {
     position: relative;
@@ -1848,29 +1701,106 @@ section[id] { scroll-margin-top: 84px; }
     z-index: 0;
     border-radius: inherit;
     pointer-events: none;
-    background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(212, 255, 63, 0.13), transparent 62%);
+    background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(212, 255, 63, 0.14), transparent 62%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.feature-card:hover::after,
-.app-card:hover::after { opacity: 1; }
+/* ================================================================== *
+ *  DESKTOP EXPERIENCE  (wide screens + fine pointer)
+ * ================================================================== */
+@media (min-width: 769px) {
+    /* richer, blurred entrance — content assembles with weight */
+    .has-js [data-animate].is-visible {
+        animation: reveal-up-desktop 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes reveal-up-desktop {
+        from { opacity: 0; transform: translateY(46px) scale(0.965); filter: blur(6px); }
+        to   { opacity: 1; transform: none; filter: blur(0); }
+    }
 
-/* ---------- staggered reveal ---------- */
-.has-hud [data-stagger] > * {
-    opacity: 0;
-    transform: translateY(16px);
+    /* snappy transform so pointer-tilt tracks the cursor; entrance is a
+       separate @keyframes animation so the two never fight */
+    .has-js .feature-card,
+    .has-js .app-card {
+        transition: transform 0.2s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .feature-card:hover::after,
+    .app-card:hover::after { opacity: 1; }
+
+    /* hero scroll cue */
+    .scroll-cue {
+        position: absolute;
+        left: 50%;
+        bottom: 14px;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 9px;
+        text-decoration: none;
+        color: var(--text-dim);
+        z-index: 4;
+        transition: opacity 0.4s ease, transform 0.4s ease, color 0.25s ease;
+    }
+    .scroll-cue:hover { color: var(--text); }
+    .scroll-cue__text { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; }
+    .scroll-cue__rail {
+        position: relative;
+        width: 2px;
+        height: 40px;
+        border-radius: 2px;
+        background: linear-gradient(var(--line-strong), transparent);
+        overflow: hidden;
+    }
+    .scroll-cue__dot {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 5px;
+        height: 5px;
+        margin-left: -2.5px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 8px rgba(212, 255, 63, 0.8);
+        animation: scroll-cue-fall 1.8s ease-in-out infinite;
+    }
+    @keyframes scroll-cue-fall {
+        0% { transform: translateY(-5px); opacity: 0; }
+        25% { opacity: 1; }
+        78% { opacity: 1; }
+        100% { transform: translateY(38px); opacity: 0; }
+    }
+    .scroll-cue.is-gone {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+        pointer-events: none;
+    }
 }
 
-.has-hud [data-stagger].stagger-in > * {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-}
+/* ================================================================== *
+ *  MOBILE EXPERIENCE  (narrow screens + touch)
+ * ================================================================== */
+@media (max-width: 768px) {
+    /* the desktop scroll cue never shows on touch */
+    .scroll-cue { display: none; }
 
-.has-hud [data-stagger].stagger-done > * {
-    opacity: 1;
-    transform: none;
+    /* tactile press feedback replaces hover/tilt */
+    .feature-card:active,
+    .app-card:active {
+        transform: scale(0.97);
+        transition: transform 0.1s ease;
+    }
+    .cta-button:active,
+    .ghost-button:active {
+        transform: scale(0.97);
+        transition: transform 0.1s ease;
+    }
+
+    /* the spotlight glow is a hover affordance — leave it off on touch */
+    .feature-card::after,
+    .app-card::after { display: none; }
 }
 
 /* ---------- reduced motion ---------- */
@@ -1882,5 +1812,9 @@ section[id] { scroll-margin-top: 84px; }
         transform: none;
     }
 
+    .has-js [data-animate].is-visible { animation: none; }
     .scroll-cue__dot { animation: none; }
+
+    .has-js .hero__content,
+    .has-js .hero__visual { transform: none !important; }
 }
