@@ -1820,3 +1820,126 @@ section[id] { scroll-margin-top: 84px; }
     .has-js .hero__content,
     .has-js .hero__visual { transform: none !important; }
 }
+
+/* ================================================================== *
+ *  Warp Tour — step through the stages by interaction (interactions.js)
+ *  SHARED · DESKTOP · MOBILE
+ * ================================================================== */
+
+/* brief lime warp pulse fired on every jump */
+.warp-flash {
+    position: fixed;
+    inset: 0;
+    z-index: 34;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(70vw 60vh at 50% 45%, rgba(212, 255, 63, 0.18), transparent 62%);
+}
+.warp-flash.is-firing { animation: warp-flash 0.5s ease-out; }
+@keyframes warp-flash {
+    0% { opacity: 0; }
+    22% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* ---------- SHARED: tour controller ---------- */
+.tour {
+    position: fixed;
+    z-index: 38;
+    display: flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    background: rgba(13, 15, 19, 0.82);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--line-strong);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.is-loaded .tour { opacity: 1; }
+
+.tour__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+.tour__idx { color: var(--accent); font-weight: 700; }
+.tour__name { color: var(--text); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.tour__dots { display: flex; gap: 7px; }
+.tour__dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--line-strong);
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.tour__dot.is-active {
+    background: var(--accent);
+    transform: scale(1.3);
+    box-shadow: 0 0 8px rgba(212, 255, 63, 0.7);
+}
+
+.tour__btn {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 999px;
+    border: 0;
+    transition: box-shadow 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+}
+.tour__btn:disabled { opacity: 0.3; cursor: default; }
+.tour__prev {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--line-strong);
+}
+.tour__next { background: var(--accent); color: #0a0c08; }
+.tour__next:hover:not(:disabled) { box-shadow: 0 0 18px rgba(212, 255, 63, 0.5); }
+.tour__next:active:not(:disabled) { transform: scale(0.96); }
+
+/* ---------- DESKTOP: floating pill, bottom-center ---------- */
+@media (min-width: 769px) {
+    body { padding-bottom: 92px; }
+    .tour {
+        left: 50%;
+        bottom: 26px;
+        transform: translateX(-50%);
+        gap: 16px;
+        padding: 8px 8px 8px 20px;
+        border-radius: 999px;
+    }
+    .tour__prev { width: 34px; height: 34px; font-size: 15px; }
+    .tour__next { font-size: 13px; padding: 9px 18px; }
+}
+
+/* ---------- MOBILE: full-width bottom bar ---------- */
+@media (max-width: 768px) {
+    body { padding-bottom: 62px; }
+    .tour {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 16px;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+    }
+    .tour__meta { font-size: 11px; }
+    .tour__idx { display: inline; }
+    .tour__prev { width: 38px; height: 38px; font-size: 16px; }
+    .tour__next { font-size: 13px; padding: 10px 18px; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .warp-flash { display: none; }
+}
