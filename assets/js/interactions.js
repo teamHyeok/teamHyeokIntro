@@ -41,7 +41,7 @@
     // ordered selectors whose matches pop in, one after another, per stage
     const STAGE_FX = {
         hero: ['.hero__eyebrow', '.hero__title', '.hero__subtitle', '.hero__actions', '.hero-cluster'],
-        stats: ['.stats__header', '.stat'],
+        stats: ['.stats__header', '.stat', '.stats__jump'],
         about: ['.section__header', '.principle'],
         picks: ['.section__header', '.feature-card'],
         apps: ['.section__header', '.filter-bar', '.app-card']
@@ -293,6 +293,14 @@
         initTilt();
         initMagnetic();
     }
+    // quick-jump shortcuts (e.g. on the Stats stage) that warp straight to a stage
+    document.querySelectorAll('[data-jump]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const i = stages.findIndex(s => s.id === btn.dataset.jump);
+            if (i >= 0) goTo(i);
+        });
+    });
+
     window.addEventListener('keydown', onKeydown);
     if (!reduceMotion) {
         window.addEventListener('wheel', onWheel, { passive: false });

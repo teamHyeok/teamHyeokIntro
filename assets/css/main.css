@@ -1980,3 +1980,38 @@ section[id] { scroll-margin-top: 84px; }
     font-size: clamp(28px, 4vw, 44px);
     letter-spacing: -0.02em;
 }
+
+/* ---------- stats stage quick-jump shortcuts ---------- */
+.stats__jumps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 34px;
+}
+.stats__jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.stats__jump span {
+    color: var(--accent);
+    transition: transform 0.2s ease;
+}
+.stats__jump:hover {
+    color: var(--accent);
+    border-color: var(--accent-line);
+    background: var(--surface-2);
+    transform: translateY(-2px);
+}
+.stats__jump:hover span { transform: translateX(3px); }
