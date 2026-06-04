@@ -1921,7 +1921,6 @@ section[id] { scroll-margin-top: 84px; }
 .has-hud .hero,
 .has-hud #stats,
 .has-hud #about,
-.has-hud #picks,
 .has-hud #apps {
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -1932,6 +1931,10 @@ section[id] { scroll-margin-top: 84px; }
     display: flex;
     flex-direction: column;
     justify-content: safe center;   /* centre short stages, top-align tall ones */
+    /* clear the sticky top bar and the bottom tour controller so content
+       never tucks behind either */
+    padding-top: 78px;
+    padding-bottom: 96px;
 }
 
 /* never snap when the visitor prefers reduced motion */
@@ -1940,11 +1943,12 @@ section[id] { scroll-margin-top: 84px; }
     .has-hud .hero,
     .has-hud #stats,
     .has-hud #about,
-    .has-hud #picks,
     .has-hud #apps {
         height: auto;
         overflow: visible;
         display: block;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 }
 
@@ -1962,8 +1966,13 @@ section[id] { scroll-margin-top: 84px; }
 
 /* the merged "한번 써보세요" picks block sits under the numbers, one screen */
 .stats__picks-head {
-    margin-top: 56px;
+    margin-top: 30px;
+    margin-bottom: 26px;
 }
+.has-hud #stats .stats__header { margin-bottom: 20px; }
+/* slightly tighter feature cards so the whole merged stage fits one screen */
+.has-hud #stats .feature-card { padding: 22px 22px 20px; gap: 11px; }
+.has-hud #stats .feature-card__icon { width: 60px; height: 60px; }
 
 /* ---------- stats stage quick-jump shortcuts ---------- */
 .stats__jumps {

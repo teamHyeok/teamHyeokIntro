@@ -220,7 +220,7 @@
     // screen still advances on a flick instead of "eating" the gesture
     const innerCanScroll = dir => {
         const panel = stages[activeIdx] && stages[activeIdx].el;
-        if (!panel || panel.scrollHeight - panel.clientHeight <= 40) return false;
+        if (!panel || panel.scrollHeight - panel.clientHeight <= 12) return false;
         const atTop = panel.scrollTop <= 4;
         const atBottom = panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 4;
         return (dir > 0 && !atBottom) || (dir < 0 && !atTop);
