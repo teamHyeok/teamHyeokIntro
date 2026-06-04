@@ -1752,11 +1752,10 @@ section[id] { scroll-margin-top: 84px; }
 
 .nav-rail__node.is-active .nav-rail__num { color: var(--accent); opacity: 1; }
 
-.nav-rail__node.is-active .nav-rail__label {
-    opacity: 1;
-    transform: translateX(0);
-    color: var(--accent);
-}
+/* the active state reads as a glowing dot + lime number (both sit inside the
+   page margin); the text label only appears on hover/focus so it never
+   overlaps content on mid-width screens */
+.nav-rail__node.is-active .nav-rail__label { color: var(--accent); }
 
 .nav-rail__node.is-active::after {
     background: var(--accent);
