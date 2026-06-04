@@ -1,18 +1,15 @@
 /**
- * interactions.js — "warp tour" motion layer.
+ * interactions.js — "warp deck": a full-screen, step-through stage sequence.
  *
- * The page is a sequence of stages (Intro → Team → Picks → Works) that the
- * visitor steps through by interaction: a bottom tour controller (prev /
- * progress dots / next) plus the ← / → arrow keys jump from stage to stage,
- * and every jump fires a warp surge — the hero tunnel lunges and a lime warp
- * pulse flashes. Free scrolling still works and keeps the controller in sync.
+ * The page is five stages (Intro · Stats · Team · Picks · Works). Each fills
+ * the screen; you step through with the bottom tour controller, the ← / →
+ * keys, the dots, or by scrolling (panels snap into place). Arriving at a
+ * stage REPLAYS a staccato entrance — its elements pop in one by one, like a
+ * game intro — and fires a warp pulse (hero tunnel lunges + lime flash).
  *
- * Desktop and mobile are separate tracks:
- *   SHARED   · scroll-progress bar, hero parallax, staggered reveals, tour
- *   DESKTOP  · pointer tilt + spotlight on cards, magnetic hero buttons
- *
- * Degrades cleanly: reduced-motion → instant jumps, no surge/flash; the
- * reveal-hiding is gated on a JS-set class so content never gets stuck.
+ * Degrades cleanly: reduced-motion → no snap, no choreography, everything
+ * visible. The choreography-hiding is gated on a JS-set class (+ a failsafe),
+ * so content can never get stuck invisible.
  */
 (() => {
     'use strict';
@@ -20,7 +17,7 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isDesktop = window.matchMedia('(min-width: 769px)').matches;
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const HEADER_OFFSET = 76;
+    const HEADER_OFFSET = 0;   // panels are full-height; snap aligns them to the top
 
     /* ================================================================== *
      *  Stage model
@@ -36,10 +33,47 @@
         .map(def => Object.assign({}, def, { el: document.getElementById(def.id) }))
         .filter(s => s.el);
     let activeIdx = 0;
-    let navLock = 0;   // ignore scroll-driven active updates during a programmatic jump
+    let navLock = 0;
 
     /* ================================================================== *
-     *  SHARED — scroll progress bar + warp flash
+     *  Staccato entrance choreography
+     * ================================================================== */
+    // ordered selectors whose matches pop in, one after another, per stage
+    const STAGE_FX = {
+        hero: ['.hero__eyebrow', '.hero__title', '.hero__subtitle', '.hero__actions', '.hero-cluster'],
+        stats: ['.stats__header', '.stat'],
+        about: ['.section__header', '.principle'],
+        picks: ['.section__header', '.feature-card'],
+        apps: ['.section__header', '.filter-bar', '.app-card']
+    };
+
+    const buildStageFx = () => {
+        document.documentElement.classList.add('has-hud');   // enables .fx hiding + snap
+        stages.forEach(stage => {
+            const selectors = STAGE_FX[stage.id];
+            if (!selectors) return;
+            let i = 0;
+            selectors.forEach(sel => {
+                stage.el.querySelectorAll(sel).forEach(el => {
+                    el.classList.add('fx');
+                    el.style.setProperty('--i', i++);
+                });
+            });
+        });
+    };
+
+    const playStage = idx => {
+        const stage = stages[idx];
+        if (!stage) return;
+        stages.forEach(s => { if (s !== stage) s.el.classList.remove('stage-on'); });
+        // restart the CSS animations even if it's the same stage
+        stage.el.classList.remove('stage-on');
+        void stage.el.offsetWidth;
+        stage.el.classList.add('stage-on');
+    };
+
+    /* ================================================================== *
+     *  Scroll progress bar + warp flash
      * ================================================================== */
     let progressFill = null;
     let warpFlash = null;
@@ -59,27 +93,29 @@
 
     const fireWarp = () => {
         if (reduceMotion) return;
-        window.__warpBoost = 1.4;                 // hero tunnel lunges (see main.js)
+        window.__warpBoost = 1.4;
         if (warpFlash) {
             warpFlash.classList.remove('is-firing');
-            void warpFlash.offsetWidth;            // restart the animation
+            void warpFlash.offsetWidth;
             warpFlash.classList.add('is-firing');
         }
     };
 
     /* ================================================================== *
-     *  SHARED — tour controller
+     *  Tour controller
      * ================================================================== */
-    let elIdx = null, elName = null, elPrev = null, elNext = null, dotEls = [];
+    let elIdx = null, elName = null, elPrev = null, elNext = null;
+    const dotEls = [];
 
     const goTo = idx => {
         const i = Math.max(0, Math.min(stages.length - 1, idx));
         const top = stages[i].el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-        fireWarp();
         window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? 'auto' : 'smooth' });
-        activeIdx = i;          // reflect immediately
+        activeIdx = i;
+        navLock = Date.now() + 800;
         syncTour();
-        navLock = Date.now() + 800;   // don't let the in-flight scroll revert us
+        fireWarp();
+        playStage(i);
     };
 
     const buildTour = () => {
@@ -118,7 +154,7 @@
         elNext = document.createElement('button');
         elNext.type = 'button';
         elNext.className = 'tour__btn tour__next';
-        elNext.textContent = '다음 ▸';   // "다음 ▸"
+        elNext.textContent = '다음 ▸';
         elNext.addEventListener('click', () => goTo(activeIdx + 1));
 
         tour.append(elPrev, meta, dots, elNext);
@@ -136,61 +172,25 @@
     };
 
     /* ================================================================== *
-     *  SHARED — hero depart parallax
+     *  Hero depart parallax
      * ================================================================== */
     const heroContent = document.querySelector('.hero__content');
     const heroVisual = document.querySelector('.hero__visual');
-    const DRIFT = isDesktop ? 0.22 : 0.12;
-    const FADE_OVER = isDesktop ? 520 : 9999;
+    const DRIFT = isDesktop ? 0.18 : 0.1;
 
     const applyParallax = y => {
         if (reduceMotion) return;
-        if (heroContent) {
-            heroContent.style.transform = `translateY(${(y * DRIFT).toFixed(1)}px)`;
-            heroContent.style.opacity = y > 24 ? String(Math.max(0, 1 - (y - 24) / FADE_OVER)) : '';
+        const local = y - (stages[0] ? 0 : 0);   // hero starts at top
+        if (heroContent && activeIdx === 0) {
+            heroContent.style.transform = `translateY(${(local * DRIFT).toFixed(1)}px)`;
         }
-        if (heroVisual) {
-            heroVisual.style.transform = `translateY(${(y * DRIFT * 0.4).toFixed(1)}px)`;
+        if (heroVisual && activeIdx === 0) {
+            heroVisual.style.transform = `translateY(${(local * DRIFT * 0.4).toFixed(1)}px)`;
         }
     };
 
     /* ================================================================== *
-     *  SHARED — staggered group reveal (stats, principles)
-     * ================================================================== */
-    const initStagger = () => {
-        const groups = document.querySelectorAll('[data-stagger]');
-        if (!groups.length) return;
-        document.documentElement.classList.add('has-hud');
-
-        const cascade = group => {
-            const kids = Array.from(group.children);
-            kids.forEach((child, i) => { child.style.transitionDelay = i * 70 + 'ms'; });
-            group.classList.add('stagger-in');
-            const settle = kids.length * 70 + 650;
-            window.setTimeout(() => {
-                kids.forEach(child => { child.style.transitionDelay = ''; });
-                group.classList.remove('stagger-in');
-                group.classList.add('stagger-done');
-            }, reduceMotion ? 0 : settle);
-        };
-
-        if (reduceMotion || typeof IntersectionObserver === 'undefined') {
-            groups.forEach(g => g.classList.add('stagger-done'));
-            return;
-        }
-        const obs = new IntersectionObserver((entries, o) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    cascade(entry.target);
-                    o.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.18 });
-        groups.forEach(g => obs.observe(g));
-    };
-
-    /* ================================================================== *
-     *  DESKTOP — pointer tilt + spotlight on cards
+     *  DESKTOP — pointer tilt + spotlight, magnetic buttons
      * ================================================================== */
     const initTilt = () => {
         document.querySelectorAll('.feature-card, .app-card').forEach(card => {
@@ -209,16 +209,12 @@
         });
     };
 
-    /* ================================================================== *
-     *  DESKTOP — magnetic hero buttons
-     * ================================================================== */
     const initMagnetic = () => {
         document.querySelectorAll('.hero__actions .cta-button, .hero__actions .ghost-button').forEach(btn => {
-            const strength = 0.32;
             btn.addEventListener('pointermove', e => {
                 const r = btn.getBoundingClientRect();
-                const x = (e.clientX - r.left - r.width / 2) * strength;
-                const y = (e.clientY - r.top - r.height / 2) * strength;
+                const x = (e.clientX - r.left - r.width / 2) * 0.32;
+                const y = (e.clientY - r.top - r.height / 2) * 0.32;
                 btn.style.transform = `translate(${x.toFixed(1)}px, ${(y - 2).toFixed(1)}px)`;
             });
             btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
@@ -226,7 +222,7 @@
     };
 
     /* ================================================================== *
-     *  Keyboard — ← / → step through stages (horizontal keys never scroll)
+     *  Keyboard — ← / → step through stages
      * ================================================================== */
     const onKeydown = e => {
         if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -241,16 +237,30 @@
      * ================================================================== */
     const scrollCue = document.querySelector('.scroll-cue');
 
+    buildStageFx();
     buildOverlays();
     buildTour();
-    initStagger();
 
     if (isDesktop && finePointer && !reduceMotion) {
         initTilt();
         initMagnetic();
     }
-
     window.addEventListener('keydown', onKeydown);
+
+    // kick off the first stage's entrance once the page has finished revealing
+    const startChoreo = () => playStage(activeIdx);
+    if (reduceMotion) {
+        document.documentElement.classList.add('fx-off');   // CSS reveals everything
+    } else if (document.body.classList.contains('is-loaded')) {
+        window.setTimeout(startChoreo, 250);
+    } else {
+        window.addEventListener('load', () => window.setTimeout(startChoreo, 1000), { once: true });
+    }
+
+    // failsafe: if choreography never ran, reveal everything after a few seconds
+    window.setTimeout(() => {
+        if (!document.querySelector('.stage-on')) document.documentElement.classList.add('fx-off');
+    }, 4000);
 
     let ticking = false;
     let lastY = window.scrollY;
@@ -265,15 +275,13 @@
             applyParallax(y);
             if (scrollCue) scrollCue.classList.toggle('is-gone', y > 120);
 
-            // feed free-scroll velocity into the hero warp tunnel too
             if (!reduceMotion) {
                 const v = Math.abs(y - lastY);
                 window.__warpBoost = Math.min(1.4, (window.__warpBoost || 0) + v / 700);
             }
             lastY = y;
 
-            // keep the tour controller in sync with whatever section is centred
-            const marker = y + window.innerHeight * 0.4;
+            const marker = y + window.innerHeight * 0.5;
             let idx = 0;
             stages.forEach((s, i) => {
                 if (marker >= s.el.getBoundingClientRect().top + window.scrollY) idx = i;
@@ -281,9 +289,9 @@
             if (Date.now() > navLock && idx !== activeIdx) {
                 activeIdx = idx;
                 syncTour();
-                fireWarp();   // every stage change (free-scroll snap too) gets a warp pulse
+                fireWarp();
+                playStage(idx);
             }
-
             ticking = false;
         });
     };

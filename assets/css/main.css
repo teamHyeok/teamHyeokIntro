@@ -1488,23 +1488,28 @@ a.feature-card:hover .feature-card__cta {
     }
 }
 
-/* ---------- scroll reveal (content comes alive) ----------
-   Entrance is a one-shot @keyframes animation (not a transition) so it never
-   collides with the pointer-tilt transform that cards use on hover.
-   Mobile gets a lighter, blur-free version (see the MOBILE block below). */
-.has-js [data-animate] {
-    opacity: 0;
+/* ---------- staccato stage choreography (content pops in like a game intro)
+   Each stage's items are hidden until the stage is active, then animate in one
+   after another (--i drives the delay). interactions.js owns the timing; this
+   replaces the old per-element scroll reveal. Base = mobile (blur-free). */
+.has-hud .fx { opacity: 0; }
+
+.has-hud .stage-on .fx {
+    animation: fx-pop 0.5s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+    animation-delay: calc(var(--i, 0) * 0.055s);
 }
 
-.has-js [data-animate].is-visible {
-    opacity: 1;
-    animation: warp-in 0.62s cubic-bezier(0.16, 1, 0.3, 1);
+@keyframes fx-pop {
+    0%   { opacity: 0; transform: translateY(22px) scale(0.96); }
+    100% { opacity: 1; transform: none; }
 }
 
-/* base / mobile warp-in: rushes in from depth, blur clears as it arrives */
-@keyframes warp-in {
-    0%   { opacity: 0; transform: translateY(38px) scale(0.86); filter: blur(5px); }
-    100% { opacity: 1; transform: none; filter: blur(0); }
+/* failsafe + reduced-motion: show everything, no animation */
+.fx-off .fx,
+html:not(.has-hud) .fx {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
 }
 
 /* ---------- keyframes ---------- */
@@ -1669,23 +1674,7 @@ section[id] { scroll-margin-top: 84px; }
 .has-js .hero__content,
 .has-js .hero__visual { will-change: transform; }
 
-/* ---------- SHARED: staggered group reveal (stats, principles) ---------- */
-.has-hud [data-stagger] > * {
-    opacity: 0;
-    transform: translateY(22px) scale(0.98);
-}
-
-.has-hud [data-stagger].stagger-in > * {
-    opacity: 1;
-    transform: none;
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.has-hud [data-stagger].stagger-done > * {
-    opacity: 1;
-    transform: none;
-}
+/* (group reveal is now handled by the per-stage .fx choreography) */
 
 /* ---------- SHARED: card spotlight scaffold ---------- */
 .feature-card > *,
@@ -1711,13 +1700,13 @@ section[id] { scroll-margin-top: 84px; }
  *  DESKTOP EXPERIENCE  (wide screens + fine pointer)
  * ================================================================== */
 @media (min-width: 769px) {
-    /* desktop warp-in: bigger jump from depth + heavier motion blur */
-    .has-js [data-animate].is-visible {
-        animation: warp-in-desktop 0.78s cubic-bezier(0.16, 1, 0.3, 1);
+    /* richer desktop entrance: bigger pop + motion blur clearing to sharp */
+    .has-hud .stage-on .fx {
+        animation: fx-pop-desktop 0.62s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+        animation-delay: calc(var(--i, 0) * 0.06s);
     }
-    @keyframes warp-in-desktop {
-        0%   { opacity: 0; transform: translateY(66px) scale(0.72); filter: blur(13px); }
-        58%  { opacity: 1; }
+    @keyframes fx-pop-desktop {
+        0%   { opacity: 0; transform: translateY(40px) scale(0.9); filter: blur(8px); }
         100% { opacity: 1; transform: none; filter: blur(0); }
     }
 
@@ -1809,12 +1798,7 @@ section[id] { scroll-margin-top: 84px; }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
 
-    .has-hud [data-stagger] > * {
-        opacity: 1;
-        transform: none;
-    }
-
-    .has-js [data-animate].is-visible { animation: none; }
+    .has-hud .fx { opacity: 1 !important; animation: none !important; transform: none !important; }
     .scroll-cue__dot { animation: none; }
 
     .has-js .hero__content,
@@ -1949,10 +1933,9 @@ section[id] { scroll-margin-top: 84px; }
  *  .has-hud once JS is on, so no-JS / SEO crawling keeps normal flow)
  * ================================================================== */
 .has-hud body {
-    /* proximity (not mandatory): each screen snaps into place, but long
-       stages like Works stay freely scrollable and never trap the page */
-    scroll-snap-type: y proximity;
-    scroll-padding-top: 64px;
+    /* mandatory: the page locks to one full screen at a time — you can't
+       free-scroll past everything */
+    scroll-snap-type: y mandatory;
 }
 
 .has-hud .hero,
@@ -1961,18 +1944,14 @@ section[id] { scroll-margin-top: 84px; }
 .has-hud #picks,
 .has-hud #apps {
     scroll-snap-align: start;
-    min-height: 100vh;
-    min-height: 100svh;
+    scroll-snap-stop: always;
+    height: 100vh;
+    height: 100svh;
+    overflow-y: auto;               /* a tall stage scrolls inside its own panel */
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     justify-content: safe center;   /* centre short stages, top-align tall ones */
-}
-
-/* firm stop on the short single-screen stages; tall stages scroll through */
-.has-hud .hero,
-.has-hud #stats,
-.has-hud #picks {
-    scroll-snap-stop: always;
 }
 
 /* never snap when the visitor prefers reduced motion */
@@ -1983,7 +1962,20 @@ section[id] { scroll-margin-top: 84px; }
     .has-hud #about,
     .has-hud #picks,
     .has-hud #apps {
-        min-height: 0;
+        height: auto;
+        overflow: visible;
         display: block;
     }
+}
+
+/* ---------- stats stage header ---------- */
+.stats__header {
+    margin-bottom: 30px;
+}
+.stats__header h2 {
+    margin: 12px 0 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 44px);
+    letter-spacing: -0.02em;
 }
