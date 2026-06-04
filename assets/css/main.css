@@ -1976,19 +1976,31 @@ section[id] { scroll-margin-top: 84px; }
 
 /* the merged "한번 써보세요" picks block sits under the numbers, one screen.
    span the full container so its left edge lines up with the numbers header
-   and the cards (no centred indent); keep the subtitle a readable length */
+   and the cards (no centred indent) */
 .stats__picks-head {
     max-width: none;
-    margin-top: 30px;
-    margin-bottom: 26px;
+    margin-top: 22px;
+    margin-bottom: 18px;
 }
-.stats__picks-head p {
-    max-width: 54ch;
+.stats__picks-head p { max-width: 54ch; }
+
+/* --- compact the merged Highlights stage so numbers + picks + CTA fit one
+   screen with clear room above the tour controller --- */
+.has-hud #stats .stats__header { margin-bottom: 12px; }
+.has-hud #stats .stat { padding: 16px clamp(18px, 2.4vw, 28px); }
+.has-hud #stats .stat__value { font-size: clamp(30px, 3.6vw, 44px); }
+.has-hud #stats .feature-card { padding: 18px 20px 16px; gap: 9px; }
+.has-hud #stats .feature-card__icon { width: 52px; height: 52px; }
+.has-hud #stats .feature-card__name { font-size: 19px; }
+.has-hud #stats .feature-card__tagline {
+    font-size: 13.5px;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;       /* keep cards short — full text on the detail page */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
-.has-hud #stats .stats__header { margin-bottom: 20px; }
-/* slightly tighter feature cards so the whole merged stage fits one screen */
-.has-hud #stats .feature-card { padding: 22px 22px 20px; gap: 11px; }
-.has-hud #stats .feature-card__icon { width: 60px; height: 60px; }
+.has-hud #stats .feature-card__cta { font-size: 12px; }
 
 /* ---------- "see all works" gateway bar ---------- */
 .works-cta {
@@ -1996,14 +2008,14 @@ section[id] { scroll-margin-top: 84px; }
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    margin-top: 38px;
-    padding: 22px 28px;
+    margin-top: 28px;
+    padding: 16px 18px 16px 24px;
     border-radius: 14px;
     cursor: pointer;
     text-align: left;
     color: var(--text);
     background: linear-gradient(180deg, var(--surface-2), var(--surface));
-    border: 1px solid var(--line-strong);
+    border: 1px solid var(--accent-line);
     position: relative;
     overflow: hidden;
     transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
@@ -2045,12 +2057,22 @@ section[id] { scroll-margin-top: 84px; }
 .works-cta__arrow {
     position: relative;
     flex: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
     font-family: var(--font-mono);
-    font-size: 24px;
-    color: var(--accent);
-    transition: transform 0.25s ease;
+    font-size: 20px;
+    color: #0a0c08;
+    background: var(--accent);
+    box-shadow: 0 0 0 rgba(212, 255, 63, 0);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.works-cta:hover .works-cta__arrow { transform: translateX(8px); }
+.works-cta:hover .works-cta__arrow {
+    transform: translateX(6px) scale(1.06);
+    box-shadow: 0 0 22px rgba(212, 255, 63, 0.55);
+}
 .stats__jump {
     display: inline-flex;
     align-items: center;
