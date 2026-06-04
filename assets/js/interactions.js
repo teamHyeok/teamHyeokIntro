@@ -24,8 +24,8 @@
      * ================================================================== */
     const STAGE_DEFS = [
         { id: 'hero', num: '01', label: 'Intro' },
-        { id: 'stats', num: '02', label: 'Highlights' },
-        { id: 'about', num: '03', label: 'Team' },
+        { id: 'about', num: '02', label: 'Team' },
+        { id: 'stats', num: '03', label: 'Highlights' },
         { id: 'apps', num: '04', label: 'Works' }
     ];
     const stages = STAGE_DEFS
