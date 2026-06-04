@@ -40,7 +40,7 @@
     // ordered selectors whose matches pop in, one after another, per stage
     const STAGE_FX = {
         hero: ['.hero__eyebrow', '.hero__title', '.hero__subtitle', '.hero__actions', '.hero-cluster'],
-        stats: ['.stats__header', '.stat', '.stats__picks-head', '.feature-card', '.stats__jump'],
+        stats: ['.stats__header', '.stat', '.stats__picks-head', '.feature-card', '.works-cta'],
         about: ['.section__header', '.principle'],
         apps: ['.section__header', '.filter-bar', '.app-card']
     };

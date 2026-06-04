@@ -1964,23 +1964,83 @@ section[id] { scroll-margin-top: 84px; }
     letter-spacing: -0.02em;
 }
 
-/* the merged "한번 써보세요" picks block sits under the numbers, one screen */
+/* the merged "한번 써보세요" picks block sits under the numbers, one screen.
+   span the full container so its left edge lines up with the numbers header
+   and the cards (no centred indent); keep the subtitle a readable length */
 .stats__picks-head {
+    max-width: none;
     margin-top: 30px;
     margin-bottom: 26px;
+}
+.stats__picks-head p {
+    max-width: 54ch;
 }
 .has-hud #stats .stats__header { margin-bottom: 20px; }
 /* slightly tighter feature cards so the whole merged stage fits one screen */
 .has-hud #stats .feature-card { padding: 22px 22px 20px; gap: 11px; }
 .has-hud #stats .feature-card__icon { width: 60px; height: 60px; }
 
-/* ---------- stats stage quick-jump shortcuts ---------- */
-.stats__jumps {
+/* ---------- "see all works" gateway bar ---------- */
+.works-cta {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 34px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 38px;
+    padding: 22px 28px;
+    border-radius: 14px;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--line-strong);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
+.works-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--accent-dim), transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.works-cta:hover {
+    border-color: var(--accent-line);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px -22px rgba(212, 255, 63, 0.5);
+}
+.works-cta:hover::before { transform: translateX(0); }
+
+.works-cta__text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(17px, 2vw, 21px);
+    letter-spacing: -0.01em;
+}
+.works-cta__text strong { color: var(--accent); }
+.works-cta__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+.works-cta__arrow {
+    position: relative;
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 24px;
+    color: var(--accent);
+    transition: transform 0.25s ease;
+}
+.works-cta:hover .works-cta__arrow { transform: translateX(8px); }
 .stats__jump {
     display: inline-flex;
     align-items: center;
