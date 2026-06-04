@@ -1937,6 +1937,16 @@ section[id] { scroll-margin-top: 84px; }
     padding-bottom: 96px;
 }
 
+/* keep panel children at their natural height — without this, a tall stage's
+   flex children get squished (e.g. the big numbers clip) instead of the panel
+   scrolling */
+.has-hud .hero > *,
+.has-hud #stats > *,
+.has-hud #about > *,
+.has-hud #apps > * {
+    flex-shrink: 0;
+}
+
 /* never snap when the visitor prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
     .has-hud body { scroll-snap-type: none; }
