@@ -1943,3 +1943,47 @@ section[id] { scroll-margin-top: 84px; }
 @media (prefers-reduced-motion: reduce) {
     .warp-flash { display: none; }
 }
+
+/* ================================================================== *
+ *  Snap deck — one full-screen stage per gesture (interactions.js sets
+ *  .has-hud once JS is on, so no-JS / SEO crawling keeps normal flow)
+ * ================================================================== */
+.has-hud body {
+    /* proximity (not mandatory): each screen snaps into place, but long
+       stages like Works stay freely scrollable and never trap the page */
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 64px;
+}
+
+.has-hud .hero,
+.has-hud #stats,
+.has-hud #about,
+.has-hud #picks,
+.has-hud #apps {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;   /* centre short stages, top-align tall ones */
+}
+
+/* firm stop on the short single-screen stages; tall stages scroll through */
+.has-hud .hero,
+.has-hud #stats,
+.has-hud #picks {
+    scroll-snap-stop: always;
+}
+
+/* never snap when the visitor prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .has-hud body { scroll-snap-type: none; }
+    .has-hud .hero,
+    .has-hud #stats,
+    .has-hud #about,
+    .has-hud #picks,
+    .has-hud #apps {
+        min-height: 0;
+        display: block;
+    }
+}

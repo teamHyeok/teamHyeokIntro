@@ -27,14 +27,16 @@
      * ================================================================== */
     const STAGE_DEFS = [
         { id: 'hero', num: '01', label: 'Intro' },
-        { id: 'about', num: '02', label: 'Team' },
-        { id: 'picks', num: '03', label: 'Picks' },
-        { id: 'apps', num: '04', label: 'Works' }
+        { id: 'stats', num: '02', label: 'Stats' },
+        { id: 'about', num: '03', label: 'Team' },
+        { id: 'picks', num: '04', label: 'Picks' },
+        { id: 'apps', num: '05', label: 'Works' }
     ];
     const stages = STAGE_DEFS
         .map(def => Object.assign({}, def, { el: document.getElementById(def.id) }))
         .filter(s => s.el);
     let activeIdx = 0;
+    let navLock = 0;   // ignore scroll-driven active updates during a programmatic jump
 
     /* ================================================================== *
      *  SHARED — scroll progress bar + warp flash
@@ -75,8 +77,9 @@
         const top = stages[i].el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
         fireWarp();
         window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? 'auto' : 'smooth' });
-        activeIdx = i;          // reflect immediately; scroll-sync keeps it honest after
+        activeIdx = i;          // reflect immediately
         syncTour();
+        navLock = Date.now() + 800;   // don't let the in-flight scroll revert us
     };
 
     const buildTour = () => {
@@ -275,7 +278,11 @@
             stages.forEach((s, i) => {
                 if (marker >= s.el.getBoundingClientRect().top + window.scrollY) idx = i;
             });
-            if (idx !== activeIdx) { activeIdx = idx; syncTour(); }
+            if (Date.now() > navLock && idx !== activeIdx) {
+                activeIdx = idx;
+                syncTour();
+                fireWarp();   // every stage change (free-scroll snap too) gets a warp pulse
+            }
 
             ticking = false;
         });
