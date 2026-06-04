@@ -1810,38 +1810,6 @@ section[id] { scroll-margin-top: 84px; }
  *  SHARED · DESKTOP · MOBILE
  * ================================================================== */
 
-/* directional warp sweep fired on every jump — a band of light rushes across
-   the screen in the travel direction (down = next, up = prev) */
-.warp-flash {
-    position: fixed;
-    inset: 0;
-    z-index: 34;
-    pointer-events: none;
-    opacity: 0;
-    background-image: linear-gradient(180deg,
-        transparent 36%,
-        rgba(212, 255, 63, 0.16) 47%,
-        rgba(232, 255, 170, 0.55) 50%,
-        rgba(212, 255, 63, 0.16) 53%,
-        transparent 64%);
-    background-repeat: no-repeat;
-    background-size: 100% 200%;
-    background-position: 0 -100%;
-}
-.warp-flash.is-down { animation: warp-sweep-down 0.52s cubic-bezier(0.4, 0, 0.2, 1); }
-.warp-flash.is-up { animation: warp-sweep-up 0.52s cubic-bezier(0.4, 0, 0.2, 1); }
-
-@keyframes warp-sweep-down {
-    0%   { opacity: 0; background-position: 0 -100%; }
-    20%  { opacity: 1; }
-    100% { opacity: 0; background-position: 0 200%; }
-}
-@keyframes warp-sweep-up {
-    0%   { opacity: 0; background-position: 0 200%; }
-    20%  { opacity: 1; }
-    100% { opacity: 0; background-position: 0 -100%; }
-}
-
 /* ---------- SHARED: tour controller ---------- */
 .tour {
     position: fixed;
@@ -1939,11 +1907,6 @@ section[id] { scroll-margin-top: 84px; }
     .tour__next { font-size: 13px; padding: 10px 18px; }
 }
 
-/* ---------- reduced motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-    .warp-flash { display: none; }
-}
-
 /* ================================================================== *
  *  Snap deck — one full-screen stage per gesture (interactions.js sets
  *  .has-hud once JS is on, so no-JS / SEO crawling keeps normal flow)
@@ -1995,6 +1958,11 @@ section[id] { scroll-margin-top: 84px; }
     font-weight: 700;
     font-size: clamp(28px, 4vw, 44px);
     letter-spacing: -0.02em;
+}
+
+/* the merged "한번 써보세요" picks block sits under the numbers, one screen */
+.stats__picks-head {
+    margin-top: 56px;
 }
 
 /* ---------- stats stage quick-jump shortcuts ---------- */

@@ -24,10 +24,9 @@
      * ================================================================== */
     const STAGE_DEFS = [
         { id: 'hero', num: '01', label: 'Intro' },
-        { id: 'stats', num: '02', label: 'Stats' },
+        { id: 'stats', num: '02', label: 'Highlights' },
         { id: 'about', num: '03', label: 'Team' },
-        { id: 'picks', num: '04', label: 'Picks' },
-        { id: 'apps', num: '05', label: 'Works' }
+        { id: 'apps', num: '04', label: 'Works' }
     ];
     const stages = STAGE_DEFS
         .map(def => Object.assign({}, def, { el: document.getElementById(def.id) }))
@@ -41,9 +40,8 @@
     // ordered selectors whose matches pop in, one after another, per stage
     const STAGE_FX = {
         hero: ['.hero__eyebrow', '.hero__title', '.hero__subtitle', '.hero__actions', '.hero-cluster'],
-        stats: ['.stats__header', '.stat', '.stats__jump'],
+        stats: ['.stats__header', '.stat', '.stats__picks-head', '.feature-card', '.stats__jump'],
         about: ['.section__header', '.principle'],
-        picks: ['.section__header', '.feature-card'],
         apps: ['.section__header', '.filter-bar', '.app-card']
     };
 
@@ -76,7 +74,6 @@
      *  Scroll progress bar + warp flash
      * ================================================================== */
     let progressFill = null;
-    let warpFlash = null;
     const buildOverlays = () => {
         const bar = document.createElement('div');
         bar.className = 'scroll-progress';
@@ -84,21 +81,11 @@
         progressFill.className = 'scroll-progress__fill';
         bar.appendChild(progressFill);
         document.body.appendChild(bar);
-
-        warpFlash = document.createElement('div');
-        warpFlash.className = 'warp-flash';
-        warpFlash.setAttribute('aria-hidden', 'true');
-        document.body.appendChild(warpFlash);
     };
 
-    const fireWarp = (dir = 1) => {
-        if (reduceMotion) return;
-        window.__warpBoost = 1.4;
-        if (warpFlash) {
-            warpFlash.classList.remove('is-up', 'is-down');
-            void warpFlash.offsetWidth;            // restart the sweep animation
-            warpFlash.classList.add(dir < 0 ? 'is-up' : 'is-down');
-        }
+    // nudge the hero warp tunnel (only visible while the Intro stage is on screen)
+    const fireWarp = () => {
+        if (!reduceMotion) window.__warpBoost = 1.4;
     };
 
     /* ================================================================== *
