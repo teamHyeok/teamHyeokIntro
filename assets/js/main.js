@@ -483,8 +483,13 @@ const initHeroCanvas = () => {
         // thrust drive: balls-to-the-wall, full throttle, no breathers — just keep ripping.
         // matches the team attitude: this kind of ride never lets off the gas.
         const flutter = 0.5 + 0.5 * Math.sin(elapsed * 1.5);   // light flutter keeps full throttle alive
-        const surge = reduceMotion ? 0 : 0.86 + 0.14 * flutter;
-        const speed = 0.72 * warp * (1 + 1.7 * surge);
+        // scroll-driven warp boost: interactions.js raises window.__warpBoost on
+        // fast scroll; we read it, then decay it here so the tunnel lunges when
+        // the visitor scrolls and eases back to cruise when they stop.
+        const scrollBoost = reduceMotion ? 0 : Math.min(1.4, window.__warpBoost || 0);
+        window.__warpBoost = reduceMotion ? 0 : scrollBoost * Math.exp(-dt / 0.35);
+        const surge = reduceMotion ? 0 : Math.min(1.25, 0.86 + 0.14 * flutter + scrollBoost * 0.4);
+        const speed = 0.72 * warp * (1 + 1.7 * surge) * (1 + scrollBoost * 0.9);
         focal = focalBase * (1 - 0.13 * surge);   // FOV widens on thrust — the tunnel lunges forward
 
         ctx.clearRect(0, 0, w, h);

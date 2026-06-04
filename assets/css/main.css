@@ -1498,12 +1498,13 @@ a.feature-card:hover .feature-card__cta {
 
 .has-js [data-animate].is-visible {
     opacity: 1;
-    animation: reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: warp-in 0.62s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes reveal-up {
-    from { opacity: 0; transform: translateY(28px) scale(0.985); }
-    to   { opacity: 1; transform: none; }
+/* base / mobile warp-in: rushes in from depth, blur clears as it arrives */
+@keyframes warp-in {
+    0%   { opacity: 0; transform: translateY(38px) scale(0.86); filter: blur(5px); }
+    100% { opacity: 1; transform: none; filter: blur(0); }
 }
 
 /* ---------- keyframes ---------- */
@@ -1710,13 +1711,14 @@ section[id] { scroll-margin-top: 84px; }
  *  DESKTOP EXPERIENCE  (wide screens + fine pointer)
  * ================================================================== */
 @media (min-width: 769px) {
-    /* richer, blurred entrance — content assembles with weight */
+    /* desktop warp-in: bigger jump from depth + heavier motion blur */
     .has-js [data-animate].is-visible {
-        animation: reveal-up-desktop 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        animation: warp-in-desktop 0.78s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    @keyframes reveal-up-desktop {
-        from { opacity: 0; transform: translateY(46px) scale(0.965); filter: blur(6px); }
-        to   { opacity: 1; transform: none; filter: blur(0); }
+    @keyframes warp-in-desktop {
+        0%   { opacity: 0; transform: translateY(66px) scale(0.72); filter: blur(13px); }
+        58%  { opacity: 1; }
+        100% { opacity: 1; transform: none; filter: blur(0); }
     }
 
     /* snappy transform so pointer-tilt tracks the cursor; entrance is a

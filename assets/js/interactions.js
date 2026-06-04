@@ -139,6 +139,7 @@
     }
 
     let ticking = false;
+    let lastY = window.scrollY;
     const onScroll = () => {
         if (ticking) return;
         ticking = true;
@@ -149,6 +150,14 @@
             if (progressFill) progressFill.style.transform = `scaleX(${progress})`;
             applyParallax(y);
             if (scrollCue) scrollCue.classList.toggle('is-gone', y > 120);
+
+            // feed scroll velocity into the hero warp tunnel — it lunges when you
+            // scroll and the canvas decays it back to cruise (see main.js)
+            if (!reduceMotion) {
+                const v = Math.abs(y - lastY);
+                window.__warpBoost = Math.min(1.4, (window.__warpBoost || 0) + v / 700);
+            }
+            lastY = y;
             ticking = false;
         });
     };
