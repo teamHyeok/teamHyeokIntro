@@ -1629,6 +1629,18 @@ a.feature-card:hover .feature-card__cta {
 html { scroll-behavior: smooth; }
 section[id] { scroll-margin-top: 84px; }
 
+/* HUD stays hidden behind the loading screen until the page reveals */
+.nav-rail,
+.scroll-progress {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.is-loaded .nav-rail,
+.is-loaded .scroll-progress {
+    opacity: 1;
+}
+
 /* ---------- top scroll-progress bar ---------- */
 .scroll-progress {
     position: fixed;

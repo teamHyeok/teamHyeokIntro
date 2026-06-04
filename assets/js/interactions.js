@@ -30,6 +30,8 @@
         .map(def => Object.assign({}, def, { el: document.getElementById(def.id) }))
         .filter(s => s.el);
 
+    const HEADER_OFFSET = 76;   // sticky top-bar clearance
+
     /* ------------------------------------------------------------------ *
      *  HUD: top progress bar + vertical section rail
      * ------------------------------------------------------------------ */
@@ -41,7 +43,8 @@
     const scrollToSection = idx => {
         const s = sections[idx];
         if (!s) return;
-        const top = s.el.getBoundingClientRect().top + window.scrollY - 4;
+        // clear the sticky top bar so the section heading isn't tucked behind it
+        const top = s.el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
         window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? 'auto' : 'smooth' });
     };
 
@@ -109,7 +112,12 @@
     };
 
     /* ------------------------------------------------------------------ *
-     *  Keyboard section stepping
+     *  Keyboard section stepping (J / K — power-user shortcut)
+     *
+     *  Deliberately NOT bound to the arrow / page keys: hijacking those
+     *  breaks the universal "nudge the page" expectation. J/K are rarely
+     *  used for scrolling, so they add a game-like control without
+     *  stealing native behaviour.
      * ------------------------------------------------------------------ */
     const onKeydown = e => {
         if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
@@ -117,12 +125,12 @@
         if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable)) return;
 
         let dir = 0;
-        if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'j' || e.key === 'J') dir = 1;
-        else if (e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'k' || e.key === 'K') dir = -1;
+        if (e.key === 'j' || e.key === 'J') dir = 1;
+        else if (e.key === 'k' || e.key === 'K') dir = -1;
         else return;
 
         const next = Math.min(sections.length - 1, Math.max(0, activeIdx + dir));
-        if (next === activeIdx) return;          // already at an edge — let the browser scroll
+        if (next === activeIdx) return;
         e.preventDefault();
         scrollToSection(next);
     };
