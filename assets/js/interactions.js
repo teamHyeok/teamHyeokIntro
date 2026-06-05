@@ -36,6 +36,10 @@
             picksSection.appendChild(picksHead);
             picksSection.appendChild(picksGrid);
             picksSection.removeAttribute('hidden');
+            // put the spotlight pick first in the DOM so the cinematic staggered
+            // reveal fires in visual order (hero → rows), not render order
+            const heroCard = picksGrid.querySelector('.feature-card--hero');
+            if (heroCard) picksGrid.insertBefore(heroCard, picksGrid.firstChild);
         }
     }
 
