@@ -1898,16 +1898,34 @@ section[id] { scroll-margin-top: 84px; }
 @media (max-width: 768px) {
     .tour { display: none; }
 
-    /* gentle scene-snapping: each section eases into place as you scroll
-       (proximity, so long sections never trap and you can stop anywhere) */
-    .has-hud body {
-        scroll-snap-type: y proximity;
-        scroll-padding-top: 64px;
+    /* SCENE DECK: each section is a full screen; one swipe snaps decisively to
+       the next (mandatory). Long content scrolls inside its own scene, contained
+       so it never leaks into the page snap. */
+    .has-hud body { scroll-snap-type: y mandatory; }
+
+    .has-hud .hero {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
     }
-    .has-hud .hero,
     .has-hud #about,
     .has-hud #stats,
-    .has-hud #apps { scroll-snap-align: start; }
+    .has-hud #apps {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        height: 100vh;
+        height: 100svh;
+        overflow-y: auto;          /* a slightly tall scene scrolls inside, then
+                                      a further swipe chains to the next scene */
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: safe center;
+        padding-top: 70px;
+        padding-bottom: 26px;
+    }
+    .has-hud #about > *,
+    .has-hud #stats > *,
+    .has-hud #apps > * { flex-shrink: 0; }
 
     /* ---- cinematic full-screen hero: the warp fills the whole screen and the
        headline rises over it ---- */
@@ -2035,10 +2053,12 @@ section[id] { scroll-margin-top: 84px; }
         50% { transform: translateY(5px); opacity: 1; }
     }
 
-    /* Picks & Works become horizontal swipe carousels (app-shelf style) instead
-       of an endless vertical stack — far more "mobile" and dynamic */
+    /* Picks, Works AND the principles become horizontal swipe carousels
+       (app-shelf style) so each scene fits one screen instead of an endless
+       vertical stack — far more "mobile" and dynamic */
     .feature-grid,
-    .app-grid {
+    .app-grid,
+    .principles {
         display: flex;
         grid-template-columns: none;
         overflow-x: auto;
@@ -2049,18 +2069,20 @@ section[id] { scroll-margin-top: 84px; }
         padding: 4px 24px 16px 4px;     /* trailing space so the last card can centre/peek */
         margin-right: -24px;            /* let the shelf run toward the screen edge */
         -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
-    .feature-grid { scrollbar-width: none; }
-    .app-grid { scrollbar-width: none; }
     .feature-grid::-webkit-scrollbar,
-    .app-grid::-webkit-scrollbar { display: none; }
+    .app-grid::-webkit-scrollbar,
+    .principles::-webkit-scrollbar { display: none; }
 
     .feature-card,
-    .app-card {
+    .app-card,
+    .principle {
         flex: 0 0 80%;
         max-width: 320px;
         scroll-snap-align: start;
     }
+    .principle { min-height: 132px; }
 }
 
 /* ================================================================== *
@@ -2085,7 +2107,8 @@ section[id] { scroll-margin-top: 84px; }
 
     /* carousel cards focus as they pass the centre while you swipe */
     .scroll-fx #stats .feature-card,
-    .scroll-fx #apps .app-card {
+    .scroll-fx #apps .app-card,
+    .scroll-fx #about .principle {
         animation: card-focus linear both;
         animation-timeline: view(inline);
         animation-range: entry 0% exit 100%;
