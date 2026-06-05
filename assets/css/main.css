@@ -2103,3 +2103,30 @@ section[id] { scroll-margin-top: 84px; }
     transform: translateY(-2px);
 }
 .stats__jump:hover span { transform: translateX(3px); }
+
+/* ================================================================== *
+ *  Sleek on-brand scrollbars (panels + page)
+ * ================================================================== */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 255, 63, 0.45) transparent;
+}
+::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    background-image: linear-gradient(180deg, rgba(212, 255, 63, 0.55), rgba(212, 255, 63, 0.22));
+}
+::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(180deg, rgba(212, 255, 63, 0.9), rgba(212, 255, 63, 0.5));
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
