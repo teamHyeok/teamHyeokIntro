@@ -208,8 +208,8 @@ const createFeatureCard = ({ slug, label, hook, hero }) => {
         : `<span class="feature-card__shot feature-card__shot--brand"><img src="${app.icon}" alt="" loading="lazy"></span>`;
     card.innerHTML = `
         ${shotMarkup}
-        <span class="feature-card__label">${label}</span>
         <span class="feature-card__body">
+            <span class="feature-card__label">${label}</span>
             <span class="feature-card__icon">
                 <img src="${app.icon}" alt="${app.name} 아이콘" loading="lazy">
             </span>
