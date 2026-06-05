@@ -2063,12 +2063,11 @@ section[id] { scroll-margin-top: 84px; }
         50% { transform: translateY(5px); opacity: 1; }
     }
 
-    /* Picks, Works AND the principles become horizontal swipe carousels
-       (app-shelf style) so each scene fits one screen instead of an endless
-       vertical stack — far more "mobile" and dynamic */
+    /* Picks & Works become horizontal swipe carousels (app-shelf style) — those
+       are visual cards you flick through. The principles do NOT: a 9-card
+       drag-through is tedious and nobody reads a manifesto that way. */
     .feature-grid,
-    .app-grid,
-    .principles {
+    .app-grid {
         display: flex;
         grid-template-columns: none;
         overflow-x: auto;
@@ -2082,17 +2081,50 @@ section[id] { scroll-margin-top: 84px; }
         scrollbar-width: none;
     }
     .feature-grid::-webkit-scrollbar,
-    .app-grid::-webkit-scrollbar,
-    .principles::-webkit-scrollbar { display: none; }
+    .app-grid::-webkit-scrollbar { display: none; }
 
     .feature-card,
-    .app-card,
-    .principle {
+    .app-card {
         flex: 0 0 80%;
         max-width: 320px;
         scroll-snap-align: start;
     }
-    .principle { min-height: 132px; }
+
+    /* ---- Team principles: a compact vertical MANIFESTO, read top-to-bottom.
+       Reads like a rules file (// NN · mono · lime) — on-brand for the dev team.
+       Each line cascades in on arrival (it's a .fx), so it's lively, not static,
+       and you take it all in at a glance instead of dragging through 9 cards. ---- */
+    #about .section__header { margin-bottom: 18px; }
+    #about .section__header p { font-size: 13.5px; line-height: 1.6; }
+
+    .principles {
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: none;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+    }
+    .principle {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: baseline;
+        gap: 13px;
+        min-height: 0;
+        max-width: none;
+        padding: 11.5px 2px;
+        margin: 0;
+        background: none;
+        border: none;
+        border-top: 1px solid var(--line);
+        border-radius: 0;
+        transition: none;
+    }
+    .principle:first-child { border-top: none; }
+    .principle::after { display: none; }      /* drop the desktop hover accent bar */
+    .principle__num { font-size: 12.5px; line-height: 1.5; }
+    .principle__num::before { margin-right: 3px; }
+    .principle p { font-size: 14.5px; line-height: 1.5; }
 }
 
 /* ================================================================== *
