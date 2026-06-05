@@ -2268,6 +2268,20 @@ section[id] { scroll-margin-top: 84px; }
 }
 .has-hud #stats .feature-card__cta { font-size: 12px; }
 
+/* --- MOBILE: make the merged Highlights (numbers + picks) read as one clean
+   screen. The big "전부 둘러보기" gateway is redundant on mobile — a swipe already
+   advances to Works — so hide it and tighten the spacing to fit. --- */
+@media (max-width: 768px) {
+    #stats .works-cta { display: none; }
+
+    .has-hud #stats .stats__header { margin-bottom: 8px; }
+    #stats .stats__picks-head { margin-top: 12px; margin-bottom: 10px; }
+    #stats .stats__picks-head p { font-size: 13.5px; }
+    .has-hud #stats .stat { padding: 12px 16px; }
+    .has-hud #stats .feature-card { padding: 15px 16px 13px; gap: 8px; }
+    .has-hud #stats .feature-card__icon { width: 46px; height: 46px; }
+}
+
 /* ---------- "see all works" gateway bar ---------- */
 .works-cta {
     display: flex;
