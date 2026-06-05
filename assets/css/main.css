@@ -2446,183 +2446,135 @@ section[id] { scroll-margin-top: 84px; }
 }
 
 @media (max-width: 768px) {
-    /* ---- EDITORIAL LIST: one big hero (screenshot) + three compact rows.
-       No horizontal carousel (nobody swipes through four), no garish glow. ---- */
-    .feature-grid {
+    /* =====================================================================
+       Editor's Picks — REDESIGN. Drops the muddy marketing screenshots and the
+       sticker-pill labels. Leads with the polished app ICONS, a quiet mono rank
+       label, confident type and soft elevated cards. A #1 spotlight (bigger
+       icon + CTA) sits above three clean rows.
+       ===================================================================== */
+    #picks .feature-grid {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         overflow: visible;
         margin: 0;
         padding: 0;
         scroll-snap-type: none;
     }
 
-    /* kill the cheap lime border + hover/active glow on touch */
-    .feature-card::before { display: none; }
-    a.feature-card:hover,
-    a.feature-card:focus {
-        transform: none;
-        box-shadow: none;
-        border-color: var(--line-strong);
-    }
-    a.feature-card:active { background: var(--surface-2); }   /* a quiet press state */
-
-    /* reset the carousel sizing (flex:0 0 80% sized the HEIGHT in this column).
-       On mobile the picks live in their own #picks scene (see interactions.js). */
+    /* soft elevated card — no harsh border, no lime glow. padding:0 because the
+       body grid owns the inner spacing (else the base card padding doubles up) */
     #picks .feature-card {
-        padding: 0;
-        gap: 0;
-        overflow: hidden;
         flex: none;
         max-width: none;
         scroll-snap-align: none;
+        padding: 0;
+        gap: 0;
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        position: relative;
+        transition: background 0.16s ease, transform 0.16s ease;
     }
-    /* mobile uses the hook, never the tagline */
+    #picks .feature-card::before { display: none; }
+    #picks a.feature-card:hover,
+    #picks a.feature-card:focus { transform: none; box-shadow: none; border-color: var(--line); }
+    #picks a.feature-card:active { background: var(--surface); transform: scale(0.99); }
+
+    /* the icon leads — never the screenshot or the long tagline */
+    #picks .feature-card__shot,
     #picks .feature-card__tagline { display: none; }
 
-    /* ============================== HERO ============================== */
-    .feature-card--hero { order: -1; }
-
-    .feature-card--hero .feature-card__shot {
-        position: relative;
-        display: block;
-        width: 100%;
-        height: 154px;
-        overflow: hidden;
-        background: var(--surface-2);
-    }
-    .feature-card--hero .feature-card__shot img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top center;
-        display: block;
-    }
-    .feature-card--hero .feature-card__shot::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, transparent 48%, rgba(15, 17, 22, 0.55) 80%, var(--surface) 100%);
-        pointer-events: none;
-    }
-    .feature-card--hero .feature-card__shot--brand {
-        display: grid;
-        place-items: center;
-        background:
-            radial-gradient(120% 130% at 50% 0%, rgba(212, 255, 63, 0.16), transparent 62%),
-            linear-gradient(180deg, #1b1d23, var(--surface));
-    }
-    .feature-card--hero .feature-card__shot--brand img {
-        width: 72px;
-        height: 72px;
-        object-fit: contain;
-        border-radius: 18px;
-        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
-    }
-    .feature-card--hero .feature-card__shot--brand::after { display: none; }
-
-    .feature-card--hero .feature-card__label {
-        grid-area: label;
-        justify-self: start;
-        align-self: center;
-        margin: 0;
-    }
-    .feature-card--hero .feature-card__body {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-areas:
-            "label label"
-            "icon  name"
-            "hook  hook"
-            "cta   cta";
-        column-gap: 11px;
-        row-gap: 8px;
-        align-items: center;
-        padding: 14px 16px 15px;
-    }
-    .feature-card--hero .feature-card__icon { grid-area: icon; width: 44px; height: 44px; margin: 0; }
-    .feature-card--hero .feature-card__name { grid-area: name; font-size: 19px; align-self: center; }
-    .feature-card--hero .feature-card__tagline { display: none; }
-    .feature-card--hero .feature-card__hook {
-        grid-area: hook;
-        display: block;
-        margin: 0;
-        font-size: 14.5px;
-        line-height: 1.45;
-        color: var(--text);
-        font-weight: 500;
-    }
-    .feature-card--hero .feature-card__cta { grid-area: cta; margin: 2px 0 0; font-size: 12.5px; }
-
-    /* ============================== ROWS ============================== */
-    /* the other three: a mini-card — [icon] label / name / hook, with a chevron.
-       (body is a real grid, NOT display:contents, to avoid track-sizing quirks) */
-    .feature-card:not(.feature-card--hero) {
-        display: block;
+    /* quiet rank label — mono, lime, spaced. NOT a pill. */
+    #picks .feature-card__label {
+        background: none;
+        border: none;
         padding: 0;
-        position: relative;
-    }
-    .feature-card:not(.feature-card--hero) .feature-card__shot,
-    .feature-card:not(.feature-card--hero) .feature-card__tagline,
-    .feature-card:not(.feature-card--hero) .feature-card__cta { display: none; }
-
-    .feature-card:not(.feature-card--hero) .feature-card__body {
-        display: grid;
-        grid-template-columns: 46px 1fr;
-        grid-template-areas:
-            "icon label"
-            "icon name"
-            "icon hook";
-        column-gap: 13px;
-        row-gap: 3px;
-        align-items: center;
-        padding: 13px 38px 13px 13px;   /* right room for the chevron */
-    }
-    .feature-card:not(.feature-card--hero) .feature-card__icon {
-        grid-area: icon;
-        width: 46px;
-        height: 46px;
         margin: 0;
-        align-self: center;
-    }
-    .feature-card:not(.feature-card--hero) .feature-card__label {
-        grid-area: label;
-        position: static;
-        justify-self: start;
-        align-self: end;
-        margin: 0;
-        padding: 1px 8px;
-        font-size: 10px;
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        color: var(--accent);
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
     }
-    .feature-card:not(.feature-card--hero) .feature-card__name {
-        grid-area: name;
-        font-size: 16px;
-        line-height: 1.15;
-        align-self: center;
-    }
-    .feature-card:not(.feature-card--hero) .feature-card__hook {
-        grid-area: hook;
+    #picks .feature-card__name { margin: 0; font-weight: 600; letter-spacing: -0.01em; color: var(--text); }
+    #picks .feature-card__hook {
         display: block;
         margin: 0;
-        align-self: start;
-        font-size: 12.5px;
-        line-height: 1.3;
         color: var(--text-muted);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .feature-card:not(.feature-card--hero)::after {
+    /* a hair of a ring so the (often dark) app icons read on the dark card */
+    #picks .feature-card__icon {
+        margin: 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24%;
+    }
+
+    /* ---- three clean rows: [icon] label / name / hook  → ---- */
+    #picks .feature-card:not(.feature-card--hero) .feature-card__body {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        grid-template-areas:
+            "icon label"
+            "icon name"
+            "icon hook";
+        column-gap: 14px;
+        row-gap: 2px;
+        align-items: center;
+        padding: 15px 42px 15px 15px;
+    }
+    #picks .feature-card:not(.feature-card--hero) .feature-card__icon { grid-area: icon; width: 56px; height: 56px; align-self: center; }
+    #picks .feature-card:not(.feature-card--hero) .feature-card__label { grid-area: label; align-self: end; }
+    #picks .feature-card:not(.feature-card--hero) .feature-card__name { grid-area: name; font-size: 17px; align-self: center; }
+    #picks .feature-card:not(.feature-card--hero) .feature-card__hook { grid-area: hook; align-self: start; font-size: 12.5px; line-height: 1.3; }
+    #picks .feature-card:not(.feature-card--hero) .feature-card__cta { display: none; }
+    #picks .feature-card:not(.feature-card--hero)::after {
         content: "→";
         position: absolute;
-        right: 14px;
+        right: 16px;
         top: 50%;
         transform: translateY(-50%);
-        color: var(--accent);
+        color: var(--text-dim);
         font-family: var(--font-mono);
         font-size: 16px;
+    }
+
+    /* ---- #1 spotlight: bigger icon, large name, a real CTA ---- */
+    .feature-card--hero { order: -1; }
+    #picks .feature-card--hero .feature-card__body {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        grid-template-areas:
+            "icon label"
+            "icon name"
+            "icon hook"
+            "cta  cta";
+        column-gap: 16px;
+        row-gap: 4px;
+        align-items: center;
+        padding: 20px 20px 18px;
+    }
+    #picks .feature-card--hero .feature-card__icon { grid-area: icon; width: 72px; height: 72px; align-self: center; }
+    #picks .feature-card--hero .feature-card__label { grid-area: label; align-self: end; font-size: 11px; }
+    #picks .feature-card--hero .feature-card__name { grid-area: name; font-size: 23px; align-self: center; line-height: 1.1; }
+    #picks .feature-card--hero .feature-card__hook {
+        grid-area: hook;
+        align-self: start;
+        white-space: normal;
+        font-size: 13.5px;
+        line-height: 1.4;
+        color: var(--text-muted);
+    }
+    #picks .feature-card--hero .feature-card__cta {
+        grid-area: cta;
+        margin: 10px 0 0;
+        font-size: 13px;
+        color: var(--accent);
     }
 }
