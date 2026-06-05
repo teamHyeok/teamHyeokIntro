@@ -36,10 +36,58 @@
             picksSection.appendChild(picksHead);
             picksSection.appendChild(picksGrid);
             picksSection.removeAttribute('hidden');
-            // put the spotlight pick first in the DOM so the cinematic staggered
-            // reveal fires in visual order (hero → rows), not render order
+            // put the spotlight pick first so the roster opens on it
             const heroCard = picksGrid.querySelector('.feature-card--hero');
             if (heroCard) picksGrid.insertBefore(heroCard, picksGrid.firstChild);
+
+            /* ---- CHARACTER SELECT: each pick is a full-bleed, color-themed stage
+               you swipe through (native scroll-snap), with a thumbnail roster of
+               all four below. The active thumbnail + the stage theme follow the
+               most-visible slide. ---- */
+            const csCards = [...picksGrid.querySelectorAll('.feature-card')];
+            if (csCards.length) {
+                picksSection.classList.add('picks-cs');
+                const themeOf = c => c.style.getPropertyValue('--theme') || 'var(--accent)';
+
+                const rail = document.createElement('div');
+                rail.className = 'picks-rail';
+                csCards.forEach((card, i) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = 'picks-rail__dot';
+                    dot.setAttribute('aria-label', (card.querySelector('.feature-card__name') || {}).textContent || ('추천 ' + (i + 1)));
+                    dot.style.setProperty('--theme', themeOf(card));
+                    const ic = card.querySelector('.feature-card__icon img');
+                    dot.innerHTML = '<img src="' + (ic ? ic.getAttribute('src') : '') + '" alt="" aria-hidden="true">';
+                    rail.appendChild(dot);
+                });
+                picksGrid.after(rail);
+                const dots = [...rail.children];
+
+                const setActive = idx => {
+                    const i = Math.max(0, Math.min(csCards.length - 1, idx));
+                    dots.forEach((d, n) => d.classList.toggle('is-on', n === i));
+                    picksSection.style.setProperty('--stage-theme', themeOf(csCards[i]));
+                };
+
+                // tap a thumbnail → glide to that slide (+ theme it immediately)
+                dots.forEach((dot, i) => dot.addEventListener('click', () => {
+                    picksGrid.scrollTo({ left: i * picksGrid.clientWidth, behavior: reduceMotion ? 'auto' : 'smooth' });
+                    setActive(i);
+                }));
+
+                // active thumbnail + stage theme follow the visible slide on swipe
+                let csRaf = 0;
+                picksGrid.addEventListener('scroll', () => {
+                    if (csRaf) return;
+                    csRaf = requestAnimationFrame(() => {
+                        csRaf = 0;
+                        setActive(Math.round(picksGrid.scrollLeft / (picksGrid.clientWidth || 1)));
+                    });
+                }, { passive: true });
+
+                setActive(0);
+            }
         }
     }
 

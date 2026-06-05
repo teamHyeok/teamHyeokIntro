@@ -2712,3 +2712,175 @@ section[id] { scroll-margin-top: 84px; }
         .has-hud #picks.stage-on .feature-card::before { animation: none; opacity: 0; }
     }
 }
+
+/* ================================================================== *
+ *  CHARACTER SELECT (mobile) — JS adds #picks.picks-cs. Each pick is a
+ *  full-bleed, color-themed stage you swipe through (native scroll-snap),
+ *  with a thumbnail roster of all four below. The ambient glow + active
+ *  thumbnail follow the visible slide. Overrides the bento (which stays as
+ *  the no-JS fallback). Verified layout in preview; motion is device-only.
+ * ================================================================== */
+@media (max-width: 768px) {
+    #picks.picks-cs { position: relative; }
+    /* ambient glow that morphs to the active app's colour */
+    #picks.picks-cs::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 41%;
+        width: 130%;
+        height: 56%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(closest-side,
+            color-mix(in srgb, var(--stage-theme, var(--accent)) 22%, transparent), transparent 72%);
+        opacity: 0.7;
+        filter: blur(6px);
+        pointer-events: none;
+        z-index: 0;
+        transition: background 0.55s ease;
+    }
+    #picks.picks-cs .container,
+    #picks.picks-cs .picks-rail { position: relative; z-index: 1; }
+
+    /* the stage: full-width slides, native horizontal snap */
+    #picks.picks-cs .feature-grid {
+        display: flex;
+        grid-template-columns: none;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        align-items: stretch;
+    }
+    #picks.picks-cs .feature-grid::-webkit-scrollbar { display: none; }
+
+    #picks.picks-cs .feature-card {
+        flex: 0 0 100%;
+        max-width: none;
+        grid-column: auto;
+        scroll-snap-align: center;
+        opacity: 1;
+        background: none;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+        overflow: visible;
+    }
+    #picks.picks-cs .feature-card::before,
+    #picks.picks-cs .feature-card::after { content: none; }
+
+    /* each slide is a centred stage */
+    #picks.picks-cs .feature-card .feature-card__body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+        padding: 6px 7vw 2px;
+    }
+    #picks.picks-cs .feature-card .feature-card__label {
+        order: 0;
+        align-self: center;
+        margin: 0;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--theme) 16%, transparent);
+        color: var(--theme);
+        font-size: 11px;
+    }
+    #picks.picks-cs .feature-card .feature-card__icon {
+        order: 1;
+        width: 94px;
+        height: 94px;
+        border-radius: 24%;
+        margin: 4px 0 2px;
+        border: 1px solid color-mix(in srgb, var(--theme) 45%, rgba(255, 255, 255, 0.12));
+        box-shadow: 0 16px 42px -10px color-mix(in srgb, var(--theme) 65%, transparent);
+    }
+    #picks.picks-cs .feature-card .feature-card__name {
+        order: 2;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text);
+    }
+    #picks.picks-cs .feature-card .feature-card__hook {
+        order: 3;
+        display: block;
+        white-space: normal;
+        font-size: 14px;
+        line-height: 1.5;
+        max-width: 28ch;
+        color: var(--text-muted);
+    }
+    #picks.picks-cs .feature-card .feature-card__tagline { display: none; }
+    #picks.picks-cs .feature-card .feature-card__cta {
+        order: 4;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin: 8px 0 0;
+        padding: 11px 22px;
+        border: none;
+        border-radius: 999px;
+        background: var(--theme);
+        color: #0a0c08;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* the roster of all four */
+    .picks-rail {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin: 18px 0 0;
+        padding: 0;
+    }
+    .picks-rail__dot {
+        width: 46px;
+        height: 46px;
+        flex: none;
+        padding: 0;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: var(--surface-2);
+        overflow: hidden;
+        opacity: 0.4;
+        transform: scale(0.88);
+        transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        cursor: pointer;
+    }
+    .picks-rail__dot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .picks-rail__dot.is-on {
+        opacity: 1;
+        transform: scale(1.06);
+        border-color: var(--theme);
+        box-shadow: 0 8px 20px -6px color-mix(in srgb, var(--theme) 65%, transparent);
+    }
+
+    /* entrance: rise the stage + roster in on arrival (no per-card tilt here —
+       it would fight the horizontal scroller) */
+    #picks.picks-cs.stage-on .feature-card { animation: none; }
+    #picks.picks-cs.stage-on .feature-card .feature-card__body {
+        animation: cs-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    #picks.picks-cs.stage-on .picks-rail {
+        animation: cs-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+    }
+    @keyframes cs-rise {
+        from { opacity: 0; transform: translateY(18px); }
+        to   { opacity: 1; transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        #picks.picks-cs.stage-on .feature-card .feature-card__body,
+        #picks.picks-cs.stage-on .picks-rail { animation: none; }
+    }
+}
