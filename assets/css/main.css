@@ -1499,6 +1499,11 @@ a.feature-card:hover .feature-card__cta {
     animation-delay: calc(var(--i, 0) * 0.055s);
 }
 
+/* mobile reveals each element individually as it scrolls into view */
+.has-hud .fx.in {
+    animation: fx-pop 0.5s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
 @keyframes fx-pop {
     0%   { opacity: 0; transform: translateY(22px) scale(0.96); }
     100% { opacity: 1; transform: none; }
@@ -1887,71 +1892,53 @@ section[id] { scroll-margin-top: 84px; }
     .tour__next { font-size: 13px; padding: 9px 18px; }
 }
 
-/* ---------- MOBILE: full-width bottom bar ---------- */
+/* ---------- MOBILE: no deck, no tour bar — just a natural scroll ---------- */
 @media (max-width: 768px) {
-    body { padding-bottom: 62px; }
-    .tour {
-        left: 0;
-        right: 0;
-        bottom: 0;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 10px 16px;
-        border-left: 0;
-        border-right: 0;
-        border-bottom: 0;
-    }
-    .tour__meta { font-size: 11px; }
-    .tour__idx { display: inline; }
-    .tour__prev { width: 38px; height: 38px; font-size: 16px; }
-    .tour__next { font-size: 13px; padding: 10px 18px; }
+    .tour { display: none; }
 }
 
 /* ================================================================== *
- *  Snap deck — one full-screen stage per gesture (interactions.js sets
- *  .has-hud once JS is on, so no-JS / SEO crawling keeps normal flow)
+ *  Snap deck — DESKTOP ONLY. One full-screen stage at a time, stepped
+ *  through with the tour/wheel/keys (see interactions.js). Mobile keeps a
+ *  natural document scroll (the deck is never applied there).
  * ================================================================== */
-.has-hud body {
-    /* proximity, because JS turns each wheel/swipe gesture into a single
-       scene jump (see interactions.js); this just keeps things aligned and
-       assists touch */
-    scroll-snap-type: y proximity;
-}
+@media (min-width: 769px) {
+    .has-hud body {
+        /* proximity — JS turns each wheel/key into a single scene jump and
+           this keeps things aligned */
+        scroll-snap-type: y proximity;
+    }
 
-.has-hud .hero,
-.has-hud #stats,
-.has-hud #about,
-.has-hud #apps {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    height: 100vh;
-    height: 100svh;
-    overflow-y: auto;               /* a tall stage scrolls inside its own panel */
-    overflow-x: hidden;
-    overscroll-behavior: contain;   /* keep inner scroll from leaking into the page
-                                       (scene changes are handled by JS, so this
-                                       won't trap) — prevents the half-snap clipping */
-    display: flex;
-    flex-direction: column;
-    justify-content: safe center;   /* centre short stages, top-align tall ones */
-    /* clear the sticky top bar and the bottom tour controller so content
-       never tucks behind either */
-    padding-top: 78px;
-    padding-bottom: 96px;
-}
+    .has-hud .hero,
+    .has-hud #stats,
+    .has-hud #about,
+    .has-hud #apps {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        height: 100vh;
+        height: 100svh;
+        overflow-y: auto;               /* a tall stage scrolls inside its own panel */
+        overflow-x: hidden;
+        overscroll-behavior: contain;   /* inner scroll never leaks into the page */
+        display: flex;
+        flex-direction: column;
+        justify-content: safe center;   /* centre short stages, top-align tall ones */
+        padding-top: 78px;              /* clear the sticky top bar */
+        padding-bottom: 96px;          /* clear the bottom tour controller */
+    }
 
-/* keep panel children at their natural height — without this, a tall stage's
-   flex children get squished (e.g. the big numbers clip) instead of the panel
-   scrolling */
-.has-hud .hero > *,
-.has-hud #stats > *,
-.has-hud #about > *,
-.has-hud #apps > * {
-    flex-shrink: 0;
+    /* keep panel children at natural height so tall stages scroll rather than
+       squish (otherwise the big numbers clip) */
+    .has-hud .hero > *,
+    .has-hud #stats > *,
+    .has-hud #about > *,
+    .has-hud #apps > * {
+        flex-shrink: 0;
+    }
 }
 
 /* never snap when the visitor prefers reduced motion */
-@media (prefers-reduced-motion: reduce) {
+@media (min-width: 769px) and (prefers-reduced-motion: reduce) {
     .has-hud body { scroll-snap-type: none; }
     .has-hud .hero,
     .has-hud #stats,

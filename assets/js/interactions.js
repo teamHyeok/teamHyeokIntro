@@ -15,7 +15,9 @@
     'use strict';
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+    // use the actual viewport width (matches the CSS 769px breakpoint); defaults
+    // to the mobile track on any uncertainty rather than forcing the deck
+    const isDesktop = window.innerWidth >= 769;
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const HEADER_OFFSET = 0;   // panels are full-height; snap aligns them to the top
 
@@ -276,77 +278,112 @@
 
     buildStageFx();
     buildOverlays();
-    buildTour();
 
-    if (isDesktop && finePointer && !reduceMotion) {
-        initTilt();
-        initMagnetic();
-    }
-    // quick-jump shortcuts (e.g. on the Stats stage) that warp straight to a stage
+    // quick-jump shortcuts work on both tracks (desktop warps, mobile scrolls)
     document.querySelectorAll('[data-jump]').forEach(btn => {
         btn.addEventListener('click', () => {
             const i = stages.findIndex(s => s.id === btn.dataset.jump);
-            if (i >= 0) goTo(i);
+            if (i < 0) return;
+            if (isDesktop) goTo(i);
+            else stages[i].el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         });
     });
 
-    window.addEventListener('keydown', onKeydown);
-    if (!reduceMotion) {
-        window.addEventListener('wheel', onWheel, { passive: false });
-        window.addEventListener('touchstart', onTouchStart, { passive: true });
-        window.addEventListener('touchend', onTouchEnd, { passive: true });
-    }
-
-    // kick off the first stage's entrance once the page has finished revealing
-    const startChoreo = () => playStage(activeIdx);
-    if (reduceMotion) {
-        document.documentElement.classList.add('fx-off');   // CSS reveals everything
-    } else if (document.body.classList.contains('is-loaded')) {
-        window.setTimeout(startChoreo, 250);
-    } else {
-        window.addEventListener('load', () => window.setTimeout(startChoreo, 1000), { once: true });
-    }
-
-    // failsafe: if choreography never ran, reveal everything after a few seconds
-    window.setTimeout(() => {
-        if (!document.querySelector('.stage-on')) document.documentElement.classList.add('fx-off');
-    }, 4000);
-
     let ticking = false;
     let lastY = window.scrollY;
-    const onScroll = () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-            const y = window.scrollY;
-            const docH = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docH > 0 ? Math.min(1, Math.max(0, y / docH)) : 0;
-            if (progressFill) progressFill.style.transform = `scaleX(${progress})`;
-            applyParallax(y);
-            if (scrollCue) scrollCue.classList.toggle('is-gone', y > 120);
-
-            if (!reduceMotion) {
-                const v = Math.abs(y - lastY);
-                window.__warpBoost = Math.min(1.4, (window.__warpBoost || 0) + v / 700);
-            }
-            lastY = y;
-
-            const marker = y + window.innerHeight * 0.5;
-            let idx = 0;
-            stages.forEach((s, i) => {
-                if (marker >= s.el.getBoundingClientRect().top + window.scrollY) idx = i;
-            });
-            if (Date.now() > navLock && idx !== activeIdx) {
-                const dir = idx > activeIdx ? 1 : -1;
-                activeIdx = idx;
-                syncTour();
-                fireWarp(dir);
-                playStage(idx);
-            }
-            ticking = false;
-        });
+    const updateProgress = () => {
+        const y = window.scrollY;
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docH > 0 ? Math.min(1, Math.max(0, y / docH)) : 0;
+        if (progressFill) progressFill.style.transform = `scaleX(${progress})`;
+        return y;
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    onScroll();
+
+    if (isDesktop) {
+        /* ============================================================ *
+         *  DESKTOP — stepped warp deck
+         * ============================================================ */
+        buildTour();
+        if (finePointer && !reduceMotion) { initTilt(); initMagnetic(); }
+        window.addEventListener('keydown', onKeydown);
+        if (!reduceMotion) {
+            window.addEventListener('wheel', onWheel, { passive: false });
+            window.addEventListener('touchstart', onTouchStart, { passive: true });
+            window.addEventListener('touchend', onTouchEnd, { passive: true });
+        }
+
+        const startChoreo = () => playStage(activeIdx);
+        if (reduceMotion) {
+            document.documentElement.classList.add('fx-off');
+        } else if (document.body.classList.contains('is-loaded')) {
+            window.setTimeout(startChoreo, 250);
+        } else {
+            window.addEventListener('load', () => window.setTimeout(startChoreo, 1000), { once: true });
+        }
+        window.setTimeout(() => {
+            if (!document.querySelector('.stage-on')) document.documentElement.classList.add('fx-off');
+        }, 4000);
+
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                const y = updateProgress();
+                applyParallax(y);
+                if (scrollCue) scrollCue.classList.toggle('is-gone', y > 120);
+                if (!reduceMotion) {
+                    const v = Math.abs(y - lastY);
+                    window.__warpBoost = Math.min(1.4, (window.__warpBoost || 0) + v / 700);
+                }
+                lastY = y;
+                const marker = y + window.innerHeight * 0.5;
+                let idx = 0;
+                stages.forEach((s, i) => {
+                    if (marker >= s.el.getBoundingClientRect().top + window.scrollY) idx = i;
+                });
+                if (Date.now() > navLock && idx !== activeIdx) {
+                    activeIdx = idx;
+                    syncTour();
+                    fireWarp();
+                    playStage(idx);
+                }
+                ticking = false;
+            });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        onScroll();
+    } else {
+        /* ============================================================ *
+         *  MOBILE — natural scroll; each element pops in as it appears
+         * ============================================================ */
+        if (reduceMotion || typeof IntersectionObserver === 'undefined') {
+            document.documentElement.classList.add('fx-off');
+        } else {
+            const io = new IntersectionObserver((entries, obs) => {
+                entries.forEach(en => {
+                    if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
+                });
+            }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+            // first screen reveals right away (never blank); the rest pop in on scroll
+            const vh = window.innerHeight || 800;
+            document.querySelectorAll('.fx').forEach(el => {
+                if (el.closest('#hero')) { el.classList.add('in'); return; }   // hero always shows
+                const r = el.getBoundingClientRect();
+                if (r.top < vh && r.bottom > 0) el.classList.add('in');
+                else io.observe(el);
+            });
+            window.setTimeout(() => {
+                if (!document.querySelector('.fx.in')) document.documentElement.classList.add('fx-off');
+            }, 4000);
+        }
+
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => { updateProgress(); ticking = false; });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    }
 })();
