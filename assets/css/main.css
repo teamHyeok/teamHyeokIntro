@@ -2486,16 +2486,19 @@ section[id] { scroll-margin-top: 84px; }
     #picks .feature-card__shot,
     #picks .feature-card__tagline { display: none; }
 
-    /* quiet rank label — mono, lime, spaced. NOT a pill. */
+    /* rank label — a small, refined lime tag so it actually catches the eye
+       (a subtle tint, not a bright sticker) */
     #picks .feature-card__label {
-        background: none;
+        justify-self: start;
+        margin: 0 0 3px;
+        padding: 3px 9px;
+        border-radius: 7px;
+        background: rgba(212, 255, 63, 0.14);
         border: none;
-        padding: 0;
-        margin: 0;
         font-family: var(--font-mono);
-        font-size: 10.5px;
-        font-weight: 500;
-        letter-spacing: 0.1em;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
         color: var(--accent);
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
@@ -2509,11 +2512,12 @@ section[id] { scroll-margin-top: 84px; }
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    /* a hair of a ring so the (often dark) app icons read on the dark card */
+    /* a hair of a ring + soft shadow so the app icons read and lift off the card */
     #picks .feature-card__icon {
         margin: 0;
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 24%;
+        box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.6);
     }
 
     /* ---- three clean rows: [icon] label / name / hook  → ---- */
@@ -2545,8 +2549,13 @@ section[id] { scroll-margin-top: 84px; }
         font-size: 16px;
     }
 
-    /* ---- #1 spotlight: bigger icon, large name, a real CTA ---- */
+    /* ---- #1 spotlight: a premium lime-tinted card so the eye lands here ---- */
     .feature-card--hero { order: -1; }
+    #picks .feature-card--hero {
+        background: linear-gradient(142deg, rgba(212, 255, 63, 0.09), var(--surface-2) 54%);
+        border-color: rgba(212, 255, 63, 0.22);
+        box-shadow: 0 16px 46px -24px rgba(212, 255, 63, 0.3);
+    }
     #picks .feature-card--hero .feature-card__body {
         display: grid;
         grid-template-columns: 72px 1fr;
@@ -2573,8 +2582,16 @@ section[id] { scroll-margin-top: 84px; }
     }
     #picks .feature-card--hero .feature-card__cta {
         grid-area: cta;
-        margin: 10px 0 0;
-        font-size: 13px;
+        justify-self: start;
+        margin: 12px 0 0;
+        padding: 8px 16px;
+        border: 1px solid var(--accent-line);
+        border-radius: 999px;
+        background: rgba(212, 255, 63, 0.07);
+        font-size: 12.5px;
         color: var(--accent);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
     }
 }
