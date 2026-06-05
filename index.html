@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="assets/fonts/GmarketSansBold.woff2" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="assets/css/main.css?v=20260605g">
+    <link rel="stylesheet" href="assets/css/main.css?v=20260605h">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370970936034063"
         crossorigin="anonymous"></script>
 </head>
@@ -129,6 +129,11 @@
                 </ol>
             </section>
 
+            <!-- Mobile-only scene: JS moves the Editor's Picks here so they get
+                 their own screen (desktop leaves this empty and keeps the picks
+                 merged inside #stats). -->
+            <section id="picks" class="section container" aria-label="에디터 추천" hidden></section>
+
             <section class="stats" id="stats" aria-label="팀혁 현황">
                 <div class="container stats__header">
                     <span class="section__eyebrow">By the numbers</span>
@@ -185,8 +190,8 @@
         </main>
     </div>
 
-    <script src="assets/data/apps.js?v=20260605g"></script>
-    <script src="assets/js/main.js?v=20260605g"></script>
-    <script src="assets/js/interactions.js?v=20260605g"></script>
+    <script src="assets/data/apps.js?v=20260605h"></script>
+    <script src="assets/js/main.js?v=20260605h"></script>
+    <script src="assets/js/interactions.js?v=20260605h"></script>
 </body>
 </html>

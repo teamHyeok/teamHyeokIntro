@@ -24,12 +24,35 @@
     /* ================================================================== *
      *  Stage model
      * ================================================================== */
-    const STAGE_DEFS = [
-        { id: 'hero', num: '01', label: 'Intro' },
-        { id: 'about', num: '02', label: 'Team' },
-        { id: 'stats', num: '03', label: 'Highlights' },
-        { id: 'apps', num: '04', label: 'Works' }
-    ];
+    // MOBILE only: give the Editor's Picks their own scene and turn the numbers
+    // into a summary scene right before Works. (Desktop keeps them merged in
+    // #stats.) Picks are rendered by main.js before this runs, so we can move
+    // the already-built DOM across.
+    const picksSection = document.getElementById('picks');
+    if (!isDesktop && picksSection) {
+        const picksHead = document.querySelector('#stats .stats__picks-head');
+        const picksGrid = document.getElementById('featuredList');
+        if (picksHead && picksGrid) {
+            picksSection.appendChild(picksHead);
+            picksSection.appendChild(picksGrid);
+            picksSection.removeAttribute('hidden');
+        }
+    }
+
+    const STAGE_DEFS = isDesktop
+        ? [
+            { id: 'hero', num: '01', label: 'Intro' },
+            { id: 'about', num: '02', label: 'Team' },
+            { id: 'stats', num: '03', label: 'Highlights' },
+            { id: 'apps', num: '04', label: 'Works' }
+        ]
+        : [
+            { id: 'hero', num: '01', label: 'Intro' },
+            { id: 'about', num: '02', label: 'Team' },
+            { id: 'picks', num: '03', label: 'Picks' },
+            { id: 'stats', num: '04', label: 'Numbers' },
+            { id: 'apps', num: '05', label: 'Works' }
+        ];
     const stages = STAGE_DEFS
         .map(def => Object.assign({}, def, { el: document.getElementById(def.id) }))
         .filter(s => s.el);
@@ -45,8 +68,12 @@
     // ordered selectors whose matches pop in, one after another, per stage
     const STAGE_FX = {
         hero: ['.hero__eyebrow', '.hero__line', '.hero__subtitle', '.hero__actions', '.hero-cluster'],
-        stats: ['.stats__header', '.stat', '.stats__picks-head', '.feature-card', '.works-cta'],
         about: ['.section__header', '.principle'],
+        // desktop: numbers + picks share #stats; mobile: numbers only (picks → #picks)
+        stats: isDesktop
+            ? ['.stats__header', '.stat', '.stats__picks-head', '.feature-card', '.works-cta']
+            : ['.stats__header', '.stat'],
+        picks: ['.stats__picks-head', '.feature-card'],
         apps: ['.section__header', '.filter-bar', '.app-card']
     };
 
