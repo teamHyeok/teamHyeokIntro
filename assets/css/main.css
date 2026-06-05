@@ -2886,129 +2886,98 @@ section[id] { scroll-margin-top: 84px; }
 }
 
 /* ================================================================== *
- *  LIVE APP GALLERY (mobile) — JS adds #picks.picks-gallery.
- *  A clean 2x2 of the real app screens: see all four at a glance and
- *  instantly get each app. Restrained + premium — full-bleed screenshot,
- *  soft scrim, small icon + name + hook. (Static -> verifiable in preview.)
- *  Overrides the earlier picks layouts. Desktop untouched.
+ *  EDITOR'S PICKS — premium app shelf (mobile). JS adds .picks-gallery.
+ *  Icon-led: the crisp colourful app icons (highest-contrast asset) on
+ *  refined material tiles with depth + a faint editorial index. All four
+ *  visible. Iterated via preview critique. Desktop untouched.
  * ================================================================== */
 @media (max-width: 768px) {
     #picks.picks-gallery .feature-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 11px;
+        gap: 12px;
         overflow: visible;
         margin: 0;
         padding: 0;
         scroll-snap-type: none;
     }
-
-    /* each tile = a portrait app-screen card */
     #picks.picks-gallery .feature-card {
         grid-column: auto;
         order: 0;
         flex: none;
         max-width: none;
         position: relative;
-        aspect-ratio: 1 / 1.16;
-        border-radius: 18px;
+        display: block;
+        min-height: 162px;
+        padding: 18px 16px 16px;
+        border-radius: 22px;
         overflow: hidden;
-        padding: 0;
-        background: var(--surface-2);
-        border: 1px solid var(--line);
-        box-shadow: 0 12px 30px -18px rgba(0, 0, 0, 0.8);
+        background:
+            radial-gradient(135% 95% at 0% 0%, color-mix(in srgb, var(--theme, var(--accent)) 14%, transparent), transparent 52%),
+            linear-gradient(162deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.012) 55%),
+            var(--surface-2);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-color: color-mix(in srgb, var(--theme, var(--accent)) 20%, rgba(255, 255, 255, 0.07));
+        box-shadow: 0 18px 38px -26px rgba(0, 0, 0, 0.9);
     }
     #picks.picks-gallery .feature-card::before,
     #picks.picks-gallery .feature-card::after { content: none; }
 
-    /* the screenshot fills the tile */
-    #picks.picks-gallery .feature-card .feature-card__shot {
-        display: block;
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-    }
-    #picks.picks-gallery .feature-card .feature-card__shot img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        display: block;
-    }
-    /* web service (no screenshot) -> branded panel */
-    #picks.picks-gallery .feature-card .feature-card__shot--brand {
-        display: grid;
-        place-items: center;
-        background:
-            radial-gradient(115% 80% at 50% 32%, color-mix(in srgb, var(--theme, var(--accent)) 22%, transparent), transparent 70%),
-            var(--surface-2);
-    }
-    #picks.picks-gallery .feature-card .feature-card__shot--brand img {
-        width: 66px;
-        height: 66px;
-        object-fit: contain;
-        border-radius: 17px;
-    }
-    /* legibility scrim toward the bottom */
-    #picks.picks-gallery .feature-card .feature-card__shot::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: linear-gradient(180deg, rgba(8, 9, 12, 0.05) 0%, transparent 26%, rgba(8, 9, 12, 0.4) 56%, rgba(8, 9, 12, 0.93) 100%);
-    }
+    #picks.picks-gallery .feature-card__shot { display: none; }
 
-    /* bottom label over the scrim: [icon] name / hook */
     #picks.picks-gallery .feature-card .feature-card__body {
-        position: absolute;
-        inset: auto 0 0 0;
-        z-index: 2;
-        display: grid;
-        grid-template-columns: 38px minmax(0, 1fr);
-        grid-template-areas:
-            "icon name"
-            "icon hook";
-        column-gap: 9px;
-        row-gap: 1px;
-        align-items: center;
-        padding: 12px 12px 13px;
+        position: static;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 0;
         background: none;
     }
     #picks.picks-gallery .feature-card .feature-card__icon {
         position: static;
-        grid-area: icon;
-        align-self: center;
-        width: 38px;
-        height: 38px;
-        margin: 0;
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        width: 62px;
+        height: 62px;
+        margin: 0 0 13px;
+        border-radius: 26%;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow:
+            0 10px 22px -8px rgba(0, 0, 0, 0.6),
+            0 10px 30px -10px color-mix(in srgb, var(--theme, var(--accent)) 50%, transparent);
+    }
+    #picks.picks-gallery .feature-card .feature-card__label {
+        order: 1;
+        margin: 0 0 3px;
+        padding: 0;
+        background: none;
+        border: none;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--theme, var(--accent));
     }
     #picks.picks-gallery .feature-card .feature-card__name {
-        grid-area: name;
-        align-self: end;
-        font-size: 15px;
+        order: 2;
+        margin: 0 0 4px;
+        font-size: 17px;
         font-weight: 700;
-        color: #fff;
-        margin: 0;
+        color: var(--text);
         line-height: 1.1;
     }
     #picks.picks-gallery .feature-card .feature-card__hook {
-        grid-area: hook;
-        align-self: start;
+        order: 3;
         margin: 0;
-        font-size: 11px;
-        line-height: 1.3;
-        color: rgba(255, 255, 255, 0.8);
-        white-space: nowrap;
+        font-size: 12px;
+        line-height: 1.4;
+        color: var(--text-muted);
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
-        display: block;
     }
-    #picks.picks-gallery .feature-card .feature-card__label,
     #picks.picks-gallery .feature-card .feature-card__tagline,
     #picks.picks-gallery .feature-card .feature-card__cta { display: none; }
 }
