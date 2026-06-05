@@ -2422,3 +2422,118 @@ section[id] { scroll-margin-top: 84px; }
 ::-webkit-scrollbar-corner {
     background: transparent;
 }
+
+/* ================================================================== *
+ *  Editor's Picks — screenshot-forward showcase cards
+ *  DESKTOP keeps the original icon + tagline card untouched (the new
+ *  screenshot/hook are hidden, and the body wrapper is transparent via
+ *  display:contents). MOBILE leads with a real app screenshot + a short
+ *  curiosity hook so people see the app and want to tap in.
+ *  Placed last so these win the cascade over the earlier #stats rules.
+ * ================================================================== */
+@media (min-width: 769px) {
+    .feature-card__shot,
+    .feature-card__hook { display: none; }
+    .feature-card__body { display: contents; }   /* desktop layout unchanged */
+}
+
+@media (max-width: 768px) {
+    /* card = [screenshot banner] → badge over it → icon+name row · hook · CTA */
+    .has-hud #stats .feature-card {
+        padding: 0;
+        gap: 0;
+        overflow: hidden;
+    }
+
+    .feature-card__shot {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 144px;
+        overflow: hidden;
+        background: var(--surface-2);
+    }
+    .feature-card__shot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+    }
+    /* soft seam: fade the bottom of the shot into the card body */
+    .feature-card__shot::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 50%, rgba(15, 17, 22, 0.5) 80%, var(--surface) 100%);
+        pointer-events: none;
+    }
+    /* web service (no screenshot) → branded icon panel */
+    .feature-card__shot--brand {
+        display: grid;
+        place-items: center;
+        background:
+            radial-gradient(120% 130% at 50% 0%, rgba(212, 255, 63, 0.18), transparent 62%),
+            linear-gradient(180deg, #1b1d23, var(--surface));
+    }
+    .feature-card__shot--brand img {
+        width: 66px;
+        height: 66px;
+        object-fit: contain;
+        border-radius: 18px;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
+    }
+    .feature-card__shot--brand::after { display: none; }
+
+    /* editorial badge floats over the banner */
+    .has-hud #stats .feature-card__label {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 3;
+        margin: 0;
+        background: rgba(8, 10, 6, 0.66);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
+
+    .feature-card__body {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+            "icon name"
+            "hook hook"
+            "cta  cta";
+        column-gap: 11px;
+        row-gap: 7px;
+        align-items: center;
+        padding: 13px 16px 15px;
+    }
+    .has-hud #stats .feature-card__icon {
+        grid-area: icon;
+        width: 44px;
+        height: 44px;
+        margin: 0;
+    }
+    .has-hud #stats .feature-card__name {
+        grid-area: name;
+        font-size: 19px;
+        align-self: center;
+    }
+    /* mobile leads with the punchy hook, not the descriptive tagline */
+    .has-hud #stats .feature-card__tagline { display: none; }
+    .feature-card__hook {
+        grid-area: hook;
+        display: block;
+        margin: 0;
+        font-size: 14.5px;
+        line-height: 1.45;
+        color: var(--text);
+        font-weight: 500;
+    }
+    .has-hud #stats .feature-card__cta {
+        grid-area: cta;
+        margin: 2px 0 0;
+        font-size: 12.5px;
+    }
+}

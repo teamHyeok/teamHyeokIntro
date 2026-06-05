@@ -102,12 +102,13 @@ const FILTERS = [
     { key: 'web', label: '웹' }
 ];
 
-// Editor's picks: three hand-chosen products with editorial labels.
+// Editor's picks: hand-chosen products with editorial labels + a short, curiosity-
+// driven hook (shown on the mobile screenshot card; desktop keeps the full tagline).
 const FEATURED = [
-    { slug: 'yusulga', label: '가장 최근 제품' },
-    { slug: 'sojung-filter', label: '가장 인기 있는' },
-    { slug: 'study-timer', label: '가장 추천하는' },
-    { slug: 'self-affirm', label: '가장 아끼는' }
+    { slug: 'yusulga', label: '가장 최근 제품', hook: '주짓수·레슬링·유도 그래플러의 아지트' },
+    { slug: 'sojung-filter', label: '가장 인기 있는', hook: '탭 한 번에 입혀지는 필름 감성' },
+    { slug: 'study-timer', label: '가장 추천하는', hook: '자리 비우면 타이머가 멈춰요' },
+    { slug: 'self-affirm', label: '가장 아끼는', hook: '내가 정한 확언이 알림으로 도착해요' }
 ];
 
 const createAppCard = (app, index) => {
@@ -187,26 +188,36 @@ const initWorks = () => {
     }
 };
 
-const createFeatureCard = ({ slug, label }) => {
+const createFeatureCard = ({ slug, label, hook }) => {
     const app = apps.find(a => a.slug === slug);
     if (!app) return null;
     const card = document.createElement('a');
     card.className = 'feature-card';
     card.setAttribute('data-animate', '');
     card.href = app.page;
-    if (app.external) {
+    if (app.external || /^https?:/.test(app.page)) {
         card.target = '_blank';
         card.rel = 'noopener';
     }
     const ctaLabel = app.platform === 'Web' ? '사이트 방문 →' : '자세히 보기 →';
+    // a real app screenshot makes people curious enough to tap; the web service
+    // (no screenshot) gets a branded icon panel instead
+    const shot = app.shots && app.shots[0];
+    const shotMarkup = shot
+        ? `<span class="feature-card__shot"><img src="${shot}" alt="${app.name} 앱 화면" loading="lazy"></span>`
+        : `<span class="feature-card__shot feature-card__shot--brand"><img src="${app.icon}" alt="" loading="lazy"></span>`;
     card.innerHTML = `
+        ${shotMarkup}
         <span class="feature-card__label">${label}</span>
-        <span class="feature-card__icon">
-            <img src="${app.icon}" alt="${app.name} 아이콘" loading="lazy">
+        <span class="feature-card__body">
+            <span class="feature-card__icon">
+                <img src="${app.icon}" alt="${app.name} 아이콘" loading="lazy">
+            </span>
+            <h3 class="feature-card__name">${app.name}</h3>
+            <p class="feature-card__tagline">${app.tagline}</p>
+            <p class="feature-card__hook">${hook || app.tagline}</p>
+            <span class="feature-card__cta">${ctaLabel}</span>
         </span>
-        <h3 class="feature-card__name">${app.name}</h3>
-        <p class="feature-card__tagline">${app.tagline}</p>
-        <span class="feature-card__cta">${ctaLabel}</span>
     `;
     observeAnimateElement(card);
     return card;
