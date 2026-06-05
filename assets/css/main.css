@@ -1896,6 +1896,57 @@ section[id] { scroll-margin-top: 84px; }
 @media (max-width: 768px) {
     .tour { display: none; }
 
+    /* ---- cinematic full-screen hero: the warp fills the whole screen and the
+       headline rises over it ---- */
+    .hero {
+        position: relative;
+        height: 100svh;
+        min-height: 560px;
+        padding: 0;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+    }
+    .hero__inner {
+        display: block;            /* drop the grid so the warp can go full-bleed */
+        position: static;
+        width: 100%;
+        margin: 0 0 max(36px, env(safe-area-inset-bottom));
+        padding: 0 7vw;
+        gap: 0;
+    }
+    .hero__visual {               /* the warp, behind everything, edge to edge */
+        position: absolute;
+        inset: 0;
+        width: 100% !important;
+        height: 100%;
+        margin: 0;
+        z-index: 0;
+        place-items: stretch;
+    }
+    .hero-cluster { width: 100%; height: 100%; }
+    .hero-cluster__halo { inset: -8%; }
+    .hero-cluster__tag { display: none; }
+    /* legibility scrim, darkest where the text sits */
+    .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+            radial-gradient(130% 90% at 50% 28%, transparent 42%, rgba(8, 9, 12, 0.45) 100%),
+            linear-gradient(180deg, rgba(8, 9, 12, 0.4) 0%, transparent 24%, transparent 44%, rgba(8, 9, 12, 0.78) 80%, rgba(8, 9, 12, 0.97) 100%);
+    }
+    .hero__content {
+        position: relative;
+        z-index: 2;
+        gap: 16px;
+        max-width: none;
+    }
+    .hero__title { font-size: clamp(42px, 12.5vw, 66px); }
+    .hero__subtitle { font-size: 15px; line-height: 1.7; }
+
     /* Picks & Works become horizontal swipe carousels (app-shelf style) instead
        of an endless vertical stack — far more "mobile" and dynamic */
     .feature-grid,

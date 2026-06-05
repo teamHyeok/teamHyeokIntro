@@ -365,17 +365,20 @@
                     if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
                 });
             }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
-            // first screen reveals right away (never blank); the rest pop in on scroll
-            const vh = window.innerHeight || 800;
+            // everything below the full-screen hero pops in as it scrolls into view
             document.querySelectorAll('.fx').forEach(el => {
-                if (el.closest('#hero')) { el.classList.add('in'); return; }   // hero always shows
-                const r = el.getBoundingClientRect();
-                if (r.top < vh && r.bottom > 0) el.classList.add('in');
-                else io.observe(el);
+                if (!el.closest('#hero')) io.observe(el);
             });
+            // the hero headline rises in AFTER the warp has swept the screen
+            const revealHero = () => document.querySelectorAll('#hero .fx').forEach(el => el.classList.add('in'));
+            if (document.body.classList.contains('is-loaded')) {
+                window.setTimeout(revealHero, 600);
+            } else {
+                window.addEventListener('load', () => window.setTimeout(revealHero, 1400), { once: true });
+            }
             window.setTimeout(() => {
                 if (!document.querySelector('.fx.in')) document.documentElement.classList.add('fx-off');
-            }, 4000);
+            }, 4500);
         }
 
         const onScroll = () => {
