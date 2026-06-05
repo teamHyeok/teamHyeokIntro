@@ -467,32 +467,46 @@
                 else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); goScene(scene - 1); }
             });
 
-            // failsafe: if the intro never runs (e.g. load stalls), fall back to
-            // a plain visible page instead of a locked, hidden one
-            const failsafe = window.setTimeout(() => {
-                if (!document.querySelector('.stage-on')) {
-                    document.documentElement.classList.remove('mdeck');
-                    document.documentElement.classList.add('fx-off');
-                }
-            }, 6500);
-
-            // apply the deck layout NOW — the loading screen hides the page until
-            // is-loaded, so the deck is already in place when the page reveals
-            // (no flash of the non-deck layout)
+            // Apply the deck layout NOW and KEEP it. The loading screen hides the
+            // page until is-loaded, so the deck is already in place at reveal time.
+            // mdeck is never removed by any failsafe — removing it would unlock the
+            // page into a tall natural scroll with the choreography content still
+            // hidden (that was the blank-page bug on slow connections).
             window.scrollTo(0, 0);
             document.documentElement.classList.add('mdeck');
             setProgress();
 
-            // after the reveal: the warp owns the screen for a beat, then the
-            // headline rises in line-by-line, then the scroll cue appears
+            // Play the hero entrance the moment the page is actually shown
+            // (body.is-loaded, set by main.js after load). Tie it to that class via
+            // a MutationObserver — NOT the raw load event — with a hard cap so it can
+            // never hang. Runs exactly once and never re-hides content.
+            let introRan = false;
             const intro = () => {
-                window.clearTimeout(failsafe);
-                document.documentElement.classList.remove('fx-off');
-                window.setTimeout(() => { playStage(0); fireWarp(); }, 620);
-                window.setTimeout(() => { if (hero) hero.classList.add('cue-on'); }, 1820);
+                if (introRan) return;
+                introRan = true;
+                // warp owns the screen for a beat, then the headline rises in
+                window.setTimeout(() => { playStage(0); fireWarp(); }, 480);
+                window.setTimeout(() => { if (hero) hero.classList.add('cue-on'); }, 1680);
             };
-            if (document.body.classList.contains('is-loaded')) intro();
-            else window.addEventListener('load', () => window.setTimeout(intro, 200), { once: true });
+            if (document.body.classList.contains('is-loaded')) {
+                intro();
+            } else if (typeof MutationObserver !== 'undefined') {
+                const mo = new MutationObserver(() => {
+                    if (document.body.classList.contains('is-loaded')) { mo.disconnect(); intro(); }
+                });
+                mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+                window.setTimeout(() => { mo.disconnect(); intro(); }, 9000);   // never hang
+            } else {
+                window.addEventListener('load', () => window.setTimeout(intro, 1100), { once: true });
+                window.setTimeout(intro, 9000);
+            }
+
+            // Last-resort safety: content must NEVER stay hidden. If no scene has
+            // revealed in time, force everything visible. This only ADDS fx-off and
+            // keeps mdeck, so the deck still slides — it can never blank the page.
+            window.setTimeout(() => {
+                if (!document.querySelector('.stage-on')) document.documentElement.classList.add('fx-off');
+            }, 10000);
 
             window.addEventListener('resize', setProgress, { passive: true });
         }
