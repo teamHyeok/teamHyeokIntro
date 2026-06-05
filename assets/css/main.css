@@ -1502,7 +1502,7 @@ a.feature-card:hover .feature-card__cta {
 
 /* mobile reveals each element individually as it scrolls into view */
 .has-hud .fx.in {
-    animation: fx-pop 0.5s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+    animation: fx-pop 0.62s cubic-bezier(0.34, 1.45, 0.5, 1) both;   /* springy overshoot */
 }
 
 @keyframes fx-pop {
@@ -2061,6 +2061,51 @@ section[id] { scroll-margin-top: 84px; }
         flex: 0 0 80%;
         max-width: 320px;
         scroll-snap-align: start;
+    }
+}
+
+/* ================================================================== *
+ *  MOBILE scroll-driven motion — content moves WITH your finger.
+ *  Enabled only when the browser supports scroll/view timelines AND the JS
+ *  has added .scroll-fx (modern iOS/Android). Older browsers keep the
+ *  springy .fx.in reveal as a clean fallback.
+ * ================================================================== */
+@media (max-width: 768px) {
+    /* section content scrubs in as it scrolls up the viewport */
+    .scroll-fx #about .fx,
+    .scroll-fx #stats .fx,
+    .scroll-fx #apps .fx {
+        animation: scrub-in linear both;
+        animation-timeline: view();
+        animation-range: entry 2% cover 26%;
+    }
+    @keyframes scrub-in {
+        from { opacity: 0; transform: translateY(70px) scale(0.88); }
+        to   { opacity: 1; transform: none; }
+    }
+
+    /* carousel cards focus as they pass the centre while you swipe */
+    .scroll-fx #stats .feature-card,
+    .scroll-fx #apps .app-card {
+        animation: card-focus linear both;
+        animation-timeline: view(inline);
+        animation-range: entry 0% exit 100%;
+    }
+    @keyframes card-focus {
+        0%   { opacity: 0.45; transform: scale(0.86); }
+        50%  { opacity: 1; transform: scale(1); }
+        100% { opacity: 0.45; transform: scale(0.86); }
+    }
+
+    /* warp drifts gently as you leave the hero — adds depth */
+    .scroll-fx .hero__visual {
+        animation: hero-drift linear both;
+        animation-timeline: view();
+        animation-range: exit 0% exit 100%;
+    }
+    @keyframes hero-drift {
+        from { transform: translateY(0) scale(1); opacity: 1; }
+        to   { transform: translateY(-8%) scale(1.08); opacity: 0.5; }
     }
 }
 

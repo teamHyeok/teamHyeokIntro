@@ -367,15 +367,23 @@
             document.documentElement.classList.add('hero-lock');
             const unlock = () => document.documentElement.classList.remove('hero-lock');
 
-            // 2) everything below the full-screen hero pops in as it scrolls in
-            const io = new IntersectionObserver((entries, obs) => {
-                entries.forEach(en => {
-                    if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
+            // 2) below the hero: if the browser supports scroll/view timelines,
+            //    let CSS scrub content in WITH the finger (.scroll-fx); otherwise
+            //    fall back to a springy pop via IntersectionObserver
+            const supportsViewTimeline = typeof CSS !== 'undefined' && CSS.supports &&
+                CSS.supports('animation-timeline', 'view()');
+            if (supportsViewTimeline) {
+                document.documentElement.classList.add('scroll-fx');
+            } else {
+                const io = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(en => {
+                        if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
+                    });
+                }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+                document.querySelectorAll('.fx').forEach(el => {
+                    if (!el.closest('#hero')) io.observe(el);
                 });
-            }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
-            document.querySelectorAll('.fx').forEach(el => {
-                if (!el.closest('#hero')) io.observe(el);
-            });
+            }
 
             // 3) warp sweeps the screen → headline rises line-by-line → unlock + cue
             const revealHero = () => document.querySelectorAll('#hero .fx').forEach(el => el.classList.add('in'));
