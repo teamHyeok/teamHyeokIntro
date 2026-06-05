@@ -1974,9 +1974,8 @@ section[id] { scroll-margin-top: 84px; }
         -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 100%);
         mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 100%);
     }
-    .hero__actions { gap: 10px; margin-top: 2px; }
-    .hero__actions .cta-button,
-    .hero__actions .ghost-button { padding: 13px 22px; }
+    /* mobile intro is a clean cinematic moment — no buttons, just a scroll hint */
+    .hero__actions { display: none; }
     /* dark halo hugs each glyph as a fallback for a bright icon right behind */
     .hero__eyebrow { text-shadow: 0 0 12px rgba(8, 9, 12, 0.85); }
     .hero__title {
