@@ -1935,6 +1935,16 @@ section[id] { scroll-margin-top: 84px; }
     html.mdeck #stats > *,
     html.mdeck #apps > * { flex-shrink: 0; }
 
+    /* hide the inner scrollbar on deck scenes — the deck owns navigation, and the
+       global on-brand (lime) scrollbar would otherwise show as a bar on a tall
+       scene in browsers with persistent scrollbars (iOS uses overlay anyway) */
+    html.mdeck #about,
+    html.mdeck #stats,
+    html.mdeck #apps { scrollbar-width: none; }
+    html.mdeck #about::-webkit-scrollbar,
+    html.mdeck #stats::-webkit-scrollbar,
+    html.mdeck #apps::-webkit-scrollbar { display: none; }
+
     /* ---- cinematic full-screen hero: the warp fills the whole screen and the
        headline rises over it ---- */
     .hero {
@@ -2074,9 +2084,12 @@ section[id] { scroll-margin-top: 84px; }
         overflow-y: visible;
         gap: 14px;
         scroll-snap-type: x mandatory;
-        scroll-padding-left: 4px;
-        padding: 4px 24px 16px 4px;     /* trailing space so the last card can centre/peek */
-        margin-right: -24px;            /* let the shelf run toward the screen edge */
+        scroll-padding-left: 0;
+        /* first card flush-LEFT with the section header (no indent). NOTE: do not
+           negative-margin one side here — .feature-grid is itself a .container
+           (margin: 0 auto), and overriding only margin-right makes the auto
+           left margin balloon and indents the whole shelf. Keep it centred. */
+        padding: 4px 14px 14px 0;       /* trailing room on the right for the last card */
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
     }
