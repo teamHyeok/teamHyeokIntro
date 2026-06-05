@@ -1904,7 +1904,10 @@ section[id] { scroll-margin-top: 84px; }
     html.mdeck body { overflow: hidden; height: 100%; }
     html.mdeck .top-bar { position: fixed; left: 0; right: 0; top: 0; }
     html.mdeck main {
-        transition: transform 0.72s cubic-bezier(0.76, 0, 0.24, 1);
+        /* settle curve after a finger release: fast start, smooth deceleration
+           (easeOutQuint). JS drives the transform live during the drag and sets
+           transition:none then, restoring this on release. */
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         will-change: transform;
     }
     html.mdeck .hero,

@@ -396,76 +396,123 @@
             window.addEventListener('scroll', onScrollFb, { passive: true });
             onScrollFb();
         } else {
-            /* ---- the transform deck ---- */
+            /* ---- the transform deck: DIRECT MANIPULATION ----
+               The deck follows your finger 1:1 as you drag, then settles to the
+               nearest scene on release (by distance OR flick velocity) with a
+               snappy ease-out. Feels connected and smooth, not a stiff snap. */
             const last = stages.length - 1;
             let scene = 0;
-            let transitioning = false;
-            let transTimer = 0;
+            let H = window.innerHeight;          // px height of one scene (== 100svh)
+            const measure = () => { H = stages[0].el.getBoundingClientRect().height || window.innerHeight; };
 
-            const sceneEl = () => stages[scene].el;
+            // toggle the eased CSS transition off (track finger) / on (settle).
+            // '' restores the rule in main.css (the single source of the curve)
+            const ease = on => { main.style.transition = on ? '' : 'none'; };
+            const place = px => { main.style.transform = `translateY(${px}px)`; };
+            const rest = () => place(-scene * H);
+
             const setProgress = () => {
                 if (progressFill) progressFill.style.transform = `scaleX(${last ? scene / last : 0})`;
             };
 
-            const goScene = (n, force) => {
-                const i = Math.max(0, Math.min(last, n));
-                if (i === scene && !force) return;
+            // mark a scene as the active one: reset its inner scroll, replay the
+            // staccato choreography, pulse the warp, sync cue + progress
+            const arrive = i => {
                 scene = i;
-                main.style.transform = `translateY(${-i * 100}svh)`;
-                transitioning = true;
-                window.clearTimeout(transTimer);
-                transTimer = window.setTimeout(() => { transitioning = false; }, 740);
-                const el = sceneEl();
-                if (el) el.scrollTop = 0;          // present every scene from its top
+                const el = stages[i].el;
+                if (el) el.scrollTop = 0;
                 playStage(i);
                 fireWarp();
                 setProgress();
                 if (cue) cue.classList.toggle('is-gone', i !== 0);
                 if (hero) hero.classList.toggle('cue-on', i === 0);
             };
+
+            let settling = false, settleTimer = 0;
+            const settleTo = (n, changed) => {
+                const t = Math.max(0, Math.min(last, n));
+                measure();
+                ease(true);
+                if (changed && t !== scene) arrive(t); else scene = t;
+                rest();
+                settling = true;
+                window.clearTimeout(settleTimer);
+                settleTimer = window.setTimeout(() => { settling = false; }, 560);
+            };
+
+            // programmatic nav (keyboard, the "전부 둘러보기" button)
+            const goScene = n => {
+                const t = Math.max(0, Math.min(last, n));
+                if (t === scene) return;
+                settleTo(t, true);
+            };
             mobileGoScene = goScene;
 
-            // a tall scene scrolls inside before a swipe flips the scene — capture
-            // how much inner room it has in each direction at touch start
-            let canUp = false, canDown = false;
-            let sy = null, sx = null, st = 0;
+            /* ---- finger tracking ---- */
+            let sx = 0, sy = 0, sT = 0, base = 0, mode = null, canUp = false, canDown = false;
 
-            const onTS = e => {
-                if (e.touches.length !== 1) { sy = null; return; }
+            const onStart = e => {
+                if (e.touches.length !== 1 || settling) { mode = 'ignore'; return; }
                 const t = e.touches[0];
-                sy = t.clientY; sx = t.clientX; st = Date.now();
-                const el = sceneEl();
+                sx = t.clientX; sy = t.clientY; sT = Date.now();
+                measure();
+                base = -scene * H;
+                mode = null;                       // undecided until the finger commits
+                const el = stages[scene].el;
                 const room = el ? el.scrollHeight - el.clientHeight : 0;
                 canDown = !!el && room > 8 && el.scrollTop + el.clientHeight < el.scrollHeight - 4;
                 canUp = !!el && room > 8 && el.scrollTop > 4;
             };
-            const onTE = e => {
-                if (sy == null) { return; }
-                if (transitioning) { sy = null; return; }
-                const t = e.changedTouches[0];
-                const dy = sy - t.clientY;          // > 0 → finger moved up → advance
-                const dx = sx - t.clientX;
-                const dt = Date.now() - st;
-                sy = null;
-                const far = Math.abs(dy) > 52;
-                const flick = Math.abs(dy) > 26 && dt < 260;       // a fast flick also counts
-                if ((!far && !flick) || Math.abs(dy) <= Math.abs(dx) * 1.2) return;   // not a vertical swipe
-                const dir = dy > 0 ? 1 : -1;
-                if (dir > 0 && canDown) return;     // let the scene finish scrolling first
-                if (dir < 0 && canUp) return;
-                goScene(scene + dir);
+
+            const onMove = e => {
+                if (mode === 'ignore' || mode === 'native') return;
+                const t = e.touches[0];
+                const dx = t.clientX - sx, dy = t.clientY - sy;
+                if (mode === null) {
+                    if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;       // wait for intent
+                    if (Math.abs(dx) > Math.abs(dy)) { mode = 'native'; return; }   // horizontal → carousel
+                    const dir = dy < 0 ? 1 : -1;                            // swipe up = next scene
+                    if ((dir > 0 && canDown) || (dir < 0 && canUp)) { mode = 'native'; return; }  // scroll inside first
+                    mode = 'deck';
+                    ease(false);                   // from here we drive the transform
+                }
+                if (mode === 'deck') {
+                    e.preventDefault();            // block native scroll while we own the gesture
+                    let move = dy;
+                    if ((scene === 0 && move > 0) || (scene === last && move < 0)) move *= 0.34;  // rubber-band at the ends
+                    place(base + move);
+                }
             };
-            window.addEventListener('touchstart', onTS, { passive: true });
-            window.addEventListener('touchend', onTE, { passive: true });
+
+            const onEnd = e => {
+                if (mode !== 'deck') { mode = null; return; }
+                mode = null;
+                const t = e.changedTouches[0];
+                const dy = t.clientY - sy;          // < 0 → swiped up → next
+                const dt = (Date.now() - sT) || 1;
+                const vel = dy / dt;                // px/ms
+                const dist = H * 0.16;              // ~16% of the screen commits the turn
+                let target = scene;
+                if ((dy < -dist || vel < -0.45) && scene < last) target = scene + 1;
+                else if ((dy > dist || vel > 0.45) && scene > 0) target = scene - 1;
+                settleTo(target, target !== scene);
+            };
+
+            window.addEventListener('touchstart', onStart, { passive: true });
+            window.addEventListener('touchmove', onMove, { passive: false });   // needs preventDefault
+            window.addEventListener('touchend', onEnd, { passive: true });
+            window.addEventListener('touchcancel', () => { if (mode === 'deck') settleTo(scene, false); mode = null; }, { passive: true });
 
             // arrow / page keys (hardware keyboards, accessibility)
             window.addEventListener('keydown', e => {
-                if (transitioning || e.metaKey || e.ctrlKey || e.altKey) return;
+                if (settling || e.metaKey || e.ctrlKey || e.altKey) return;
                 const tg = e.target;
                 if (tg && (/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName) || tg.isContentEditable)) return;
                 if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goScene(scene + 1); }
                 else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); goScene(scene - 1); }
             });
+
+            window.addEventListener('orientationchange', () => { window.setTimeout(() => { measure(); ease(true); rest(); }, 60); }, { passive: true });
 
             // Apply the deck layout NOW and KEEP it. The loading screen hides the
             // page until is-loaded, so the deck is already in place at reveal time.
