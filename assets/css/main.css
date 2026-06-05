@@ -1928,7 +1928,8 @@ section[id] { scroll-margin-top: 84px; }
     .hero-cluster { width: 100%; height: 100%; }
     .hero-cluster__halo { inset: -8%; }
     .hero-cluster__tag { display: none; }
-    /* legibility scrim, darkest where the text sits */
+    /* legibility scrim — gently dims the warp toward the bottom where the text
+       lives, while the top stays clear so the tunnel reads */
     .hero::after {
         content: "";
         position: absolute;
@@ -1936,17 +1937,30 @@ section[id] { scroll-margin-top: 84px; }
         z-index: 1;
         pointer-events: none;
         background:
-            radial-gradient(130% 90% at 50% 28%, transparent 42%, rgba(8, 9, 12, 0.45) 100%),
-            linear-gradient(180deg, rgba(8, 9, 12, 0.4) 0%, transparent 24%, transparent 44%, rgba(8, 9, 12, 0.78) 80%, rgba(8, 9, 12, 0.97) 100%);
+            radial-gradient(135% 95% at 50% 20%, transparent 36%, rgba(8, 9, 12, 0.55) 100%),
+            linear-gradient(180deg, rgba(8, 9, 12, 0.45) 0%, transparent 18%, transparent 36%, rgba(8, 9, 12, 0.7) 62%, rgba(8, 9, 12, 0.94) 86%, #08090c 100%);
     }
     .hero__content {
         position: relative;
         z-index: 2;
-        gap: 16px;
+        gap: 20px;
         max-width: none;
     }
-    .hero__title { font-size: clamp(42px, 12.5vw, 66px); }
-    .hero__subtitle { font-size: 15px; line-height: 1.7; }
+    /* soft shadow lifts the text crisply off the busy warp */
+    .hero__eyebrow { text-shadow: 0 1px 16px rgba(8, 9, 12, 0.7); }
+    .hero__title {
+        font-size: clamp(40px, 11.8vw, 62px);
+        line-height: 1.06;
+        text-shadow: 0 2px 26px rgba(8, 9, 12, 0.6);
+    }
+    .hero__line + .hero__line { margin-top: 0.04em; }
+    .hero__subtitle {
+        font-size: 14.5px;
+        line-height: 1.72;
+        color: var(--text-muted);
+        max-width: 34ch;
+        text-shadow: 0 1px 14px rgba(8, 9, 12, 0.65);
+    }
 
     /* the warp is the full-screen backdrop — always visible (it sweeps in via
        the canvas), never gated by the reveal */
