@@ -2886,91 +2886,152 @@ section[id] { scroll-margin-top: 84px; }
 }
 
 /* ================================================================== *
- *  EDITOR'S PICKS — premium app shelf (mobile). JS adds .picks-gallery.
- *  Icon-led: the crisp colourful app icons (highest-contrast asset) on
- *  refined material tiles with depth + a faint editorial index. All four
- *  visible. Iterated via preview critique. Desktop untouched.
+ *  EDITOR'S PICKS — editorial index (mobile). JS adds .picks-gallery.
+ *  Not a grid of boxes: four full-bleed rows on hairline rules, like a
+ *  curated magazine "Top 4". Big index numerals (01–04) are the signature;
+ *  palette is near-monochrome (one brand lime) so the crisp app icons are
+ *  the only colour. The #1 pick gets a quiet spotlight. All four visible.
+ *  Desktop untouched. Iterated via preview critique.
  * ================================================================== */
 @media (max-width: 768px) {
     #picks.picks-gallery .feature-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        counter-reset: pick;
         overflow: visible;
-        margin: 0;
+        margin: 6px auto 0;
         padding: 0;
         scroll-snap-type: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.09);
     }
+
+    /* each pick = a full-bleed editorial row, divided by a hairline */
     #picks.picks-gallery .feature-card {
+        counter-increment: pick;
         grid-column: auto;
         order: 0;
         flex: none;
         max-width: none;
         position: relative;
-        display: block;
-        min-height: 162px;
-        padding: 18px 16px 16px;
-        border-radius: 22px;
-        overflow: hidden;
-        background:
-            radial-gradient(135% 95% at 0% 0%, color-mix(in srgb, var(--theme, var(--accent)) 14%, transparent), transparent 52%),
-            linear-gradient(162deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.012) 55%),
-            var(--surface-2);
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        border-color: color-mix(in srgb, var(--theme, var(--accent)) 20%, rgba(255, 255, 255, 0.07));
-        box-shadow: 0 18px 38px -26px rgba(0, 0, 0, 0.9);
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        align-items: center;
+        column-gap: 14px;
+        min-height: 0;
+        padding: 20px 10px 20px 2px;
+        border: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+        overflow: visible;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.2s ease;
     }
-    #picks.picks-gallery .feature-card::before,
+    /* tap feedback */
+    #picks.picks-gallery .feature-card:active {
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* big editorial index numeral — the signature device */
+    #picks.picks-gallery .feature-card::before {
+        content: counter(pick, decimal-leading-zero);
+        position: static;
+        display: block;
+        width: auto; height: auto;
+        left: auto; right: auto; top: auto; bottom: auto;
+        grid-column: 1;
+        justify-self: center;
+        align-self: center;
+        font-family: var(--font-display);
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: rgba(244, 245, 246, 0.24);
+        background: none;
+        transform: none;
+        opacity: 1;
+        -webkit-mask: none; mask: none;
+        z-index: 0;
+    }
+    /* neutralise the inherited cinematic glint sweep on the numeral */
+    .has-hud #picks.picks-gallery.stage-on .feature-card::before { animation: none; }
+
     #picks.picks-gallery .feature-card::after { content: none; }
 
     #picks.picks-gallery .feature-card__shot { display: none; }
 
+    /* text block — an inner grid: icon spans the rows, text stacks beside it */
     #picks.picks-gallery .feature-card .feature-card__body {
+        grid-column: 2;
         position: static;
         z-index: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+            "icon label"
+            "icon name"
+            "icon hook";
+        align-items: center;
+        column-gap: 15px;
         padding: 0;
+        margin: 0;
         background: none;
+        min-width: 0;
     }
+
+    /* icon — the single source of colour */
     #picks.picks-gallery .feature-card .feature-card__icon {
+        grid-area: icon;
+        align-self: center;
         position: static;
-        width: 62px;
-        height: 62px;
-        margin: 0 0 13px;
-        border-radius: 26%;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow:
-            0 10px 22px -8px rgba(0, 0, 0, 0.6),
-            0 10px 30px -10px color-mix(in srgb, var(--theme, var(--accent)) 50%, transparent);
+        width: 56px;
+        height: 56px;
+        margin: 0;
+        border-radius: 25%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.7);
+        overflow: hidden;
     }
+    #picks.picks-gallery .feature-card .feature-card__icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     #picks.picks-gallery .feature-card .feature-card__label {
-        order: 1;
-        margin: 0 0 3px;
+        grid-area: label;
+        align-self: end;
+        margin: 0 0 2px;
         padding: 0;
         background: none;
         border: none;
         font-family: var(--font-mono);
-        font-size: 10px;
+        font-size: 9.5px;
         font-weight: 600;
-        letter-spacing: 0.06em;
-        color: var(--theme, var(--accent));
+        letter-spacing: 0.05em;
+        color: var(--accent);
     }
     #picks.picks-gallery .feature-card .feature-card__name {
-        order: 2;
-        margin: 0 0 4px;
-        font-size: 17px;
+        grid-area: name;
+        margin: 0 0 3px;
+        font-family: var(--font-display);
+        font-size: 19px;
         font-weight: 700;
         color: var(--text);
-        line-height: 1.1;
+        line-height: 1.05;
+        letter-spacing: -0.01em;
     }
     #picks.picks-gallery .feature-card .feature-card__hook {
-        order: 3;
+        grid-area: hook;
+        align-self: start;
         margin: 0;
-        font-size: 12px;
-        line-height: 1.4;
+        font-size: 11.5px;
+        line-height: 1.35;
         color: var(--text-muted);
         white-space: normal;
         display: -webkit-box;
@@ -2980,4 +3041,25 @@ section[id] { scroll-margin-top: 84px; }
     }
     #picks.picks-gallery .feature-card .feature-card__tagline,
     #picks.picks-gallery .feature-card .feature-card__cta { display: none; }
+
+    /* the #1 pick (가장 추천하는) — quiet editorial spotlight + lime spine */
+    #picks.picks-gallery .feature-card--hero {
+        background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%);
+        box-shadow: inset 3px 0 0 color-mix(in srgb, var(--accent) 65%, transparent);
+    }
+    #picks.picks-gallery .feature-card--hero::before {
+        color: color-mix(in srgb, var(--accent) 60%, transparent);
+    }
+    #picks.picks-gallery .feature-card--hero .feature-card__icon {
+        border-color: color-mix(in srgb, var(--accent) 40%, rgba(255, 255, 255, 0.1));
+        box-shadow:
+            0 8px 18px -8px rgba(0, 0, 0, 0.7),
+            0 8px 22px -10px color-mix(in srgb, var(--accent) 55%, transparent);
+    }
+    /* spotlight row keeps the staggered entrance, drops the breathing glow
+       (a box-shadow halo reads wrong on a borderless row) */
+    .has-hud #picks.picks-gallery.stage-on .feature-card--hero {
+        animation: pick-in 0.74s cubic-bezier(0.16, 1, 0.3, 1) both;
+        animation-delay: calc(0.16s + (var(--i, 1) - 1) * 0.12s);
+    }
 }
