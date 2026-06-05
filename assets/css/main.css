@@ -2261,7 +2261,9 @@ section[id] { scroll-margin-top: 84px; }
     margin-top: 22px;
     margin-bottom: 18px;
 }
-.stats__picks-head p { max-width: 54ch; }
+/* the "한번 써보세요" h2 was redundant with the "Editor's Picks" label, so it's
+   gone — give the description a little air below the label in its place */
+.stats__picks-head p { max-width: 54ch; margin-top: 7px; }
 
 /* --- compact the merged Highlights stage so numbers + picks + CTA fit one
    screen with clear room above the tour controller --- */
