@@ -2452,15 +2452,20 @@ section[id] { scroll-margin-top: 84px; }
        label, confident type and soft elevated cards. A #1 spotlight (bigger
        icon + CTA) sits above three clean rows.
        ===================================================================== */
+    /* BENTO: a big hero tile, two square tiles side-by-side, then a wide tile —
+       breaks the single-column "list of rectangles" */
     #picks .feature-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-items: start;
         overflow: visible;
         margin: 0;
         padding: 0;
         scroll-snap-type: none;
     }
+    #picks .feature-card--hero { grid-column: 1 / -1; }      /* hero: full width */
+    #picks .feature-card:nth-child(4) { grid-column: 1 / -1; }  /* 자기암시: wide */
 
     /* soft elevated card — no harsh border, no lime glow. padding:0 because the
        body grid owns the inner spacing (else the base card padding doubles up) */
@@ -2548,6 +2553,39 @@ section[id] { scroll-margin-top: 84px; }
         font-family: var(--font-mono);
         font-size: 16px;
     }
+
+    /* ---- BENTO square tiles (the two middle picks) — icon-forward, stacked
+       vertically instead of the wide row layout ---- */
+    #picks .feature-card:nth-child(2) .feature-card__body,
+    #picks .feature-card:nth-child(3) .feature-card__body {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "icon"
+            "label"
+            "name"
+            "hook";
+        column-gap: 0;
+        row-gap: 4px;
+        align-content: start;
+        justify-items: start;
+        padding: 15px 14px 16px;
+    }
+    #picks .feature-card:nth-child(2) .feature-card__icon,
+    #picks .feature-card:nth-child(3) .feature-card__icon {
+        width: 50px;
+        height: 50px;
+        align-self: start;
+        margin: 0 0 4px;
+    }
+    #picks .feature-card:nth-child(2) .feature-card__name,
+    #picks .feature-card:nth-child(3) .feature-card__name { align-self: start; font-size: 16px; }
+    #picks .feature-card:nth-child(2) .feature-card__hook,
+    #picks .feature-card:nth-child(3) .feature-card__hook { align-self: start; font-size: 12px; }
+    #picks .feature-card:nth-child(2) .feature-card__label,
+    #picks .feature-card:nth-child(3) .feature-card__label { align-self: start; }
+    /* squares: no chevron — the whole tile is the tap target */
+    #picks .feature-card:nth-child(2)::after,
+    #picks .feature-card:nth-child(3)::after { content: none; }
 
     /* ---- #1 spotlight: a premium lime-tinted card so the eye lands here ---- */
     .feature-card--hero { order: -1; }
