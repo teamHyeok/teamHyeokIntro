@@ -1506,7 +1506,8 @@ a.feature-card:hover .feature-card__cta {
 }
 
 @keyframes fx-pop {
-    0%   { opacity: 0; transform: translateY(22px) scale(0.96); }
+    0%   { opacity: 0; transform: translateY(46px) scale(0.9); }
+    60%  { opacity: 1; }
     100% { opacity: 1; transform: none; }
 }
 
@@ -1897,6 +1898,17 @@ section[id] { scroll-margin-top: 84px; }
 @media (max-width: 768px) {
     .tour { display: none; }
 
+    /* gentle scene-snapping: each section eases into place as you scroll
+       (proximity, so long sections never trap and you can stop anywhere) */
+    .has-hud body {
+        scroll-snap-type: y proximity;
+        scroll-padding-top: 64px;
+    }
+    .has-hud .hero,
+    .has-hud #about,
+    .has-hud #stats,
+    .has-hud #apps { scroll-snap-align: start; }
+
     /* ---- cinematic full-screen hero: the warp fills the whole screen and the
        headline rises over it ---- */
     .hero {
@@ -1912,7 +1924,8 @@ section[id] { scroll-margin-top: 84px; }
         display: block;            /* drop the grid so the warp can go full-bleed */
         position: static;
         width: 100%;
-        margin: 0 0 max(36px, env(safe-area-inset-bottom));
+        /* lift the content well clear of the browser's bottom address bar */
+        margin: 0 0 max(78px, calc(env(safe-area-inset-bottom, 0px) + 54px));
         padding: 0 7vw;
         gap: 0;
     }
@@ -1943,9 +1956,12 @@ section[id] { scroll-margin-top: 84px; }
     .hero__content {
         position: relative;
         z-index: 2;
-        gap: 20px;
+        gap: 16px;
         max-width: none;
     }
+    .hero__actions { gap: 10px; margin-top: 2px; }
+    .hero__actions .cta-button,
+    .hero__actions .ghost-button { padding: 13px 22px; }
     /* soft shadow lifts the text crisply off the busy warp */
     .hero__eyebrow { text-shadow: 0 1px 16px rgba(8, 9, 12, 0.7); }
     .hero__title {
