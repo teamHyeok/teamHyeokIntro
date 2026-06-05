@@ -2438,55 +2438,84 @@ section[id] { scroll-margin-top: 84px; }
 }
 
 @media (max-width: 768px) {
-    /* card = [screenshot banner] → badge over it → icon+name row · hook · CTA */
+    /* ---- EDITORIAL LIST: one big hero (screenshot) + three compact rows.
+       No horizontal carousel (nobody swipes through four), no garish glow. ---- */
+    .feature-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: visible;
+        margin: 0;
+        padding: 0;
+        scroll-snap-type: none;
+    }
+
+    /* kill the cheap lime border + hover/active glow on touch */
+    .feature-card::before { display: none; }
+    a.feature-card:hover,
+    a.feature-card:focus {
+        transform: none;
+        box-shadow: none;
+        border-color: var(--line-strong);
+    }
+    a.feature-card:active { background: var(--surface-2); }   /* a quiet press state */
+
+    /* reset the carousel sizing (flex:0 0 80% sized the HEIGHT in this column) */
     .has-hud #stats .feature-card {
         padding: 0;
         gap: 0;
         overflow: hidden;
+        flex: none;
+        max-width: none;
+        scroll-snap-align: none;
     }
+    /* mobile uses the hook, never the tagline. High specificity to beat the
+       desktop .has-hud #stats clamp rule (which otherwise leaves the tagline in
+       as an unplaced grid item and breaks the layout). */
+    .has-hud #stats .feature-card__tagline { display: none; }
 
-    .feature-card__shot {
+    /* ============================== HERO ============================== */
+    .feature-card--hero { order: -1; }
+
+    .feature-card--hero .feature-card__shot {
         position: relative;
         display: block;
         width: 100%;
-        height: 144px;
+        height: 154px;
         overflow: hidden;
         background: var(--surface-2);
     }
-    .feature-card__shot img {
+    .feature-card--hero .feature-card__shot img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: top center;
         display: block;
     }
-    /* soft seam: fade the bottom of the shot into the card body */
-    .feature-card__shot::after {
+    .feature-card--hero .feature-card__shot::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, transparent 50%, rgba(15, 17, 22, 0.5) 80%, var(--surface) 100%);
+        background: linear-gradient(180deg, transparent 48%, rgba(15, 17, 22, 0.55) 80%, var(--surface) 100%);
         pointer-events: none;
     }
-    /* web service (no screenshot) → branded icon panel */
-    .feature-card__shot--brand {
+    .feature-card--hero .feature-card__shot--brand {
         display: grid;
         place-items: center;
         background:
-            radial-gradient(120% 130% at 50% 0%, rgba(212, 255, 63, 0.18), transparent 62%),
+            radial-gradient(120% 130% at 50% 0%, rgba(212, 255, 63, 0.16), transparent 62%),
             linear-gradient(180deg, #1b1d23, var(--surface));
     }
-    .feature-card__shot--brand img {
-        width: 66px;
-        height: 66px;
+    .feature-card--hero .feature-card__shot--brand img {
+        width: 72px;
+        height: 72px;
         object-fit: contain;
         border-radius: 18px;
         box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
     }
-    .feature-card__shot--brand::after { display: none; }
+    .feature-card--hero .feature-card__shot--brand::after { display: none; }
 
-    /* editorial badge floats over the banner */
-    .has-hud #stats .feature-card__label {
+    .feature-card--hero .feature-card__label {
         position: absolute;
         top: 12px;
         left: 12px;
@@ -2496,8 +2525,7 @@ section[id] { scroll-margin-top: 84px; }
         -webkit-backdrop-filter: blur(6px);
         backdrop-filter: blur(6px);
     }
-
-    .feature-card__body {
+    .feature-card--hero .feature-card__body {
         display: grid;
         grid-template-columns: auto 1fr;
         grid-template-areas:
@@ -2509,20 +2537,10 @@ section[id] { scroll-margin-top: 84px; }
         align-items: center;
         padding: 13px 16px 15px;
     }
-    .has-hud #stats .feature-card__icon {
-        grid-area: icon;
-        width: 44px;
-        height: 44px;
-        margin: 0;
-    }
-    .has-hud #stats .feature-card__name {
-        grid-area: name;
-        font-size: 19px;
-        align-self: center;
-    }
-    /* mobile leads with the punchy hook, not the descriptive tagline */
-    .has-hud #stats .feature-card__tagline { display: none; }
-    .feature-card__hook {
+    .feature-card--hero .feature-card__icon { grid-area: icon; width: 44px; height: 44px; margin: 0; }
+    .feature-card--hero .feature-card__name { grid-area: name; font-size: 19px; align-self: center; }
+    .feature-card--hero .feature-card__tagline { display: none; }
+    .feature-card--hero .feature-card__hook {
         grid-area: hook;
         display: block;
         margin: 0;
@@ -2531,9 +2549,71 @@ section[id] { scroll-margin-top: 84px; }
         color: var(--text);
         font-weight: 500;
     }
-    .has-hud #stats .feature-card__cta {
-        grid-area: cta;
-        margin: 2px 0 0;
+    .feature-card--hero .feature-card__cta { grid-area: cta; margin: 2px 0 0; font-size: 12.5px; }
+
+    /* ============================== ROWS ============================== */
+    /* the other three: a compact tappable row — [icon] name / hook  → .
+       (flex row + a 2-line grid body; no display:contents to avoid track-sizing
+       quirks) */
+    .feature-card:not(.feature-card--hero) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 13px;
+        padding: 11px 38px 11px 11px;   /* right room for the chevron */
+        position: relative;
+    }
+    .feature-card:not(.feature-card--hero) .feature-card__shot,
+    .feature-card:not(.feature-card--hero) .feature-card__label,
+    .feature-card:not(.feature-card--hero) .feature-card__tagline,
+    .feature-card:not(.feature-card--hero) .feature-card__cta { display: none; }
+
+    .feature-card:not(.feature-card--hero) .feature-card__body {
+        flex: 1;
+        min-width: 0;
+        display: grid;
+        grid-template-columns: 46px 1fr;
+        grid-template-areas:
+            "icon name"
+            "icon hook";
+        column-gap: 13px;
+        row-gap: 2px;
+        align-items: center;
+        padding: 0;
+    }
+    .feature-card:not(.feature-card--hero) .feature-card__icon {
+        grid-area: icon;
+        width: 46px;
+        height: 46px;
+        margin: 0;
+        align-self: center;
+    }
+    .has-hud #stats .feature-card:not(.feature-card--hero) .feature-card__name {
+        grid-area: name;
+        font-size: 16px;
+        line-height: 1.2;
+        align-self: end;
+    }
+    .feature-card:not(.feature-card--hero) .feature-card__hook {
+        grid-area: hook;
+        display: block;
+        margin: 0;
+        align-self: start;
         font-size: 12.5px;
+        line-height: 1.35;
+        color: var(--text-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .feature-card:not(.feature-card--hero)::after {
+        content: "→";
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--accent);
+        font-family: var(--font-mono);
+        font-size: 17px;
     }
 }

@@ -107,7 +107,7 @@ const FILTERS = [
 const FEATURED = [
     { slug: 'yusulga', label: '가장 최근 제품', hook: '주짓수·레슬링·유도 그래플러의 아지트' },
     { slug: 'sojung-filter', label: '가장 인기 있는', hook: '탭 한 번에 입혀지는 필름 감성' },
-    { slug: 'study-timer', label: '가장 추천하는', hook: '자리 비우면 타이머가 멈춰요' },
+    { slug: 'study-timer', label: '가장 추천하는', hook: '자리 비우면 타이머가 멈춰요', hero: true },
     { slug: 'self-affirm', label: '가장 아끼는', hook: '내가 정한 확언이 알림으로 도착해요' }
 ];
 
@@ -188,11 +188,11 @@ const initWorks = () => {
     }
 };
 
-const createFeatureCard = ({ slug, label, hook }) => {
+const createFeatureCard = ({ slug, label, hook, hero }) => {
     const app = apps.find(a => a.slug === slug);
     if (!app) return null;
     const card = document.createElement('a');
-    card.className = 'feature-card';
+    card.className = hero ? 'feature-card feature-card--hero' : 'feature-card';
     card.setAttribute('data-animate', '');
     card.href = app.page;
     if (app.external || /^https?:/.test(app.page)) {
