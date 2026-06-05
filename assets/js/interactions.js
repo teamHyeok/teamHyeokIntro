@@ -41,7 +41,7 @@
      * ================================================================== */
     // ordered selectors whose matches pop in, one after another, per stage
     const STAGE_FX = {
-        hero: ['.hero__eyebrow', '.hero__title', '.hero__subtitle', '.hero__actions', '.hero-cluster'],
+        hero: ['.hero__eyebrow', '.hero__line', '.hero__subtitle', '.hero__actions', '.hero-cluster'],
         stats: ['.stats__header', '.stat', '.stats__picks-head', '.feature-card', '.works-cta'],
         about: ['.section__header', '.principle'],
         apps: ['.section__header', '.filter-bar', '.app-card']
@@ -357,28 +357,45 @@
         /* ============================================================ *
          *  MOBILE — natural scroll; each element pops in as it appears
          * ============================================================ */
+        const hero = document.querySelector('.hero');
+        const cue = document.querySelector('.scroll-cue');
+
         if (reduceMotion || typeof IntersectionObserver === 'undefined') {
             document.documentElement.classList.add('fx-off');
         } else {
+            // 1) lock the page so the cinematic intro plays uninterrupted
+            document.documentElement.classList.add('hero-lock');
+            const unlock = () => document.documentElement.classList.remove('hero-lock');
+
+            // 2) everything below the full-screen hero pops in as it scrolls in
             const io = new IntersectionObserver((entries, obs) => {
                 entries.forEach(en => {
                     if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
                 });
             }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
-            // everything below the full-screen hero pops in as it scrolls into view
             document.querySelectorAll('.fx').forEach(el => {
                 if (!el.closest('#hero')) io.observe(el);
             });
-            // the hero headline rises in AFTER the warp has swept the screen
+
+            // 3) warp sweeps the screen → headline rises line-by-line → unlock + cue
             const revealHero = () => document.querySelectorAll('#hero .fx').forEach(el => el.classList.add('in'));
-            if (document.body.classList.contains('is-loaded')) {
-                window.setTimeout(revealHero, 600);
-            } else {
-                window.addEventListener('load', () => window.setTimeout(revealHero, 1400), { once: true });
-            }
+            const finishIntro = () => { unlock(); if (hero) hero.classList.add('cue-on'); };
+
+            const run = (heroDelay, doneDelay) => {
+                window.setTimeout(revealHero, heroDelay);
+                window.setTimeout(finishIntro, doneDelay);
+            };
+            if (document.body.classList.contains('is-loaded')) run(700, 2000);
+            else window.addEventListener('load', () => run(1500, 2900), { once: true });
+
+            // never stay locked / hidden, whatever happens
             window.setTimeout(() => {
+                unlock();
                 if (!document.querySelector('.fx.in')) document.documentElement.classList.add('fx-off');
-            }, 4500);
+            }, 6500);
+
+            // the cue fades the moment they start scrolling
+            window.addEventListener('scroll', () => { if (cue) cue.classList.add('is-gone'); }, { once: true, passive: true });
         }
 
         const onScroll = () => {
