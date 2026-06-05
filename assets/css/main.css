@@ -1892,9 +1892,36 @@ section[id] { scroll-margin-top: 84px; }
     .tour__next { font-size: 13px; padding: 9px 18px; }
 }
 
-/* ---------- MOBILE: no deck, no tour bar — just a natural scroll ---------- */
+/* ---------- MOBILE: no deck, no tour bar — natural scroll + swipe shelves ---------- */
 @media (max-width: 768px) {
     .tour { display: none; }
+
+    /* Picks & Works become horizontal swipe carousels (app-shelf style) instead
+       of an endless vertical stack — far more "mobile" and dynamic */
+    .feature-grid,
+    .app-grid {
+        display: flex;
+        grid-template-columns: none;
+        overflow-x: auto;
+        overflow-y: visible;
+        gap: 14px;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 4px;
+        padding: 4px 24px 16px 4px;     /* trailing space so the last card can centre/peek */
+        margin-right: -24px;            /* let the shelf run toward the screen edge */
+        -webkit-overflow-scrolling: touch;
+    }
+    .feature-grid { scrollbar-width: none; }
+    .app-grid { scrollbar-width: none; }
+    .feature-grid::-webkit-scrollbar,
+    .app-grid::-webkit-scrollbar { display: none; }
+
+    .feature-card,
+    .app-card {
+        flex: 0 0 80%;
+        max-width: 320px;
+        scroll-snap-align: start;
+    }
 }
 
 /* ================================================================== *
