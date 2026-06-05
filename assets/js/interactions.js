@@ -35,6 +35,9 @@
         .filter(s => s.el);
     let activeIdx = 0;
     let navLock = 0;
+    // assigned by the mobile transform-deck branch so shared wire-up (data-jump
+    // buttons) can drive the deck instead of a native scroll
+    let mobileGoScene = null;
 
     /* ================================================================== *
      *  Staccato entrance choreography
@@ -285,6 +288,7 @@
             const i = stages.findIndex(s => s.id === btn.dataset.jump);
             if (i < 0) return;
             if (isDesktop) goTo(i);
+            else if (mobileGoScene) mobileGoScene(i);
             else stages[i].el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         });
     });
@@ -355,63 +359,142 @@
         onScroll();
     } else {
         /* ============================================================ *
-         *  MOBILE — natural scroll; each element pops in as it appears
+         *  MOBILE — JS transform deck. Each swipe slides <main> by one
+         *  full screen (translateY), so transitions are fully controlled
+         *  and smooth — no native scroll-snap jank. A scene taller than
+         *  the screen scrolls inside first; the next flick advances. Every
+         *  arrival replays the staccato choreography + a warp pulse.
          * ============================================================ */
         const hero = document.querySelector('.hero');
-        const cue = document.querySelector('.scroll-cue');
+        const cue = scrollCue;
+        const main = document.querySelector('main');
+        const supportsSvh = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('height', '100svh');
 
-        if (reduceMotion || typeof IntersectionObserver === 'undefined') {
-            document.documentElement.classList.add('fx-off');
-        } else {
-            // 1) lock the page so the cinematic intro plays uninterrupted
-            document.documentElement.classList.add('hero-lock');
-            const unlock = () => document.documentElement.classList.remove('hero-lock');
-
-            // 2) below the hero: if the browser supports scroll/view timelines,
-            //    let CSS scrub content in WITH the finger (.scroll-fx); otherwise
-            //    fall back to a springy pop via IntersectionObserver
-            const supportsViewTimeline = typeof CSS !== 'undefined' && CSS.supports &&
-                CSS.supports('animation-timeline', 'view()');
-            if (supportsViewTimeline) {
-                document.documentElement.classList.add('scroll-fx');
+        if (reduceMotion || !main || !supportsSvh || typeof requestAnimationFrame === 'undefined') {
+            /* ---- fallback: a plain, natural-scroll page (content visible) ---- */
+            if (reduceMotion || typeof IntersectionObserver === 'undefined') {
+                document.documentElement.classList.add('fx-off');
             } else {
                 const io = new IntersectionObserver((entries, obs) => {
                     entries.forEach(en => {
                         if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
                     });
                 }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
-                document.querySelectorAll('.fx').forEach(el => {
-                    if (!el.closest('#hero')) io.observe(el);
-                });
+                document.querySelectorAll('.fx').forEach(el => { if (!el.closest('#hero')) io.observe(el); });
+                document.querySelectorAll('#hero .fx').forEach(el => el.classList.add('in'));
+                if (hero) window.setTimeout(() => hero.classList.add('cue-on'), 1200);
+                window.addEventListener('scroll', () => { if (cue) cue.classList.add('is-gone'); }, { once: true, passive: true });
+                window.setTimeout(() => {
+                    if (!document.querySelector('.fx.in')) document.documentElement.classList.add('fx-off');
+                }, 6500);
             }
-
-            // 3) warp sweeps the screen → headline rises line-by-line → unlock + cue
-            const revealHero = () => document.querySelectorAll('#hero .fx').forEach(el => el.classList.add('in'));
-            const finishIntro = () => { unlock(); if (hero) hero.classList.add('cue-on'); };
-
-            const run = (heroDelay, doneDelay) => {
-                window.setTimeout(revealHero, heroDelay);
-                window.setTimeout(finishIntro, doneDelay);
+            const onScrollFb = () => {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => { updateProgress(); ticking = false; });
             };
-            if (document.body.classList.contains('is-loaded')) run(700, 2000);
-            else window.addEventListener('load', () => run(1500, 2900), { once: true });
+            window.addEventListener('scroll', onScrollFb, { passive: true });
+            onScrollFb();
+        } else {
+            /* ---- the transform deck ---- */
+            const last = stages.length - 1;
+            let scene = 0;
+            let transitioning = false;
+            let transTimer = 0;
 
-            // never stay locked / hidden, whatever happens
-            window.setTimeout(() => {
-                unlock();
-                if (!document.querySelector('.fx.in')) document.documentElement.classList.add('fx-off');
+            const sceneEl = () => stages[scene].el;
+            const setProgress = () => {
+                if (progressFill) progressFill.style.transform = `scaleX(${last ? scene / last : 0})`;
+            };
+
+            const goScene = (n, force) => {
+                const i = Math.max(0, Math.min(last, n));
+                if (i === scene && !force) return;
+                scene = i;
+                main.style.transform = `translateY(${-i * 100}svh)`;
+                transitioning = true;
+                window.clearTimeout(transTimer);
+                transTimer = window.setTimeout(() => { transitioning = false; }, 740);
+                const el = sceneEl();
+                if (el) el.scrollTop = 0;          // present every scene from its top
+                playStage(i);
+                fireWarp();
+                setProgress();
+                if (cue) cue.classList.toggle('is-gone', i !== 0);
+                if (hero) hero.classList.toggle('cue-on', i === 0);
+            };
+            mobileGoScene = goScene;
+
+            // a tall scene scrolls inside before a swipe flips the scene — capture
+            // how much inner room it has in each direction at touch start
+            let canUp = false, canDown = false;
+            let sy = null, sx = null, st = 0;
+
+            const onTS = e => {
+                if (e.touches.length !== 1) { sy = null; return; }
+                const t = e.touches[0];
+                sy = t.clientY; sx = t.clientX; st = Date.now();
+                const el = sceneEl();
+                const room = el ? el.scrollHeight - el.clientHeight : 0;
+                canDown = !!el && room > 8 && el.scrollTop + el.clientHeight < el.scrollHeight - 4;
+                canUp = !!el && room > 8 && el.scrollTop > 4;
+            };
+            const onTE = e => {
+                if (sy == null) { return; }
+                if (transitioning) { sy = null; return; }
+                const t = e.changedTouches[0];
+                const dy = sy - t.clientY;          // > 0 → finger moved up → advance
+                const dx = sx - t.clientX;
+                const dt = Date.now() - st;
+                sy = null;
+                const far = Math.abs(dy) > 52;
+                const flick = Math.abs(dy) > 26 && dt < 260;       // a fast flick also counts
+                if ((!far && !flick) || Math.abs(dy) <= Math.abs(dx) * 1.2) return;   // not a vertical swipe
+                const dir = dy > 0 ? 1 : -1;
+                if (dir > 0 && canDown) return;     // let the scene finish scrolling first
+                if (dir < 0 && canUp) return;
+                goScene(scene + dir);
+            };
+            window.addEventListener('touchstart', onTS, { passive: true });
+            window.addEventListener('touchend', onTE, { passive: true });
+
+            // arrow / page keys (hardware keyboards, accessibility)
+            window.addEventListener('keydown', e => {
+                if (transitioning || e.metaKey || e.ctrlKey || e.altKey) return;
+                const tg = e.target;
+                if (tg && (/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName) || tg.isContentEditable)) return;
+                if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goScene(scene + 1); }
+                else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); goScene(scene - 1); }
+            });
+
+            // failsafe: if the intro never runs (e.g. load stalls), fall back to
+            // a plain visible page instead of a locked, hidden one
+            const failsafe = window.setTimeout(() => {
+                if (!document.querySelector('.stage-on')) {
+                    document.documentElement.classList.remove('mdeck');
+                    document.documentElement.classList.add('fx-off');
+                }
             }, 6500);
 
-            // the cue fades the moment they start scrolling
-            window.addEventListener('scroll', () => { if (cue) cue.classList.add('is-gone'); }, { once: true, passive: true });
-        }
+            // apply the deck layout NOW — the loading screen hides the page until
+            // is-loaded, so the deck is already in place when the page reveals
+            // (no flash of the non-deck layout)
+            window.scrollTo(0, 0);
+            document.documentElement.classList.add('mdeck');
+            setProgress();
 
-        const onScroll = () => {
-            if (ticking) return;
-            ticking = true;
-            requestAnimationFrame(() => { updateProgress(); ticking = false; });
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
+            // after the reveal: the warp owns the screen for a beat, then the
+            // headline rises in line-by-line, then the scroll cue appears
+            const intro = () => {
+                window.clearTimeout(failsafe);
+                document.documentElement.classList.remove('fx-off');
+                window.setTimeout(() => { playStage(0); fireWarp(); }, 620);
+                window.setTimeout(() => { if (hero) hero.classList.add('cue-on'); }, 1820);
+            };
+            if (document.body.classList.contains('is-loaded')) intro();
+            else window.addEventListener('load', () => window.setTimeout(intro, 200), { once: true });
+
+            window.addEventListener('resize', setProgress, { passive: true });
+        }
     }
 })();

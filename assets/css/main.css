@@ -1898,34 +1898,36 @@ section[id] { scroll-margin-top: 84px; }
 @media (max-width: 768px) {
     .tour { display: none; }
 
-    /* SCENE DECK: each section is a full screen; one swipe snaps decisively to
-       the next (mandatory). Long content scrolls inside its own scene, contained
-       so it never leaks into the page snap. */
-    .has-hud body { scroll-snap-type: y mandatory; }
-
-    .has-hud .hero {
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
+    /* TRANSFORM DECK: JS slides <main> between full-screen scenes on swipe —
+       fully controlled, smooth, no native-snap jank (see interactions.js). */
+    html.mdeck,
+    html.mdeck body { overflow: hidden; height: 100%; }
+    html.mdeck .top-bar { position: fixed; left: 0; right: 0; top: 0; }
+    html.mdeck main {
+        transition: transform 0.72s cubic-bezier(0.76, 0, 0.24, 1);
+        will-change: transform;
     }
-    .has-hud #about,
-    .has-hud #stats,
-    .has-hud #apps {
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        height: 100vh;
+    html.mdeck .hero,
+    html.mdeck #about,
+    html.mdeck #stats,
+    html.mdeck #apps {
         height: 100svh;
-        overflow-y: auto;          /* a slightly tall scene scrolls inside, then
-                                      a further swipe chains to the next scene */
+        overflow-y: auto;          /* a tall scene scrolls inside (no snap to fight) */
         overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+    html.mdeck #about,
+    html.mdeck #stats,
+    html.mdeck #apps {
         display: flex;
         flex-direction: column;
         justify-content: safe center;
         padding-top: 70px;
         padding-bottom: 26px;
     }
-    .has-hud #about > *,
-    .has-hud #stats > *,
-    .has-hud #apps > * { flex-shrink: 0; }
+    html.mdeck #about > *,
+    html.mdeck #stats > *,
+    html.mdeck #apps > * { flex-shrink: 0; }
 
     /* ---- cinematic full-screen hero: the warp fills the whole screen and the
        headline rises over it ---- */
@@ -2014,8 +2016,10 @@ section[id] { scroll-margin-top: 84px; }
        the canvas), never gated by the reveal */
     .has-hud .hero-cluster.fx { opacity: 1 !important; animation: none !important; }
 
-    /* hero text rises in line-by-line, like a game title (--i drives the beat) */
-    .has-hud #hero .fx.in { animation-delay: calc(var(--i, 0) * 0.13s); }
+    /* hero text rises in line-by-line, like a game title (--i drives the beat).
+       Covers both reveal paths: .fx.in (fallback IO) and .stage-on (the deck). */
+    .has-hud #hero .fx.in,
+    .has-hud #hero.stage-on .fx { animation-delay: calc(var(--i, 0) * 0.13s); }
 
     /* lock the page during the intro so the warp + title play uninterrupted */
     html.hero-lock,
