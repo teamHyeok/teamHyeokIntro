@@ -1915,13 +1915,16 @@ section[id] { scroll-margin-top: 84px; }
     html.mdeck #stats,
     html.mdeck #apps {
         height: 100svh;
-        overflow-y: auto;          /* a tall scene scrolls inside (no snap to fight) */
         overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
     }
+    /* the hero is a single cinematic screen — it must NEVER scroll inside, or the
+       first swipe gets eaten as a tiny inner-scroll instead of turning the page */
+    html.mdeck .hero { overflow-y: hidden; }
     html.mdeck #about,
     html.mdeck #stats,
     html.mdeck #apps {
+        overflow-y: auto;          /* a genuinely tall scene scrolls inside first */
+        -webkit-overflow-scrolling: touch;
         display: flex;
         flex-direction: column;
         justify-content: safe center;

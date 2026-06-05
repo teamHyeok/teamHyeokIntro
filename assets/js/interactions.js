@@ -458,10 +458,17 @@
                 measure();
                 base = -scene * H;
                 mode = null;                       // undecided until the finger commits
+                // Can the active scene scroll INSIDE before the swipe turns the page?
+                // Only when it's genuinely scrollable (overflow auto/scroll — excludes
+                // the hero) AND genuinely overflows. A scene that merely fits, or
+                // overflows by a hair, must NOT eat the swipe (that was the "first
+                // swipe does nothing" bug).
                 const el = stages[scene].el;
+                const oy = el ? getComputedStyle(el).overflowY : 'visible';
                 const room = el ? el.scrollHeight - el.clientHeight : 0;
-                canDown = !!el && room > 8 && el.scrollTop + el.clientHeight < el.scrollHeight - 4;
-                canUp = !!el && room > 8 && el.scrollTop > 4;
+                const scrollable = !!el && (oy === 'auto' || oy === 'scroll') && room > 24;
+                canDown = scrollable && el.scrollTop + el.clientHeight < el.scrollHeight - 4;
+                canUp = scrollable && el.scrollTop > 4;
             };
 
             const onMove = e => {
