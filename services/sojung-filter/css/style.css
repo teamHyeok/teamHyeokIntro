@@ -243,20 +243,18 @@
     aspect-ratio: 4 / 5;
     border-radius: 6px;
     overflow: hidden;
-    /* a summery street scene, toned */
-    background:
-        linear-gradient(180deg, rgba(126, 169, 196, 0.35), rgba(0, 0, 0, 0) 40%),
-        linear-gradient(0deg, rgba(143, 174, 139, 0.4), rgba(0, 0, 0, 0) 45%),
-        linear-gradient(115deg, #9fb98f 0%, #b9cbb0 30%, #cdd9d2 55%, #d7e0e6 100%);
+    /* the real demo photo — left of the split is the untouched ORIGINAL */
+    background: #cdd9d2 url("../../../assets/images/sojung-filter-demo.jpg") center / cover no-repeat;
 }
 
-/* left "original" half — slightly muted */
+/* right of the split = the SOJUNG (filtered) look — same photo, a warm summer film tone */
 .sj-frame__photo::before {
     content: "";
     position: absolute;
-    inset: 0 42% 0 0;
-    background: rgba(120, 116, 104, 0.32);
-    mix-blend-mode: saturation;
+    inset: 0;
+    background: url("../../../assets/images/sojung-filter-demo.jpg") center / cover no-repeat;
+    filter: saturate(1.42) contrast(1.05) brightness(1.07) sepia(0.16) hue-rotate(-5deg);
+    clip-path: inset(0 0 0 58%);
 }
 
 .sj-frame__split {
@@ -399,7 +397,7 @@
 
 /* ===== Five moods ===== */
 .sj-moods {
-    padding-top: clamp(2rem, 5vw, 3.5rem);
+    padding-top: clamp(4.5rem, 11vw, 7.5rem);
 }
 
 .sj-mood-grid {
