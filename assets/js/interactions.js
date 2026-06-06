@@ -56,63 +56,60 @@
         const appsDesc = document.querySelector('#apps .section__header p');
         if (appsDesc) appsDesc.textContent = 'App Store와 웹에 출시한 제품들입니다.';
 
+        // Build the infinite, draggable loop. (Even under reduced-motion you can
+        // still flick through it; only the auto-drift below is motion-gated.)
+        // clone the set TWICE → three identical sets, so it loops forever in
+        // BOTH directions (flick left or right). Clones are decorative.
+        const baseCount = appListEl.children.length;
+        const originals = [...appListEl.children];
+        for (let s = 0; s < 2; s++) {
+            originals.forEach(card => {
+                const clone = card.cloneNode(true);
+                clone.classList.add('is-clone');
+                clone.setAttribute('aria-hidden', 'true');
+                clone.setAttribute('tabindex', '-1');
+                appListEl.appendChild(clone);
+            });
+        }
+
+        // width of one set = where the 2nd set begins
+        let setW = 0;
+        const measure = () => {
+            const secondSet = appListEl.children[baseCount];
+            setW = secondSet ? secondSet.offsetLeft - appListEl.firstElementChild.offsetLeft : 0;
+        };
+        const recenter = () => { if (setW > 0) appListEl.scrollLeft = setW; };
+        measure();
+        recenter();                       // start in the middle set (runway both ways)
+        window.addEventListener('load', () => { measure(); recenter(); });
+        window.addEventListener('resize', () => { measure(); recenter(); });
+
+        // jump back to the middle set whenever we drift a full set away — the
+        // sets are identical, so the jump is invisible (seamless infinite loop)
+        const wrap = () => {
+            if (setW <= 0) return;
+            const sl = appListEl.scrollLeft;
+            if (sl < setW * 0.5) appListEl.scrollLeft = sl + setW;
+            else if (sl >= setW * 1.5) appListEl.scrollLeft = sl - setW;
+        };
+        appListEl.addEventListener('scroll', wrap, { passive: true });
+
+        // a finger-down pauses the auto-drift; it resumes ~1.5s after release so
+        // any flick/momentum can play out first
+        let dragging = false, resumeT = 0;
+        const grab = () => { dragging = true; clearTimeout(resumeT); };
+        const release = () => { clearTimeout(resumeT); resumeT = setTimeout(() => { dragging = false; }, 1500); };
+        appListEl.addEventListener('pointerdown', grab, { passive: true });
+        appListEl.addEventListener('pointerup', release, { passive: true });
+        appListEl.addEventListener('pointercancel', release, { passive: true });
+
+        // auto-drift: a slow, continuous leftward scroll (motion only). Self-heals
+        // setW if the first measure ran before the scene was laid out.
         if (!reduceMotion) {
-            // clone the set TWICE → three identical sets, so we can loop forever
-            // in BOTH directions (flick left or right). Clones are decorative.
-            const baseCount = appListEl.children.length;
-            const originals = [...appListEl.children];
-            for (let s = 0; s < 2; s++) {
-                originals.forEach(card => {
-                    const clone = card.cloneNode(true);
-                    clone.classList.add('is-clone');
-                    clone.setAttribute('aria-hidden', 'true');
-                    clone.setAttribute('tabindex', '-1');
-                    appListEl.appendChild(clone);
-                });
-            }
-
-            // width of one set = where the 2nd set begins
-            let setW = 0;
-            const measure = () => {
-                const secondSet = appListEl.children[baseCount];
-                setW = secondSet ? secondSet.offsetLeft - appListEl.firstElementChild.offsetLeft : 0;
-            };
-            const recenter = () => { if (setW > 0) appListEl.scrollLeft = setW; };
-            measure();
-            recenter();                       // start in the middle set (runway both ways)
-            window.addEventListener('load', () => { measure(); recenter(); });
-            window.addEventListener('resize', () => { measure(); recenter(); });
-
-            // jump back to the middle set whenever we drift a full set away — the
-            // sets are identical, so the jump is invisible (seamless infinite loop)
-            const wrap = () => {
-                if (setW <= 0) return;
-                const sl = appListEl.scrollLeft;
-                if (sl < setW * 0.5) appListEl.scrollLeft = sl + setW;
-                else if (sl >= setW * 1.5) appListEl.scrollLeft = sl - setW;
-            };
-            appListEl.addEventListener('scroll', wrap, { passive: true });
-
-            // pause the auto-drift while a finger is down; resume after release so
-            // any flick/momentum can play out first
-            let dragging = false, resumeT = 0;
-            const grab = () => { dragging = true; clearTimeout(resumeT); };
-            const release = () => { clearTimeout(resumeT); resumeT = setTimeout(() => { dragging = false; }, 1500); };
-            appListEl.addEventListener('pointerdown', grab, { passive: true });
-            appListEl.addEventListener('pointerup', release, { passive: true });
-            appListEl.addEventListener('pointercancel', release, { passive: true });
-
-            // only drift while the Works scene is actually on screen
-            let onScreen = true;
-            if ('IntersectionObserver' in window) {
-                onScreen = false;
-                new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }, { threshold: 0.15 })
-                    .observe(appListEl);
-            }
-
             const SPEED = 0.6;   // px per frame (~36px/s — a slow drift)
             const tick = () => {
-                if (!dragging && onScreen && setW > 0) {
+                if (setW <= 0) { measure(); recenter(); }
+                else if (!dragging && document.visibilityState !== 'hidden') {
                     appListEl.scrollLeft += SPEED;
                     wrap();
                 }
