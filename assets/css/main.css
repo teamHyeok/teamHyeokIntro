@@ -3022,7 +3022,8 @@ section[id] { scroll-margin-top: 84px; }
         font-size: 9.5px;
         font-weight: 600;
         letter-spacing: 0.05em;
-        color: var(--accent);
+        /* neutral by default — lime is reserved for the #1 pick only */
+        color: #9aa0ac;
     }
     #picks.picks-gallery .feature-card .feature-card__name {
         grid-area: name;
@@ -3050,13 +3051,18 @@ section[id] { scroll-margin-top: 84px; }
     #picks.picks-gallery .feature-card .feature-card__tagline,
     #picks.picks-gallery .feature-card .feature-card__cta { display: none; }
 
-    /* the #1 pick (가장 추천하는) — editorial spotlight + lime spine */
+    /* the #1 pick (가장 추천하는) — editorial spotlight; the lime spine + glow
+       carry it, with only a whisper of wash (avoids a green-filled box) */
     #picks.picks-gallery .feature-card--hero {
-        background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%);
+        background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 6%, transparent), transparent 56%);
         box-shadow: inset 3px 0 0 color-mix(in srgb, var(--accent) 65%, transparent);
     }
     #picks.picks-gallery .feature-card--hero::before {
         color: color-mix(in srgb, var(--accent) 72%, transparent);
+    }
+    /* only the spotlight keeps the lime label */
+    #picks.picks-gallery .feature-card--hero .feature-card__label {
+        color: var(--accent);
     }
     #picks.picks-gallery .feature-card--hero .feature-card__icon {
         border-color: color-mix(in srgb, var(--accent) 40%, rgba(255, 255, 255, 0.1));
