@@ -56,10 +56,12 @@
         const appsDesc = document.querySelector('#apps .section__header p');
         if (appsDesc) appsDesc.textContent = 'App Store와 웹에 출시한 제품들입니다.';
 
-        // Build the infinite, draggable loop. (Even under reduced-motion you can
-        // still flick through it; only the auto-drift below is motion-gated.)
-        // clone the set TWICE → three identical sets, so it loops forever in
-        // BOTH directions (flick left or right). Clones are decorative.
+        // The banner is driven by a CSS TRANSFORM (translateX), not scrollLeft —
+        // scrollLeft drift silently fails on iOS Safari, but transforms are rock
+        // solid (this is what actually moved before). It drifts on its own and
+        // can be grabbed/flicked; three identical sets loop it seamlessly.
+        // (Reduced-motion: skip all this — CSS leaves a plain scrollable row.)
+        if (!reduceMotion) {
         const baseCount = appListEl.children.length;
         const originals = [...appListEl.children];
         for (let s = 0; s < 2; s++) {
@@ -72,50 +74,61 @@
             });
         }
 
-        // width of one set = where the 2nd set begins
-        let setW = 0;
+        let setW = 0;                       // width of one set (where the 2nd set begins)
         const measure = () => {
             const secondSet = appListEl.children[baseCount];
             setW = secondSet ? secondSet.offsetLeft - appListEl.firstElementChild.offsetLeft : 0;
         };
-        const recenter = () => { if (setW > 0) appListEl.scrollLeft = setW; };
         measure();
-        recenter();                       // start in the middle set (runway both ways)
-        window.addEventListener('load', () => { measure(); recenter(); });
-        window.addEventListener('resize', () => { measure(); recenter(); });
+        window.addEventListener('load', measure);
+        window.addEventListener('resize', measure);
 
-        // jump back to the middle set whenever we drift a full set away — the
-        // sets are identical, so the jump is invisible (seamless infinite loop)
-        const wrap = () => {
+        let offset = setW;                  // start in the middle set (runway both ways)
+        const render = () => { appListEl.style.transform = `translateX(${-offset}px)`; };
+        const normalize = () => {           // keep within the middle set → seamless loop
             if (setW <= 0) return;
-            const sl = appListEl.scrollLeft;
-            if (sl < setW * 0.5) appListEl.scrollLeft = sl + setW;
-            else if (sl >= setW * 1.5) appListEl.scrollLeft = sl - setW;
+            if (offset < setW * 0.5) offset += setW;
+            else if (offset >= setW * 1.5) offset -= setW;
         };
-        appListEl.addEventListener('scroll', wrap, { passive: true });
+        render();
 
-        // a finger-down pauses the auto-drift; it resumes ~1.5s after release so
-        // any flick/momentum can play out first
-        let dragging = false, resumeT = 0;
-        const grab = () => { dragging = true; clearTimeout(resumeT); };
-        const release = () => { clearTimeout(resumeT); resumeT = setTimeout(() => { dragging = false; }, 1500); };
-        appListEl.addEventListener('pointerdown', grab, { passive: true });
-        appListEl.addEventListener('pointerup', release, { passive: true });
-        appListEl.addEventListener('pointercancel', release, { passive: true });
+        const DRIFT = reduceMotion ? 0 : 0.6;   // px/frame (~36px/s); RM → no auto-drift
+        let velocity = 0, dragging = false, axis = null, lastX = 0, lastY = 0, lastT = 0;
 
-        // auto-drift: a slow, continuous leftward scroll. Runs regardless of the
-        // deck/reduced-motion state (a gentle horizontal banner the owner wants),
-        // and self-heals setW if the first measure ran before layout settled.
-        const SPEED = 0.6;   // px per frame (~36px/s — a slow drift)
+        appListEl.addEventListener('pointerdown', e => {
+            dragging = true; axis = null; velocity = 0;
+            lastX = e.clientX; lastY = e.clientY; lastT = e.timeStamp || performance.now();
+        }, { passive: true });
+        appListEl.addEventListener('pointermove', e => {
+            if (!dragging) return;
+            const dx = e.clientX - lastX, dy = e.clientY - lastY;
+            if (axis === null) {
+                if (Math.abs(dx) < 5 && Math.abs(dy) < 5) return;     // wait for intent
+                axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+                if (axis === 'y') { dragging = false; return; }       // vertical → let the deck navigate
+                try { appListEl.setPointerCapture(e.pointerId); } catch (_) {}
+            }
+            const now = e.timeStamp || performance.now();
+            offset -= dx;                                             // drag follows the finger
+            velocity = -dx / Math.max(1, now - lastT) * 16;           // for release inertia
+            lastX = e.clientX; lastT = now;
+            normalize(); render();
+        }, { passive: true });
+        const endDrag = () => { dragging = false; axis = null; };
+        appListEl.addEventListener('pointerup', endDrag, { passive: true });
+        appListEl.addEventListener('pointercancel', endDrag, { passive: true });
+
         const tick = () => {
-            if (setW <= 0) { measure(); recenter(); }
-            else if (!dragging && document.visibilityState !== 'hidden') {
-                appListEl.scrollLeft += SPEED;
-                wrap();
+            if (setW <= 0) { measure(); offset = setW; }
+            if (!dragging && document.visibilityState !== 'hidden') {
+                if (Math.abs(velocity) > 0.06) { offset += velocity; velocity *= 0.94; }  // inertia
+                else { velocity = 0; offset += DRIFT; }                                   // drift
+                normalize(); render();
             }
             requestAnimationFrame(tick);
         };
         requestAnimationFrame(tick);
+        }
     }
 
     const STAGE_DEFS = isDesktop
@@ -546,6 +559,10 @@
                 setProgress();
                 if (cue) cue.classList.toggle('is-gone', i !== 0);
                 if (hero) hero.classList.toggle('cue-on', i === 0);
+                if (deckHint) {                                   // the swipe hint follows the deck
+                    deckHint.classList.toggle('at-first', i === 0);
+                    deckHint.classList.toggle('at-last', i === last);
+                }
             };
 
             let settling = false, settleTimer = 0;

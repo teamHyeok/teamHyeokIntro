@@ -3203,20 +3203,27 @@ section[id] { scroll-margin-top: 84px; }
     #apps .app-grid.apps-marquee {
         display: flex;
         flex-wrap: nowrap;
+        width: max-content;
+        max-width: none;
         margin: 10px 0 0;
         padding: 6px 0 12px;
         gap: 12px;
-        overflow-x: auto;
-        overflow-y: visible;
-        scroll-snap-type: none;             /* free, continuous scroll */
-        /* NB: no -webkit-overflow-scrolling: touch — its separate scroll layer
-           stops the rAF scrollLeft drift from rendering on iOS Safari */
-        scroll-behavior: auto;               /* JS drift sets scrollLeft directly */
-        scrollbar-width: none;
-        overscroll-behavior-x: contain;
-        touch-action: pan-x;                 /* horizontal → scroll; vertical → deck */
+        overflow: visible;            /* JS translates it; #apps clips the overflow */
+        scroll-snap-type: none;
+        touch-action: pan-y;          /* vertical → deck; horizontal drag handled in JS */
+        will-change: transform;
     }
-    #apps .app-grid.apps-marquee::-webkit-scrollbar { display: none; }
+    /* reduced-motion: JS skips the transform marquee → plain manual scroll row */
+    @media (prefers-reduced-motion: reduce) {
+        #apps .app-grid.apps-marquee {
+            width: auto;
+            transform: none !important;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        #apps .app-grid.apps-marquee::-webkit-scrollbar { display: none; }
+        #apps .apps-marquee .app-card.is-clone { display: none; }
+    }
 
     /* compact, clean banner card */
     #apps .apps-marquee .app-card {
