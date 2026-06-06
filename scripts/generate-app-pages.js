@@ -201,7 +201,7 @@ ${features}
 
     <footer class="site-footer">
         <div class="container site-footer__inner">
-            <p>대표 최찬혁 · &copy; <span id="currentYear"></span> 팀혁(TeamHyeok). All rights reserved.</p>
+            <p>대장 최찬혁 · &copy; <span id="currentYear"></span> 팀혁(TeamHyeok). All rights reserved.</p>
             <a class="footer-link" href="../../index.html">팀혁 홈으로</a>
         </div>
     </footer>
