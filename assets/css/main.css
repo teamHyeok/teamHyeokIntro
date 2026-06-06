@@ -3209,7 +3209,8 @@ section[id] { scroll-margin-top: 84px; }
         overflow-x: auto;
         overflow-y: visible;
         scroll-snap-type: none;             /* free, continuous scroll */
-        -webkit-overflow-scrolling: touch;   /* momentum flick on iOS */
+        /* NB: no -webkit-overflow-scrolling: touch — its separate scroll layer
+           stops the rAF scrollLeft drift from rendering on iOS Safari */
         scroll-behavior: auto;               /* JS drift sets scrollLeft directly */
         scrollbar-width: none;
         overscroll-behavior-x: contain;

@@ -103,20 +103,19 @@
         appListEl.addEventListener('pointerup', release, { passive: true });
         appListEl.addEventListener('pointercancel', release, { passive: true });
 
-        // auto-drift: a slow, continuous leftward scroll (motion only). Self-heals
-        // setW if the first measure ran before the scene was laid out.
-        if (!reduceMotion) {
-            const SPEED = 0.6;   // px per frame (~36px/s — a slow drift)
-            const tick = () => {
-                if (setW <= 0) { measure(); recenter(); }
-                else if (!dragging && document.visibilityState !== 'hidden') {
-                    appListEl.scrollLeft += SPEED;
-                    wrap();
-                }
-                requestAnimationFrame(tick);
-            };
+        // auto-drift: a slow, continuous leftward scroll. Runs regardless of the
+        // deck/reduced-motion state (a gentle horizontal banner the owner wants),
+        // and self-heals setW if the first measure ran before layout settled.
+        const SPEED = 0.6;   // px per frame (~36px/s — a slow drift)
+        const tick = () => {
+            if (setW <= 0) { measure(); recenter(); }
+            else if (!dragging && document.visibilityState !== 'hidden') {
+                appListEl.scrollLeft += SPEED;
+                wrap();
+            }
             requestAnimationFrame(tick);
-        }
+        };
+        requestAnimationFrame(tick);
     }
 
     const STAGE_DEFS = isDesktop
