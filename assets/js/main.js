@@ -106,8 +106,8 @@ const FILTERS = [
 // driven hook (shown on the mobile screenshot card; desktop keeps the full tagline).
 const FEATURED = [
     { slug: 'yusulga', label: '가장 최근 제품', hook: '주짓수·레슬링·유도 그래플러의 아지트', theme: '#ff5a5a' },
-    { slug: 'sojung-filter', label: '가장 인기 있는', hook: '탭 한 번에 입혀지는 필름 감성', theme: '#9bd75f' },
-    { slug: 'study-timer', label: '가장 추천하는', hook: '자리 비우면 타이머가 멈춰요', hero: true, theme: '#3fd9cf' },
+    { slug: 'sojung-filter', label: '가장 추천하는', hook: '탭 한 번에 입혀지는 필름 감성', hero: true, theme: '#9bd75f' },
+    { slug: 'study-timer', label: '가장 인기 있는', hook: '자리 비우면 타이머가 멈춰요', theme: '#3fd9cf' },
     { slug: 'self-affirm', label: '가장 아끼는', hook: '내가 정한 확언이 알림으로 도착해요', theme: '#b98aff' }
 ];
 
