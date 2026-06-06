@@ -2916,9 +2916,9 @@ section[id] { scroll-margin-top: 84px; }
         max-width: none;
         position: relative;
         display: grid;
-        grid-template-columns: 30px 1fr;
+        grid-template-columns: 50px 1fr;
         align-items: center;
-        column-gap: 14px;
+        column-gap: 12px;
         min-height: 0;
         padding: 20px 10px 20px 2px;
         border: 0;
@@ -2928,11 +2928,12 @@ section[id] { scroll-margin-top: 84px; }
         box-shadow: none;
         overflow: visible;
         -webkit-tap-highlight-color: transparent;
-        transition: background 0.2s ease;
+        transition: background 0.2s ease, transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    /* tap feedback */
+    /* tap feedback — a tactile press-down spring */
     #picks.picks-gallery .feature-card:active {
         background: rgba(255, 255, 255, 0.03);
+        transform: scale(0.984);
     }
 
     /* big editorial index numeral — the signature device */
@@ -2946,19 +2947,26 @@ section[id] { scroll-margin-top: 84px; }
         justify-self: center;
         align-self: center;
         font-family: var(--font-display);
-        font-size: 28px;
+        font-size: 44px;
         font-weight: 700;
         line-height: 1;
-        letter-spacing: -0.02em;
-        color: rgba(244, 245, 246, 0.24);
+        letter-spacing: -0.04em;
+        color: rgba(244, 245, 246, 0.13);
         background: none;
         transform: none;
         opacity: 1;
         -webkit-mask: none; mask: none;
         z-index: 0;
     }
-    /* neutralise the inherited cinematic glint sweep on the numeral */
-    .has-hud #picks.picks-gallery.stage-on .feature-card::before { animation: none; }
+    /* the big ghost numeral develops in a beat after its row lands (parallax depth) */
+    .has-hud #picks.picks-gallery.stage-on .feature-card::before {
+        animation: pick-num-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        animation-delay: calc(0.4s + (var(--i, 1) - 1) * 0.12s);
+    }
+    @keyframes pick-num-in {
+        from { opacity: 0; transform: translateX(-12px); }
+        to   { opacity: 1; transform: translateX(0); }
+    }
 
     #picks.picks-gallery .feature-card::after { content: none; }
 
@@ -3042,13 +3050,13 @@ section[id] { scroll-margin-top: 84px; }
     #picks.picks-gallery .feature-card .feature-card__tagline,
     #picks.picks-gallery .feature-card .feature-card__cta { display: none; }
 
-    /* the #1 pick (가장 추천하는) — quiet editorial spotlight + lime spine */
+    /* the #1 pick (가장 추천하는) — editorial spotlight + lime spine */
     #picks.picks-gallery .feature-card--hero {
         background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%);
         box-shadow: inset 3px 0 0 color-mix(in srgb, var(--accent) 65%, transparent);
     }
     #picks.picks-gallery .feature-card--hero::before {
-        color: color-mix(in srgb, var(--accent) 60%, transparent);
+        color: color-mix(in srgb, var(--accent) 72%, transparent);
     }
     #picks.picks-gallery .feature-card--hero .feature-card__icon {
         border-color: color-mix(in srgb, var(--accent) 40%, rgba(255, 255, 255, 0.1));
@@ -3056,10 +3064,57 @@ section[id] { scroll-margin-top: 84px; }
             0 8px 18px -8px rgba(0, 0, 0, 0.7),
             0 8px 22px -10px color-mix(in srgb, var(--accent) 55%, transparent);
     }
-    /* spotlight row keeps the staggered entrance, drops the breathing glow
-       (a box-shadow halo reads wrong on a borderless row) */
+    /* a single lime light sweeps across the spotlight row as it lands */
+    #picks.picks-gallery .feature-card--hero::after {
+        content: "";
+        position: absolute;
+        top: 0; bottom: 0; left: -45%;
+        width: 38%;
+        padding: 0;
+        background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--accent) 22%, transparent), transparent);
+        transform: skewX(-14deg);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 2;
+    }
+    /* spotlight row: staggered entrance, then a slow living breath (spine + faint aura) */
     .has-hud #picks.picks-gallery.stage-on .feature-card--hero {
-        animation: pick-in 0.74s cubic-bezier(0.16, 1, 0.3, 1) both;
-        animation-delay: calc(0.16s + (var(--i, 1) - 1) * 0.12s);
+        animation:
+            pick-in 0.74s cubic-bezier(0.16, 1, 0.3, 1) both,
+            pick-hero-glow 3.8s ease-in-out 1.7s infinite;
+        animation-delay: calc(0.16s + (var(--i, 1) - 1) * 0.12s), 1.7s;
+    }
+    .has-hud #picks.picks-gallery.stage-on .feature-card--hero::after {
+        animation: pick-hero-sweep 0.95s ease-out both;
+        animation-delay: 0.55s;
+    }
+    @keyframes pick-hero-glow {
+        0%, 100% {
+            box-shadow:
+                inset 3px 0 0 color-mix(in srgb, var(--accent) 60%, transparent),
+                0 0 0 0 transparent;
+        }
+        50% {
+            box-shadow:
+                inset 3px 0 0 color-mix(in srgb, var(--accent) 90%, transparent),
+                0 12px 30px -16px color-mix(in srgb, var(--accent) 32%, transparent);
+        }
+    }
+    @keyframes pick-hero-sweep {
+        0%   { left: -45%; opacity: 0; }
+        22%  { opacity: 1; }
+        100% { left: 130%; opacity: 0; }
+    }
+
+    /* respect reduced-motion: hold the resting state, no entrance/loop/sweep */
+    @media (prefers-reduced-motion: reduce) {
+        .has-hud #picks.picks-gallery.stage-on .feature-card,
+        .has-hud #picks.picks-gallery.stage-on .feature-card::before,
+        .has-hud #picks.picks-gallery.stage-on .feature-card--hero,
+        .has-hud #picks.picks-gallery.stage-on .feature-card--hero::after {
+            animation: none;
+            opacity: 1;
+            transform: none;
+        }
     }
 }
