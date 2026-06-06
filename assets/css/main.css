@@ -3198,30 +3198,24 @@ section[id] { scroll-margin-top: 84px; }
  *  Desktop keeps its filterable carousel — untouched.
  * ================================================================== */
 @media (max-width: 768px) {
-    /* the track: a single wide row that translates left, looping */
+    /* the track: a native horizontal scroll container. JS drifts it slowly and
+       loops it; you can also grab and flick through it (momentum scroll). */
     #apps .app-grid.apps-marquee {
         display: flex;
         flex-wrap: nowrap;
-        width: max-content;
-        max-width: none;
         margin: 10px 0 0;
         padding: 6px 0 12px;
         gap: 12px;
-        overflow: visible;
-        scroll-snap-type: none;
-        will-change: transform;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: none;             /* free, continuous scroll */
+        -webkit-overflow-scrolling: touch;   /* momentum flick on iOS */
+        scroll-behavior: auto;               /* JS drift sets scrollLeft directly */
+        scrollbar-width: none;
+        overscroll-behavior-x: contain;
+        touch-action: pan-x;                 /* horizontal → scroll; vertical → deck */
     }
-    /* drift only while the Works scene is on screen (saves cycles + syncs) */
-    .has-hud #apps.stage-on .app-grid.apps-marquee {
-        animation: app-marquee 50s linear infinite;
-    }
-    .has-hud #apps.stage-on .app-grid.apps-marquee.is-paused {
-        animation-play-state: paused;
-    }
-    @keyframes app-marquee {
-        from { transform: translateX(0); }
-        to   { transform: translateX(-50%); }   /* exactly one set → seamless */
-    }
+    #apps .app-grid.apps-marquee::-webkit-scrollbar { display: none; }
 
     /* compact, clean banner card */
     #apps .apps-marquee .app-card {
@@ -3284,17 +3278,6 @@ section[id] { scroll-margin-top: 84px; }
         overflow: hidden;
     }
     #apps .apps-marquee .app-card__cta { display: none; }
-
-    @media (prefers-reduced-motion: reduce) {
-        /* no drift — fall back to a manual horizontal scroll of the originals */
-        .has-hud #apps.stage-on .app-grid.apps-marquee,
-        #apps .app-grid.apps-marquee {
-            animation: none;
-            width: auto;
-            max-width: 100%;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-        #apps .apps-marquee .app-card.is-clone { display: none; }
-    }
+    /* reduced-motion: JS skips the clone + drift, so the track is simply a
+       manual horizontal scroll of the originals — nothing else to disable. */
 }

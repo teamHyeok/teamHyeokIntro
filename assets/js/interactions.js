@@ -43,32 +43,83 @@
         }
     }
 
-    // MOBILE only: turn Works into an auto-scrolling banner (marquee). The cards
-    // drift slowly leftward and loop seamlessly; touching pauses it so a moving
-    // card stays tappable. Desktop keeps its filterable carousel untouched.
+    // MOBILE only: Works becomes a DRAGGABLE auto-scrolling banner. It drifts
+    // slowly leftward on its own, but you can grab and flick through it (native
+    // momentum scroll); it loops seamlessly and resumes drifting after release.
+    // Desktop keeps its filterable carousel untouched.
     const appListEl = document.getElementById('appList');
     if (!isDesktop && appListEl && appListEl.children.length) {
         appListEl.classList.add('apps-marquee');
-        // clone the set once so the leftward loop is seamless (clones are decorative)
-        [...appListEl.children].forEach(card => {
-            const clone = card.cloneNode(true);
-            clone.classList.add('is-clone');
-            clone.setAttribute('aria-hidden', 'true');
-            clone.setAttribute('tabindex', '-1');
-            appListEl.appendChild(clone);
-        });
-        // a finger-down pauses the drift; it resumes shortly after release
-        let resumeTimer;
-        const pause = () => { clearTimeout(resumeTimer); appListEl.classList.add('is-paused'); };
-        const resume = () => { clearTimeout(resumeTimer); resumeTimer = setTimeout(() => appListEl.classList.remove('is-paused'), 700); };
-        appListEl.addEventListener('pointerdown', pause, { passive: true });
-        appListEl.addEventListener('pointerup', resume, { passive: true });
-        appListEl.addEventListener('pointercancel', resume, { passive: true });
         // a banner doesn't filter — hide the chips and soften the copy (mobile only)
         const filtersEl = document.getElementById('appFilters');
         if (filtersEl) filtersEl.style.display = 'none';
         const appsDesc = document.querySelector('#apps .section__header p');
         if (appsDesc) appsDesc.textContent = 'App Store와 웹에 출시한 제품들입니다.';
+
+        if (!reduceMotion) {
+            // clone the set TWICE → three identical sets, so we can loop forever
+            // in BOTH directions (flick left or right). Clones are decorative.
+            const baseCount = appListEl.children.length;
+            const originals = [...appListEl.children];
+            for (let s = 0; s < 2; s++) {
+                originals.forEach(card => {
+                    const clone = card.cloneNode(true);
+                    clone.classList.add('is-clone');
+                    clone.setAttribute('aria-hidden', 'true');
+                    clone.setAttribute('tabindex', '-1');
+                    appListEl.appendChild(clone);
+                });
+            }
+
+            // width of one set = where the 2nd set begins
+            let setW = 0;
+            const measure = () => {
+                const secondSet = appListEl.children[baseCount];
+                setW = secondSet ? secondSet.offsetLeft - appListEl.firstElementChild.offsetLeft : 0;
+            };
+            const recenter = () => { if (setW > 0) appListEl.scrollLeft = setW; };
+            measure();
+            recenter();                       // start in the middle set (runway both ways)
+            window.addEventListener('load', () => { measure(); recenter(); });
+            window.addEventListener('resize', () => { measure(); recenter(); });
+
+            // jump back to the middle set whenever we drift a full set away — the
+            // sets are identical, so the jump is invisible (seamless infinite loop)
+            const wrap = () => {
+                if (setW <= 0) return;
+                const sl = appListEl.scrollLeft;
+                if (sl < setW * 0.5) appListEl.scrollLeft = sl + setW;
+                else if (sl >= setW * 1.5) appListEl.scrollLeft = sl - setW;
+            };
+            appListEl.addEventListener('scroll', wrap, { passive: true });
+
+            // pause the auto-drift while a finger is down; resume after release so
+            // any flick/momentum can play out first
+            let dragging = false, resumeT = 0;
+            const grab = () => { dragging = true; clearTimeout(resumeT); };
+            const release = () => { clearTimeout(resumeT); resumeT = setTimeout(() => { dragging = false; }, 1500); };
+            appListEl.addEventListener('pointerdown', grab, { passive: true });
+            appListEl.addEventListener('pointerup', release, { passive: true });
+            appListEl.addEventListener('pointercancel', release, { passive: true });
+
+            // only drift while the Works scene is actually on screen
+            let onScreen = true;
+            if ('IntersectionObserver' in window) {
+                onScreen = false;
+                new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }, { threshold: 0.15 })
+                    .observe(appListEl);
+            }
+
+            const SPEED = 0.6;   // px per frame (~36px/s — a slow drift)
+            const tick = () => {
+                if (!dragging && onScreen && setW > 0) {
+                    appListEl.scrollLeft += SPEED;
+                    wrap();
+                }
+                requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+        }
     }
 
     const STAGE_DEFS = isDesktop
