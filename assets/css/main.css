@@ -3280,4 +3280,76 @@ section[id] { scroll-margin-top: 84px; }
     #apps .apps-marquee .app-card__cta { display: none; }
     /* reduced-motion: JS skips the clone + drift, so the track is simply a
        manual horizontal scroll of the originals — nothing else to disable. */
+
+    /* Works is the last scene — spread header / banner / footer down the full
+       height so it doesn't cluster at the top with a big empty space below */
+    html.mdeck #apps {
+        justify-content: space-between;
+        padding-bottom: 58px;        /* clear the bottom swipe hint */
+    }
+}
+
+/* ================================================================== *
+ *  DECK SWIPE HINT (mobile) — the tour controller is hidden on the deck,
+ *  so this quiet chevron tells you the scenes move on a vertical swipe.
+ *  Points DOWN on normal scenes, UP on the last one; hidden on the hero
+ *  (which already shows its own SCROLL cue). JS toggles .at-first/.at-last.
+ * ================================================================== */
+.deck-hint { display: none; }
+
+@media (max-width: 768px) {
+    html.mdeck .deck-hint {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        position: fixed;
+        left: 50%;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+        transform: translateX(-50%);
+        z-index: 50;
+        pointer-events: none;
+        color: var(--text-dim);
+        opacity: 0.8;
+        transition: opacity 0.45s ease;
+        animation: deck-hint-bob-down 1.9s ease-in-out infinite;
+    }
+    /* the hero already has the SCROLL cue → keep this one out of its way */
+    html.mdeck .deck-hint.at-first { opacity: 0; }
+    /* last scene: the only way is up */
+    html.mdeck .deck-hint.at-last { animation-name: deck-hint-bob-up; }
+
+    .deck-hint__chev {
+        width: 9px;
+        height: 9px;
+        border-right: 1.5px solid currentColor;
+        border-bottom: 1.5px solid currentColor;
+        transform: rotate(45deg);          /* arrowhead pointing down */
+    }
+    .deck-hint.at-last .deck-hint__chev {
+        border-right: none;
+        border-bottom: none;
+        border-left: 1.5px solid currentColor;
+        border-top: 1.5px solid currentColor;   /* arrowhead pointing up */
+    }
+    .deck-hint__label {
+        font-family: var(--font-mono);
+        font-size: 8.5px;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-indent: 0.28em;                /* optical-centre the tracked text */
+    }
+
+    @keyframes deck-hint-bob-down {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50%      { transform: translateX(-50%) translateY(5px); }
+    }
+    @keyframes deck-hint-bob-up {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50%      { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html.mdeck .deck-hint { animation: none; }
+    }
 }

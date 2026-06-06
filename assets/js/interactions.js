@@ -186,6 +186,7 @@
      *  Scroll progress bar + warp flash
      * ================================================================== */
     let progressFill = null;
+    let deckHint = null;
     const buildOverlays = () => {
         const bar = document.createElement('div');
         bar.className = 'scroll-progress';
@@ -193,6 +194,15 @@
         progressFill.className = 'scroll-progress__fill';
         bar.appendChild(progressFill);
         document.body.appendChild(bar);
+
+        // a quiet vertical-swipe hint for the mobile deck — the tour controller is
+        // hidden there, so otherwise the up/down swipe affordance is invisible.
+        // syncTour() flips its direction (down on normal scenes, up on the last).
+        deckHint = document.createElement('div');
+        deckHint.className = 'deck-hint at-first';   // deck starts on the hero (its own cue)
+        deckHint.setAttribute('aria-hidden', 'true');
+        deckHint.innerHTML = '<span class="deck-hint__chev"></span><span class="deck-hint__label">SWIPE</span>';
+        document.body.appendChild(deckHint);
     };
 
     // nudge the hero warp tunnel (only visible while the Intro stage is on screen)
@@ -270,6 +280,10 @@
         dotEls.forEach((d, i) => d.classList.toggle('is-active', i === activeIdx));
         if (elPrev) elPrev.disabled = activeIdx === 0;
         if (elNext) elNext.disabled = activeIdx === stages.length - 1;
+        if (deckHint) {
+            deckHint.classList.toggle('at-first', activeIdx === 0);              // hero owns the cue
+            deckHint.classList.toggle('at-last', activeIdx === stages.length - 1); // points up
+        }
     };
 
     /* ================================================================== *
