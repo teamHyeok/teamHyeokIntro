@@ -3189,3 +3189,112 @@ section[id] { scroll-margin-top: 84px; }
         }
     }
 }
+
+/* ================================================================== *
+ *  WORKS — auto-scrolling banner (mobile). JS adds .apps-marquee to
+ *  #appList and clones the set for a seamless leftward loop. Cards drift
+ *  slowly; a finger-down pauses it so a moving card stays tappable.
+ *  Filters are hidden on mobile (the banner is a pure showcase).
+ *  Desktop keeps its filterable carousel — untouched.
+ * ================================================================== */
+@media (max-width: 768px) {
+    /* the track: a single wide row that translates left, looping */
+    #apps .app-grid.apps-marquee {
+        display: flex;
+        flex-wrap: nowrap;
+        width: max-content;
+        max-width: none;
+        margin: 10px 0 0;
+        padding: 6px 0 12px;
+        gap: 12px;
+        overflow: visible;
+        scroll-snap-type: none;
+        will-change: transform;
+    }
+    /* drift only while the Works scene is on screen (saves cycles + syncs) */
+    .has-hud #apps.stage-on .app-grid.apps-marquee {
+        animation: app-marquee 50s linear infinite;
+    }
+    .has-hud #apps.stage-on .app-grid.apps-marquee.is-paused {
+        animation-play-state: paused;
+    }
+    @keyframes app-marquee {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }   /* exactly one set → seamless */
+    }
+
+    /* compact, clean banner card */
+    #apps .apps-marquee .app-card {
+        flex: 0 0 auto;
+        width: 168px;
+        max-width: none;
+        scroll-snap-align: none;
+        opacity: 1 !important;       /* never hidden by the .fx reveal system */
+        animation: none !important;  /* the track carries the motion, not the card */
+        transform: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 16px;
+        border-radius: 18px;
+        background:
+            linear-gradient(165deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.012) 60%),
+            var(--surface-2);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        box-shadow: 0 14px 30px -24px rgba(0, 0, 0, 0.9);
+    }
+    #apps .apps-marquee .app-card::before,
+    #apps .apps-marquee .app-card::after { content: none; display: none; }
+
+    #apps .apps-marquee .app-card__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0 0 12px;
+    }
+    #apps .apps-marquee .app-card__icon {
+        width: 46px;
+        height: 46px;
+        margin: 0;
+        border-radius: 24%;
+    }
+    #apps .apps-marquee .app-card__tags {
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+    }
+    #apps .apps-marquee .app-card__index,
+    #apps .apps-marquee .app-card__group { display: none; }
+    #apps .apps-marquee .app-card__platform { margin: 0; }
+    #apps .apps-marquee .app-card__title {
+        font-size: 15px;
+        margin: 0 0 5px;
+        line-height: 1.15;
+    }
+    #apps .apps-marquee .app-card__description {
+        font-size: 11px;
+        line-height: 1.4;
+        color: var(--text-muted);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    #apps .apps-marquee .app-card__cta { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+        /* no drift — fall back to a manual horizontal scroll of the originals */
+        .has-hud #apps.stage-on .app-grid.apps-marquee,
+        #apps .app-grid.apps-marquee {
+            animation: none;
+            width: auto;
+            max-width: 100%;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        #apps .apps-marquee .app-card.is-clone { display: none; }
+    }
+}

@@ -43,6 +43,34 @@
         }
     }
 
+    // MOBILE only: turn Works into an auto-scrolling banner (marquee). The cards
+    // drift slowly leftward and loop seamlessly; touching pauses it so a moving
+    // card stays tappable. Desktop keeps its filterable carousel untouched.
+    const appListEl = document.getElementById('appList');
+    if (!isDesktop && appListEl && appListEl.children.length) {
+        appListEl.classList.add('apps-marquee');
+        // clone the set once so the leftward loop is seamless (clones are decorative)
+        [...appListEl.children].forEach(card => {
+            const clone = card.cloneNode(true);
+            clone.classList.add('is-clone');
+            clone.setAttribute('aria-hidden', 'true');
+            clone.setAttribute('tabindex', '-1');
+            appListEl.appendChild(clone);
+        });
+        // a finger-down pauses the drift; it resumes shortly after release
+        let resumeTimer;
+        const pause = () => { clearTimeout(resumeTimer); appListEl.classList.add('is-paused'); };
+        const resume = () => { clearTimeout(resumeTimer); resumeTimer = setTimeout(() => appListEl.classList.remove('is-paused'), 700); };
+        appListEl.addEventListener('pointerdown', pause, { passive: true });
+        appListEl.addEventListener('pointerup', resume, { passive: true });
+        appListEl.addEventListener('pointercancel', resume, { passive: true });
+        // a banner doesn't filter — hide the chips and soften the copy (mobile only)
+        const filtersEl = document.getElementById('appFilters');
+        if (filtersEl) filtersEl.style.display = 'none';
+        const appsDesc = document.querySelector('#apps .section__header p');
+        if (appsDesc) appsDesc.textContent = 'App Store와 웹에 출시한 제품들입니다.';
+    }
+
     const STAGE_DEFS = isDesktop
         ? [
             { id: 'hero', num: '01', label: 'Intro' },
