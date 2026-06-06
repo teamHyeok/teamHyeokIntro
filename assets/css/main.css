@@ -2916,11 +2916,11 @@ section[id] { scroll-margin-top: 84px; }
         max-width: none;
         position: relative;
         display: grid;
-        grid-template-columns: 50px 1fr;
+        grid-template-columns: 40px 1fr;
         align-items: center;
-        column-gap: 12px;
+        column-gap: 10px;
         min-height: 0;
-        padding: 20px 10px 20px 2px;
+        padding: 15px 10px 15px 2px;
         border: 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.09);
         border-radius: 0;
@@ -2947,7 +2947,7 @@ section[id] { scroll-margin-top: 84px; }
         justify-self: center;
         align-self: center;
         font-family: var(--font-display);
-        font-size: 44px;
+        font-size: 34px;
         font-weight: 700;
         line-height: 1;
         letter-spacing: -0.04em;
@@ -3001,14 +3001,14 @@ section[id] { scroll-margin-top: 84px; }
         position: static;
         z-index: 1;
         display: grid;
-        grid-template-columns: 56px 1fr;
+        grid-template-columns: 44px 1fr;
         grid-template-rows: auto auto auto;
         grid-template-areas:
             "icon label"
             "icon name"
             "icon hook";
         align-items: center;
-        column-gap: 15px;
+        column-gap: 13px;
         padding: 0;
         margin: 0;
         background: none;
@@ -3020,8 +3020,8 @@ section[id] { scroll-margin-top: 84px; }
         grid-area: icon;
         align-self: center;
         position: static;
-        width: 56px;
-        height: 56px;
+        width: 44px;
+        height: 44px;
         margin: 0;
         border-radius: 25%;
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -3042,7 +3042,7 @@ section[id] { scroll-margin-top: 84px; }
         background: none;
         border: none;
         font-family: var(--font-mono);
-        font-size: 9.5px;
+        font-size: 9px;
         font-weight: 600;
         letter-spacing: 0.05em;
         /* neutral by default — lime is reserved for the #1 pick only */
@@ -3050,9 +3050,9 @@ section[id] { scroll-margin-top: 84px; }
     }
     #picks.picks-gallery .feature-card .feature-card__name {
         grid-area: name;
-        margin: 0 0 3px;
+        margin: 0 0 2px;
         font-family: var(--font-display);
-        font-size: 19px;
+        font-size: 16px;
         font-weight: 700;
         color: var(--text);
         line-height: 1.05;
@@ -3062,7 +3062,7 @@ section[id] { scroll-margin-top: 84px; }
         grid-area: hook;
         align-self: start;
         margin: 0;
-        font-size: 11.5px;
+        font-size: 11px;
         line-height: 1.35;
         color: var(--text-muted);
         white-space: normal;
@@ -3074,24 +3074,42 @@ section[id] { scroll-margin-top: 84px; }
     #picks.picks-gallery .feature-card .feature-card__tagline,
     #picks.picks-gallery .feature-card .feature-card__cta { display: none; }
 
-    /* the #1 pick (가장 추천하는) — editorial spotlight; the lime spine + glow
-       carry it, with only a whisper of wash (avoids a green-filled box) */
+    /* the #1 pick (가장 추천하는) — a FEATURED block, clearly bigger than the
+       index trio (size hierarchy breaks the uniform single-column rhythm).
+       The lime spine + glow carry it, with only a whisper of wash. */
     #picks.picks-gallery .feature-card--hero {
-        background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 6%, transparent), transparent 56%);
+        grid-template-columns: 56px 1fr;
+        column-gap: 12px;
+        padding: 24px 10px 24px 2px;
+        background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 7%, transparent), transparent 58%);
         box-shadow: inset 3px 0 0 color-mix(in srgb, var(--accent) 65%, transparent);
     }
     #picks.picks-gallery .feature-card--hero::before {
+        font-size: 48px;
         color: color-mix(in srgb, var(--accent) 72%, transparent);
     }
     /* only the spotlight keeps the lime label */
     #picks.picks-gallery .feature-card--hero .feature-card__label {
+        font-size: 10.5px;
         color: var(--accent);
     }
+    #picks.picks-gallery .feature-card--hero .feature-card__body {
+        grid-template-columns: 70px 1fr;
+        column-gap: 15px;
+    }
+    #picks.picks-gallery .feature-card--hero .feature-card__name {
+        font-size: 22px;
+    }
+    #picks.picks-gallery .feature-card--hero .feature-card__hook {
+        font-size: 12px;
+    }
     #picks.picks-gallery .feature-card--hero .feature-card__icon {
+        width: 70px;
+        height: 70px;
         border-color: color-mix(in srgb, var(--accent) 40%, rgba(255, 255, 255, 0.1));
         box-shadow:
             0 8px 18px -8px rgba(0, 0, 0, 0.7),
-            0 8px 22px -10px color-mix(in srgb, var(--accent) 55%, transparent);
+            0 10px 26px -10px color-mix(in srgb, var(--accent) 55%, transparent);
     }
     /* a lime light that sweeps across the spotlight row */
     #picks.picks-gallery .feature-card--hero::after {
