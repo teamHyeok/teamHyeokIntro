@@ -1599,7 +1599,7 @@ html:not(.has-hud) .fx {
     .top-bar__crew {
         order: 3;
         flex-basis: 100%;
-        justify-content: center;
+        justify-content: flex-end;   /* push names to the right (brand stays left) */
         font-size: 10.5px;
         letter-spacing: 0.05em;
         opacity: 0.85;
