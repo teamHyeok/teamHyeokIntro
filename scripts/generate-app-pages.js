@@ -207,6 +207,7 @@ ${features}
     </footer>
 
     <script src="../../assets/js/main.js"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "55b749929b84457693b15d46b55032e4"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 `;
