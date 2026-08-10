@@ -313,7 +313,11 @@ const TEAMHYEOK_APPS = [
         appStoreId: '6789873216',
         external: true,
         detail: false,
-        shots: [],
+        shots: [
+            'assets/images/apps/shots/sowa-filter-1.jpg',
+            'assets/images/apps/shots/sowa-filter-2.jpg',
+            'assets/images/apps/shots/sowa-filter-3.jpg'
+        ],
         features: ['촬영 화면에 미리 입혀지는 필름 프리뷰', '올드폰·필름·디카 등 다양한 감성 룩', '보정 없이 찍기만 하면 완성되는 사진', '감성 팩으로 골라 쓰는 수십 가지 필터'],
         keywords: '소와필터, SOWA, 필름 카메라, 필터 카메라, 감성 필터, 팀혁'
     },
@@ -332,7 +336,11 @@ const TEAMHYEOK_APPS = [
         appStoreId: '6794860401',
         external: true,
         detail: false,
-        shots: [],
+        shots: [
+            'assets/images/apps/shots/jomooljomool-1.jpg',
+            'assets/images/apps/shots/jomooljomool-2.jpg',
+            'assets/images/apps/shots/jomooljomool-3.jpg'
+        ],
         features: ['왁뿌볼·또각이·말랑이 세 가지 촉감 놀이', '손끝으로 톡톡 터지는 짜릿한 손맛', '리듬처럼 콤보를 쌓는 타건 재미', '뽑기 없이 모으는 수집의 재미'],
         keywords: '조물조물, 왁뿌볼, 말랑이, 또각이, 촉감 놀이, 스트레스 해소, 팀혁'
     },
@@ -351,7 +359,11 @@ const TEAMHYEOK_APPS = [
         appStoreId: '6784302663',
         external: true,
         detail: false,
-        shots: [],
+        shots: [
+            'assets/images/apps/shots/geuljaengideul-1.jpg',
+            'assets/images/apps/shots/geuljaengideul-2.jpg',
+            'assets/images/apps/shots/geuljaengideul-3.jpg'
+        ],
         features: ['세로 스와이프로 넘겨 읽는 숏폼 글 피드', '감정별로 고르는 감성 글귀', '명조 활자와 따뜻한 종이 무드', '좋아요·저장, 내 글 작성까지'],
         keywords: '글쟁이들, 감성 글귀, 짧은 글, 숏폼, 글 피드, 팀혁'
     }

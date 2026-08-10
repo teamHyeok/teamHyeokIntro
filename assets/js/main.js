@@ -113,6 +113,59 @@ const FEATURED = [
     { slug: 'please-sleep', label: '단골 많은', hook: '지금 자면, 몇 시에 깨야 개운할까' }
 ];
 
+/* ==================================================================
+   App popup — selecting any card opens a translucent panel with the
+   app's promo screenshots + store links (replaces the detail pages).
+   ================================================================== */
+let appModalEl = null;
+const closeAppModal = () => {
+    if (!appModalEl) return;
+    appModalEl.classList.remove('is-open');
+    document.body.classList.remove('modal-open');
+    window.setTimeout(() => { appModalEl.hidden = true; }, 240);
+};
+const buildAppModal = () => {
+    appModalEl = document.createElement('div');
+    appModalEl.className = 'app-modal';
+    appModalEl.hidden = true;
+    appModalEl.innerHTML = '<div class="app-modal__backdrop" data-close></div><div class="app-modal__panel" role="dialog" aria-modal="true" aria-label="앱 정보"></div>';
+    document.body.appendChild(appModalEl);
+    appModalEl.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeAppModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && appModalEl && !appModalEl.hidden) closeAppModal(); });
+};
+const openAppModal = app => {
+    if (!app) return;
+    if (!appModalEl) buildAppModal();
+    const devs = (app.developer && app.developer.length ? app.developer : ['최찬혁']).join(' · ');
+    const badges = [app.platform, app.android ? 'Android' : '', app.groupLabel].filter(Boolean).join(' · ');
+    const shots = app.shots || [];
+    const shotsHtml = shots.length
+        ? `<div class="app-modal__shots">${shots.map(s => `<img src="${s}" alt="${app.name} 화면" loading="lazy">`).join('')}</div>`
+        : '';
+    const links = [];
+    if (app.appStoreId) links.push(`<a class="app-modal__btn app-modal__btn--primary" href="https://apps.apple.com/kr/app/id${app.appStoreId}" target="_blank" rel="noopener">App Store에서 받기</a>`);
+    if (app.androidUrl) links.push(`<a class="app-modal__btn" href="${app.androidUrl}" target="_blank" rel="noopener">Google Play</a>`);
+    if (app.platform === 'Web' && app.page) links.push(`<a class="app-modal__btn app-modal__btn--primary" href="${app.page}" target="_blank" rel="noopener">사이트 방문 →</a>`);
+    appModalEl.querySelector('.app-modal__panel').innerHTML = `
+        <button class="app-modal__close" type="button" aria-label="닫기" data-close>&times;</button>
+        <div class="app-modal__head">
+            <span class="app-modal__icon"><img src="${app.icon}" alt="${app.name} 아이콘"></span>
+            <span class="app-modal__meta">
+                <span class="app-modal__tags">${badges}</span>
+                <strong class="app-modal__name">${app.name}</strong>
+                <span class="app-modal__dev">// 개발 ${devs}</span>
+            </span>
+        </div>
+        <p class="app-modal__desc">${app.description || app.tagline}</p>
+        ${shotsHtml}
+        <div class="app-modal__actions">${links.join('')}</div>
+    `;
+    appModalEl.querySelector('.app-modal__panel').scrollTop = 0;
+    appModalEl.hidden = false;
+    document.body.classList.add('modal-open');
+    requestAnimationFrame(() => appModalEl.classList.add('is-open'));
+};
+
 const createAppCard = (app, index) => {
     const isSoon = app.status === 'soon';
     const indexLabel = String(index + 1).padStart(2, '0');
@@ -156,6 +209,7 @@ const createAppCard = (app, index) => {
         <span class="app-card__cta">${ctaLabel}</span>
     `;
 
+    card.addEventListener('click', e => { e.preventDefault(); openAppModal(app); });
     observeAnimateElement(card);
     return card;
 };
@@ -225,6 +279,7 @@ const createFeatureCard = ({ slug, label, hook, hero, theme }) => {
             <span class="feature-card__cta">${ctaLabel}</span>
         </span>
     `;
+    card.addEventListener('click', e => { e.preventDefault(); openAppModal(app); });
     observeAnimateElement(card);
     return card;
 };

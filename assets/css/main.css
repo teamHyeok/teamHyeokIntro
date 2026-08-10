@@ -2100,31 +2100,47 @@ section[id] { scroll-margin-top: 84px; }
        are visual cards you flick through. The principles do NOT: a 9-card
        drag-through is tedious and nobody reads a manifesto that way. */
     .feature-grid,
+    /* Works: a clean 2-up grid of every app — tap a card to open the popup */
     .app-grid {
-        display: flex;
-        grid-template-columns: none;
-        overflow-x: auto;
-        overflow-y: visible;
-        gap: 14px;
-        scroll-snap-type: x mandatory;
-        scroll-padding-left: 0;
-        /* first card flush-LEFT with the section header (no indent). NOTE: do not
-           negative-margin one side here — .feature-grid is itself a .container
-           (margin: 0 auto), and overriding only margin-right makes the auto
-           left margin balloon and indents the whole shelf. Keep it centred. */
-        padding: 4px 14px 14px 0;       /* trailing room on the right for the last card */
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        overflow: visible;
+        margin: 10px 0 0;
+        padding: 0;
+        scroll-snap-type: none;
     }
     .feature-grid::-webkit-scrollbar,
     .app-grid::-webkit-scrollbar { display: none; }
 
-    .feature-card,
-    .app-card {
+    .feature-card {
         flex: 0 0 80%;
         max-width: 320px;
         scroll-snap-align: start;
     }
+
+    /* compact grid card — icon + name + tagline; details live in the popup */
+    #apps .app-card {
+        flex: none;
+        max-width: none;
+        padding: 15px 15px 16px;
+        border-radius: 18px;
+        gap: 0;
+    }
+    #apps .app-card .app-card__top { margin-bottom: 11px; }
+    #apps .app-card .app-card__icon { width: 46px; height: 46px; }
+    #apps .app-card .app-card__index { display: none; }
+    #apps .app-card .app-card__title { font-size: 16px; margin: 0 0 5px; }
+    #apps .app-card .app-card__description {
+        font-size: 11.5px;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    #apps .app-card .app-card__dev,
+    #apps .app-card .app-card__cta { display: none; }
 
     /* ---- Team principles: a compact vertical MANIFESTO, read top-to-bottom.
        Reads like a rules file (// NN · mono · lime) — on-brand for the dev team.
@@ -3380,3 +3396,143 @@ section[id] { scroll-margin-top: 84px; }
         html.mdeck .deck-hint { animation: none; }
     }
 }
+
+/* ================================================================== *
+ *  APP POPUP — translucent panel opened by tapping any app/pick card.
+ *  Shows the app's promo screenshots + store links (no detail page).
+ * ================================================================== */
+body.modal-open { overflow: hidden; }
+
+.app-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    opacity: 0;
+    transition: opacity 0.24s ease;
+}
+.app-modal.is-open { opacity: 1; }
+.app-modal[hidden] { display: none; }
+
+.app-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(6, 7, 10, 0.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.app-modal__panel {
+    position: relative;
+    z-index: 1;
+    width: min(430px, 100%);
+    max-height: 86vh;
+    overflow-y: auto;
+    background: linear-gradient(180deg, rgba(30, 33, 40, 0.9), rgba(17, 19, 25, 0.92));
+    -webkit-backdrop-filter: blur(26px);
+    backdrop-filter: blur(26px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    padding: 22px 22px 24px;
+    box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    scrollbar-width: none;
+}
+.app-modal.is-open .app-modal__panel { transform: none; }
+.app-modal__panel::-webkit-scrollbar { display: none; }
+
+.app-modal__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+.app-modal__close:hover { background: rgba(255, 255, 255, 0.12); }
+
+.app-modal__head {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-right: 34px;
+}
+.app-modal__icon {
+    flex: none;
+    width: 62px;
+    height: 62px;
+    border-radius: 24%;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.app-modal__icon img { width: 100%; height: 100%; object-fit: cover; }
+.app-modal__meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.app-modal__tags {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+}
+.app-modal__name {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+}
+.app-modal__dev { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); }
+
+.app-modal__desc {
+    margin: 0 0 16px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 13.5px;
+}
+
+.app-modal__shots {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    margin: 0 0 18px;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+.app-modal__shots::-webkit-scrollbar { display: none; }
+.app-modal__shots img {
+    flex: none;
+    height: 330px;
+    width: auto;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    scroll-snap-align: center;
+}
+
+.app-modal__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.app-modal__btn {
+    flex: 1 1 auto;
+    min-width: 130px;
+    text-align: center;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 0.15s ease, background 0.2s ease;
+}
+.app-modal__btn:active { transform: scale(0.98); }
+.app-modal__btn--primary { background: var(--accent); color: #0a0c08; border-color: var(--accent); }
