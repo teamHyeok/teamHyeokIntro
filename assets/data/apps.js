@@ -144,6 +144,7 @@ const TEAMHYEOK_APPS = [
         slug: 'study-timer',
         developer: ['신예나', '최찬혁'],
         android: true,
+        androidUrl: 'https://play.google.com/store/apps/details?id=kr.teamhyeok.realstudytimer',
         name: '순공야르',
         tagline: '카메라로 자리 비움을 잡아내는 순공 타이머. 진짜 집중한 시간만 기록합니다.',
         description: '순공야르는 카메라로 자리 비움을 감지하는 순공(순수 공부) 타이머입니다. 자리를 비우면 자동으로 멈춰 진짜 집중한 시간만 정확히 측정하고, 공부 중·자리 비움·복귀 상태를 실시간으로 표시합니다. 주간·월간 통계와 위젯, 라이브 액티비티, iCloud 동기화를 지원합니다.',
@@ -250,6 +251,7 @@ const TEAMHYEOK_APPS = [
         slug: 'yusulga',
         developer: ['최찬혁'],
         android: true,
+        androidUrl: 'https://play.google.com/store/apps/details?id=com.yusulga.app',
         name: '유술가들',
         tagline: '주짓수·레슬링·유도 그래플러를 위한 커뮤니티. 대회·체육관 정보부터 스파링 파트너 찾기까지.',
         description: '유술가들은 주짓수·레슬링·유도를 수련하는 그래플러를 위한 웹 커뮤니티입니다. 대회 일정과 체육관(PT) 정보를 모아보고, 게시판에서 정보를 나누고, 함께 구를 스파링 파트너를 찾을 수 있습니다.',
@@ -295,8 +297,71 @@ const TEAMHYEOK_APPS = [
         detail: false,
         features: [],
         keywords: '흑백요리사, 흑백요리사 식당, 셰프 맵, 맛집 지도, 팀혁'
+    },
+    {
+        slug: 'sowa-filter',
+        developer: ['최찬혁'],
+        name: '소와필터',
+        tagline: '세상에 모든 필터들',
+        description: '소와필터(SOWA)는 찍는 순간 바로 필름이 되는 카메라입니다. 올드폰·필름·디카 감성을 담은 다양한 필름 룩을 촬영 화면에서 미리 입혀, 보정 없이 찍기만 해도 감성 사진이 완성됩니다.',
+        group: 'tool',
+        groupLabel: '도구',
+        platform: 'iOS',
+        category: 'PhotographyApplication',
+        icon: 'assets/images/apps/sowa-filter.jpg',
+        page: 'https://apps.apple.com/kr/app/id6789873216',
+        appStoreId: '6789873216',
+        external: true,
+        detail: false,
+        shots: [],
+        features: ['촬영 화면에 미리 입혀지는 필름 프리뷰', '올드폰·필름·디카 등 다양한 감성 룩', '보정 없이 찍기만 하면 완성되는 사진', '감성 팩으로 골라 쓰는 수십 가지 필터'],
+        keywords: '소와필터, SOWA, 필름 카메라, 필터 카메라, 감성 필터, 팀혁'
+    },
+    {
+        slug: 'jomooljomool',
+        developer: ['최찬혁'],
+        name: '조물조물',
+        tagline: '왁뿌볼, 또각이를 돈주고 사?',
+        description: '조물조물은 누르고 부수고 주무르는 촉감 놀이 앱입니다. 껍질을 톡 깨는 왁뿌볼, 리듬처럼 타건하는 또각이, 조물조물 주무르는 말랑이까지 — 손끝으로 스트레스를 스르르 풀어보세요.',
+        group: 'life',
+        groupLabel: '라이프스타일',
+        platform: 'iOS',
+        category: 'GameApplication',
+        icon: 'assets/images/apps/jomooljomool.jpg',
+        page: 'https://apps.apple.com/kr/app/id6794860401',
+        appStoreId: '6794860401',
+        external: true,
+        detail: false,
+        shots: [],
+        features: ['왁뿌볼·또각이·말랑이 세 가지 촉감 놀이', '손끝으로 톡톡 터지는 짜릿한 손맛', '리듬처럼 콤보를 쌓는 타건 재미', '뽑기 없이 모으는 수집의 재미'],
+        keywords: '조물조물, 왁뿌볼, 말랑이, 또각이, 촉감 놀이, 스트레스 해소, 팀혁'
+    },
+    {
+        slug: 'geuljaengideul',
+        developer: ['최연재', '최찬혁'],
+        name: '글쟁이들',
+        tagline: '세로로 넘겨 읽는 짧은 글 피드',
+        description: '글쟁이들은 짧은 글을 세로로 넘겨 읽는 숏폼 글 피드입니다. 한 화면에 글 한 편, 위로 넘기면 다음 글이 이어집니다. 감동·웃김·슬픔 등 감정으로 고르고, 마음에 드는 한 줄은 저장하거나 직접 써보세요.',
+        group: 'life',
+        groupLabel: '라이프스타일',
+        platform: 'iOS',
+        category: 'SocialNetworkingApplication',
+        icon: 'assets/images/apps/geuljaengideul.jpg',
+        page: 'https://apps.apple.com/kr/app/id6784302663',
+        appStoreId: '6784302663',
+        external: true,
+        detail: false,
+        shots: [],
+        features: ['세로 스와이프로 넘겨 읽는 숏폼 글 피드', '감정별로 고르는 감성 글귀', '명조 활자와 따뜻한 종이 무드', '좋아요·저장, 내 글 작성까지'],
+        keywords: '글쟁이들, 감성 글귀, 짧은 글, 숏폼, 글 피드, 팀혁'
     }
 ];
+
+const APP_ORDER = ['study-timer', 'sowa-filter', 'yusulga', 'please-sleep', 'donelog', 'self-affirm', 'nyangnyang-tuner', 'geuljaengideul', 'jomooljomool', 'sojung-filter', 'dare30', 'aeiou-kr', 'aeiou-jp', 'jiujitsu', 'black-white-chef'];
+TEAMHYEOK_APPS.sort((a, b) => {
+    const ia = APP_ORDER.indexOf(a.slug), ib = APP_ORDER.indexOf(b.slug);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+});
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = TEAMHYEOK_APPS;

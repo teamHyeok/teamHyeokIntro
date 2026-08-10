@@ -105,10 +105,12 @@ const FILTERS = [
 // Editor's picks: hand-chosen products with editorial labels + a short, curiosity-
 // driven hook (shown on the mobile screenshot card; desktop keeps the full tagline).
 const FEATURED = [
-    { slug: 'yusulga', label: '가장 최근 제품', hook: '주짓수·레슬링·유도 그래플러의 아지트', theme: '#ff5a5a' },
-    { slug: 'sojung-filter', label: '가장 추천하는', hook: '탭 한 번에 입혀지는 필름 감성', hero: true, theme: '#9bd75f' },
-    { slug: 'study-timer', label: '가장 인기 있는', hook: '자리 비우면 타이머가 멈춰요', theme: '#3fd9cf' },
-    { slug: 'self-affirm', label: '가장 아끼는', hook: '내가 정한 확언이 알림으로 도착해요', theme: '#b98aff' }
+    { slug: 'jomooljomool', label: '가장 추천하는', hook: '누르고 주무르는 말랑 촉감 놀이', hero: true },
+    { slug: 'sowa-filter', label: '가장 최근 제품', hook: '찍는 순간 필름이 되는 감성 카메라' },
+    { slug: 'study-timer', label: '가장 인기 있는', hook: '자리 비우면 타이머가 멈춰요' },
+    { slug: 'self-affirm', label: '가장 아끼는', hook: '내가 정한 확언이 알림으로 도착해요' },
+    { slug: 'yusulga', label: '떠오르는 신흥강자', hook: '주짓수·레슬링·유도 그래플러의 아지트' },
+    { slug: 'please-sleep', label: '단골 많은', hook: '지금 자면, 몇 시에 깨야 개운할까' }
 ];
 
 const createAppCard = (app, index) => {
