@@ -135,6 +135,7 @@ const createAppCard = (app, index) => {
             ? '사이트 방문 →'
             : '자세히 보기 →';
 
+    const devs = (app.developer && app.developer.length ? app.developer : ['최찬혁']).join(' · ');
     card.innerHTML = `
         <div class="app-card__top">
             <span class="app-card__icon">
@@ -143,11 +144,13 @@ const createAppCard = (app, index) => {
             <div class="app-card__tags">
                 <span class="app-card__index">// ${indexLabel}</span>
                 <span class="app-card__platform app-card__platform--${app.platform === 'iOS' ? 'ios' : 'web'}">${app.platform}</span>
+                ${app.android ? '<span class="app-card__platform app-card__platform--android">Android</span>' : ''}
                 <span class="app-card__group">${app.groupLabel}</span>
             </div>
         </div>
         <h3 class="app-card__title">${app.name}</h3>
         <p class="app-card__description">${app.tagline}</p>
+        <span class="app-card__dev">${devs}</span>
         <span class="app-card__cta">${ctaLabel}</span>
     `;
 
