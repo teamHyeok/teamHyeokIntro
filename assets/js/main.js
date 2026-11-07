@@ -885,6 +885,9 @@ const initHeroCanvas = () => {
 const animateCounters = () => {
     const counters = document.querySelectorAll('[data-count]');
     if (!counters.length) return;
+    // the HTML carries the real numbers (for readers and crawlers without JS);
+    // start from 0 here so the count-up below still plays
+    counters.forEach(el => { el.textContent = '0'; });
     const run = el => {
         const target = parseInt(el.dataset.count, 10) || 0;
         const duration = 1100;

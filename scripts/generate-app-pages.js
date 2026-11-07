@@ -4,6 +4,8 @@
 //  2. The plain-HTML product list inside index.html (between the
 //     static-app-list markers), so crawlers that don't run JavaScript can
 //     follow a link to every product. main.js draws the same cards over it.
+//  3. The home page counts (출시한 제품 · App Store 앱 · 웹 서비스, the
+//     data-stat spans in index.html).
 // Run: node scripts/generate-app-pages.js
 const fs = require('fs');
 const path = require('path');
@@ -160,7 +162,8 @@ ${featureList.map((f) => `                        <li>${esc(f)}</li>`).join('\n'
               )
               .join('\n                        ');
 
-    const org = { '@type': 'Organization', name: '팀혁 TeamHyeok', url: baseUrl };
+    // same @id as the Organization in index.html, so both pages describe one team
+    const org = { '@type': 'Organization', '@id': `${baseUrl}/#organization`, name: '팀혁 TeamHyeok', url: `${baseUrl}/` };
     const hasWeb = platforms.includes('Web');
     const jsonld = {
         '@context': 'https://schema.org',
@@ -334,20 +337,45 @@ const homeCard = (app, index) => {
         .join('\n');
 };
 
-const writeHomeList = () => {
+// ---- home page: the "숫자로 보는 팀혁" counts, from the same list ----
+// index.html marks each count with data-stat. The number goes into the text as
+// well as data-count, so readers and crawlers without JavaScript see it
+// (main.js resets it to 0 and counts up when it scrolls into view).
+const homeStats = () => {
+    const released = apps.filter((app) => app.status !== 'soon');
+    return {
+        released: released.length,
+        appstore: released.filter((app) => app.appStoreId).length,
+        web: released.filter((app) => platformList(app).includes('Web')).length
+    };
+};
+
+const writeHome = () => {
     const file = path.join(rootDir, 'index.html');
-    const html = fs.readFileSync(file, 'utf8');
+    let html = fs.readFileSync(file, 'utf8');
     const start = html.indexOf(LIST_START);
     const startEnd = start < 0 ? -1 : html.indexOf('-->', start) + 3;
     const end = html.indexOf(LIST_END);
     if (start < 0 || end < startEnd) {
         console.warn('index.html: static-app-list markers not found, home list not updated');
-        return;
+    } else {
+        const endLine = html.lastIndexOf('\n', end) + 1; // keep the end marker's indentation
+        html = `${html.slice(0, startEnd)}\n${apps.map(homeCard).join('\n')}\n${html.slice(endLine)}`;
+        console.log(`updated index.html static product list (${apps.length} products)`);
     }
-    const endLine = html.lastIndexOf('\n', end) + 1; // keep the end marker's indentation
-    const cards = apps.map(homeCard).join('\n');
-    fs.writeFileSync(file, `${html.slice(0, startEnd)}\n${cards}\n${html.slice(endLine)}`);
-    console.log(`updated index.html static product list (${apps.length} products)`);
+
+    const stats = homeStats();
+    const written = new Set();
+    html = html.replace(/<span data-stat="([a-z]+)" data-count="\d+">\d*<\/span>/g, (match, key) => {
+        if (!(key in stats)) return match;
+        written.add(key);
+        return `<span data-stat="${key}" data-count="${stats[key]}">${stats[key]}</span>`;
+    });
+    const missing = Object.keys(stats).filter((key) => !written.has(key));
+    if (missing.length) console.warn(`index.html: no data-stat count for ${missing.join(', ')}, not updated`);
+    else console.log(`updated index.html counts (${Object.entries(stats).map(([k, v]) => `${k} ${v}`).join(', ')})`);
+
+    fs.writeFileSync(file, html);
 };
 
 const targets = apps.filter((app) => app.detail);
@@ -359,4 +387,4 @@ targets.forEach((app) => {
 });
 
 console.log(`Generated ${targets.length} app detail pages.`);
-writeHomeList();
+writeHome();

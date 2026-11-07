@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#08090c">
     <title>팀혁 · TeamHyeok</title>
     <meta name="description" content="팀혁(TeamHyeok)은 4인의 개발자로 구성된 소규모 팀입니다. 25일 안에 만들고 싶은 걸 만듭니다. App Store와 웹에 출시한 제품들을 만나보세요.">
-    <meta name="keywords" content="팀혁, TeamHyeok, 자기암시, 갓생로그, 작심한달, aeiou JP, 순공야르, 언제자요, 냥냥튜너, 소중필터, 유술가들, 주짓수 대회, 흑백요리사 맵, 인디 개발팀">
+    <meta name="keywords" content="팀혁, TeamHyeok, 예술가들, 깡통폰, 혁명가들, 자기암시, 갓생로그, 작심한달, aeiou JP, 순공야르, 언제자요, 냥냥튜너, 소중필터, 유술가들, 주짓수 대회, 흑백요리사 맵, 인디 개발팀">
     <link rel="canonical" href="https://teamhyeok.com/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -27,6 +27,7 @@
 {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://teamhyeok.com/#organization",
   "name": "팀혁 TeamHyeok",
   "url": "https://teamhyeok.com/",
   "logo": "https://teamhyeok.com/assets/images/teamHyeokLogo.webp",
@@ -141,19 +142,20 @@
                 </div>
                 <div class="container stats__inner" data-stagger>
                     <div class="stat">
-                        <span class="stat__value"><span data-count="12">0</span></span>
+                        <!-- data-stat counts are written by scripts/generate-app-pages.js from apps.js -->
+                        <span class="stat__value"><span data-stat="released" data-count="17">17</span></span>
                         <span class="stat__label">출시한 제품</span>
                     </div>
                     <div class="stat">
-                        <span class="stat__value"><span data-count="8">0</span></span>
+                        <span class="stat__value"><span data-stat="appstore" data-count="14">14</span></span>
                         <span class="stat__label">App Store 앱</span>
                     </div>
                     <div class="stat">
-                        <span class="stat__value"><span data-count="3">0</span></span>
+                        <span class="stat__value"><span data-stat="web" data-count="5">5</span></span>
                         <span class="stat__label">웹 서비스</span>
                     </div>
                     <div class="stat">
-                        <span class="stat__value"><span data-count="25">0</span><span class="stat__suffix">일</span></span>
+                        <span class="stat__value"><span data-count="25">25</span><span class="stat__suffix">일</span></span>
                         <span class="stat__label">최대 개발 사이클</span>
                     </div>
                 </div>
