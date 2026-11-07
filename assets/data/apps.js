@@ -9,9 +9,23 @@
  *  appStoreId  iTunes id (iOS apps only)
  *  category    Schema.org applicationCategory
  *  status      'soon' for unreleased apps
- *  detail      true -> a generated detail page exists at /services/<slug>/
+ *  detail      true -> scripts/generate-app-pages.js writes /services/<slug>/
+ *              (false keeps a hand-made page there untouched)
+ *  platform    'iOS', 'Web', or both joined with ' · ' (e.g. 'Web · iOS';
+ *              the first one is the main way to use it)
  *  shots       App Store screenshots shown on the detail page
  *  shotsLandscape  true when screenshots are landscape (wider than tall)
+ *
+ * Optional, used by the generated detail page (and the home popup):
+ *  website     the product's own site → "사이트 방문" button + JSON-LD sameAs
+ *  websiteLabel  button text for `website` when it isn't a product site
+ *  playUrl     public Google Play listing — set it only once the listing is
+ *              public (`android` + `androidUrl` drive the home-card badge)
+ *  price       App Store price in KRW for paid apps (JSON-LD offers; default 0)
+ *  seoTitle    <title> of the detail page
+ *  metaDescription  meta description of the detail page (default description)
+ *  longDescription  paragraphs for the detail page's About section
+ *  shotAlts    alt text per screenshot, in the same order as `shots`
  */
 const TEAMHYEOK_APPS = [
     {
@@ -366,10 +380,141 @@ const TEAMHYEOK_APPS = [
         ],
         features: ['세로 스와이프로 넘겨 읽는 숏폼 글 피드', '감정별로 고르는 감성 글귀', '명조 활자와 따뜻한 종이 무드', '좋아요·저장, 내 글 작성까지'],
         keywords: '글쟁이들, 감성 글귀, 짧은 글, 숏폼, 글 피드, 팀혁'
+    },
+    {
+        slug: 'yesulgadeul',
+        developer: ['최찬혁'],
+        name: '예술가들',
+        tagline: '음악·미술·문학 공모전, 신춘문예, 콩쿠르, 레지던시를 한곳에 모아 마감일과 지원 조건을 공고 원문 기준으로 나란히 보여 줍니다.',
+        description: '예술가들은 음악·미술·문학 창작자가 지원할 공모전, 대회, 지원사업, 레지던시를 모아 지원 조건까지 같은 틀로 정리한 웹 서비스이자 iOS 앱입니다. 마감일, 참가비, 상금·지원금, 나이·지역 제한, 신인 참가 가능 여부, 저작권과 AI 사용 규정을 공고 원문에서 확인한 만큼만 보여 주고, 확인하지 못한 조건은 ‘원문에 기재 없음’으로 남깁니다. 로그인 없이 저장할 수 있고, iOS 앱에서 마감 알림을 켜면 마감 3일 전·전날·당일 아침 9시에 알려 줍니다.',
+        longDescription: [
+            '예술가들은 음악·미술·문학 분야의 공모전, 대회, 창작 지원사업, 레지던시를 한곳에 모아 마감일과 지원 조건을 정리하는 서비스입니다. 웹(yesulgadeul.com)에서 바로 쓸 수 있고, 같은 화면에 마감 알림과 기기 캘린더 연동을 더한 iOS 앱(iPhone·iPad)도 App Store에 있습니다.',
+            '콩쿠르·가요제·작곡 공모전을 찾는 뮤지션, 미술대전·신진작가 공모·입주작가 모집을 살피는 작가, 신춘문예·신인문학상·웹소설 공모전에 응모하려는 사람처럼 지원할 곳을 스스로 찾아야 하는 창작자를 위해 만들었습니다. 상금은 공고 첫 장에 크게 적혀 있어도 저작권 귀속이나 선정 뒤 의무는 유의사항 끝에 작게 적혀 있곤 해서, 이런 조건을 공모마다 같은 순서로 옮겨 나란히 볼 수 있게 했습니다.',
+            '공모 찾기에서 분야·유형·마감·참가비·나이·지역·신인 참가 가능 여부·상금으로 걸러 보고, 마감 달력에서 날짜별 마감을 확인합니다. 마음에 드는 공모는 로그인 없이 저장하고, 마감일을 구글 캘린더나 휴대폰 캘린더에 넣을 수 있습니다. iOS 앱에서 ‘마감 알림 켜기’를 누르면 저장한 공모의 마감 3일 전·전날·당일 아침 9시에, 아직 접수 전인 공모는 접수 시작일 아침에도 알림이 옵니다.',
+            '정보는 주최 기관의 공식 공고를 기준으로 정리하고, 원문에 없는 조건은 짐작해 채우지 않고 ‘원문에 기재 없음’으로 남깁니다. 요약은 AI의 도움을 받아 초안을 쓰되 마감일·금액·자격은 사람이 원문과 대조해 확인하며, 공모에 좋다·나쁘다 같은 평가는 붙이지 않습니다. 회원가입이나 로그인 없이 쓰고 쿠키와 광고도 없으며, 저장한 공모는 이 기기에만 보관됩니다.'
+        ],
+        seoTitle: '예술가들 — 음악·미술·문학 공모전·신춘문예·콩쿠르 일정과 마감 알림 | 팀혁',
+        metaDescription: '음악·미술·문학 공모전, 신춘문예, 콩쿠르, 레지던시의 마감일과 참가비·상금·저작권 조건을 공고 원문 기준으로 정리한 웹 서비스이자 iOS 앱입니다. 로그인 없이 저장하고 앱으로 마감 알림을 받습니다.',
+        group: 'web',
+        groupLabel: '웹',
+        platform: 'Web · iOS',
+        category: 'ReferenceApplication',
+        icon: 'assets/images/apps/yesulgadeul.jpg',
+        page: 'services/yesulgadeul/',
+        website: 'https://yesulgadeul.com/',
+        appStoreId: '6824825275',
+        detail: true,
+        shots: [
+            'assets/images/apps/shots/yesulgadeul-1.webp',
+            'assets/images/apps/shots/yesulgadeul-2.webp',
+            'assets/images/apps/shots/yesulgadeul-3.webp',
+            'assets/images/apps/shots/yesulgadeul-4.webp'
+        ],
+        shotAlts: [
+            '예술가들 홈 화면 — 음악·미술·문학 분야별 접수 중인 공모와 7일 안에 마감되는 공모 달력',
+            '공모 찾기 목록 — 공모마다 D-day, 마감일, 상금, 참가비, 나이·지역 조건을 한눈에 표시',
+            '공모 상세 화면 — 상금, 지원 대상, 신인 참가 가능, 저작권 창작자 유지, AI 사용 불가 같은 조건을 공고 원문 기준으로 정리',
+            '공모를 저장하면 뜨는 마감 알림 안내 — 마감 3일 전·전날·당일 아침 9시에 알림'
+        ],
+        features: [
+            '공모전·콩쿠르·신춘문예·레지던시를 분야·유형·조건으로 찾기',
+            '마감·참가비·상금·자격·저작권·AI 규정을 원문 기준으로 정리',
+            '저장한 공모의 마감 3일 전·전날·당일 아침 알림 (iOS 앱)',
+            '로그인 없이 저장 · 마감일을 캘린더에 바로 넣기'
+        ],
+        keywords: '예술가들, 미술 공모전, 문학 공모전, 신춘문예 일정, 콩쿠르 일정, 레지던시 공모, 예술 지원사업, 공모전 마감 알림, 팀혁'
+    },
+    {
+        slug: 'kkangtong-phone',
+        developer: ['최찬혁'],
+        name: '깡통폰',
+        tagline: '아이콘도 빨간 배지도 없이 꼭 쓰는 앱 이름만 글자 위젯으로 남겨, iPhone을 폴더폰처럼 심심하게 만드는 디지털 디톡스 앱.',
+        description: '깡통폰은 iPhone 홈 화면에 아이콘 대신 꼭 쓰는 앱 이름만 글자로 놓는 디지털 디톡스 위젯 앱입니다. 필요한 앱만 고르면 iPhone 기본 위젯에 이름이 차분하게 놓이고, 이름을 누르면 그 앱이 열립니다. 상황별 앱 목록과 피처폰·종이 스타일을 지원하며, 계정·광고·데이터 수집 없이 한 번 구매로 모든 기능을 씁니다.',
+        longDescription: [
+            '깡통폰은 iPhone을 옛날 폴더폰처럼 ‘볼 게 별로 없는’ 폰으로 만드는 디지털 디톡스 앱입니다. 알록달록한 아이콘과 빨간 숫자 배지 대신 꼭 쓰는 앱의 이름만 홈 화면 위젯에 글자로 남깁니다. 종이·세이지·미드나이트·로즈 같은 완성형 스타일이나 피처폰 테마로 글꼴·간격·색을 맞출 수 있어, 어떤 배경화면 위에서도 차분하게 놓입니다.',
+            '스마트폰은 계속 써야 하지만 습관처럼 폰을 여는 일을 줄이고 싶은 사람을 위한 앱입니다. 업무·주말·잠들기 전처럼 상황마다 앱 목록을 따로 만들어 두고(목록 10개, 목록마다 앱 54개까지), 집중 모드나 제어 센터(iOS 18 이상)·단축어로 바꿔 씁니다.',
+            '처음 실행하면 위젯 스타일(다크·라이트·피처폰)을 고르고 초성 검색으로 필요한 앱만 골라 위젯을 만듭니다. 위젯은 지금 쓰는 홈 화면에 직접 추가하고, 이어서 다른 페이지 숨기기·Dock 정리·스크린 타임 설정(iPhone 설정 앱에서 직접)을 선택형 3단계로 안내합니다. 이름을 누르면 깡통폰이 잠깐 보인 뒤 그 앱이 열리고, 전화·카메라 같은 일부 Apple 앱은 처음에 한 번 추가하는 작은 도우미 단축어로 엽니다.',
+            '계정·추적·분석 도구·광고가 없고, 앱이 스스로 네트워크에 접속하지 않습니다. 목록과 꾸미기 설정은 iPhone 안에만 저장되며 App Store 개인정보 라벨도 ‘데이터가 수집되지 않음’입니다. 한 번 사면(₩4,900) 앱 안 구입·구독 없이 모든 기능을 쓰고, iOS 17 이상 iPhone에서 한국어·영어(Potato Phone)·일본어(ポテトフォン)로 쓸 수 있습니다.'
+        ],
+        seoTitle: '깡통폰 — 아이폰 디지털 디톡스 앱, 앱 이름만 남기는 글자 위젯 | 팀혁',
+        metaDescription: '깡통폰은 아이콘과 빨간 배지 대신 꼭 쓰는 앱 이름만 글자 위젯으로 남기는 iPhone 디지털 디톡스 앱입니다. 상황별 앱 목록과 피처폰·종이 스타일을 지원하고, 계정·광고·데이터 수집 없이 한 번 구매로 모든 기능을 씁니다.',
+        group: 'life',
+        groupLabel: '라이프스타일',
+        platform: 'iOS',
+        category: 'LifestyleApplication',
+        icon: 'assets/images/apps/kkangtong-phone.jpg',
+        page: 'services/kkangtong-phone/',
+        website: 'https://choichanhyeok.github.io/kkangtong/',
+        websiteLabel: '지원 페이지',
+        appStoreId: '6823266702',
+        price: 4900,
+        detail: true,
+        shots: [
+            'assets/images/apps/shots/kkangtong-phone-1.webp',
+            'assets/images/apps/shots/kkangtong-phone-2.webp',
+            'assets/images/apps/shots/kkangtong-phone-3.webp',
+            'assets/images/apps/shots/kkangtong-phone-4.webp'
+        ],
+        shotAlts: [
+            '깡통폰 글자 위젯을 놓은 iPhone 홈 화면 — 메시지·사진·캘린더 같은 앱 이름만 글자로 보임',
+            '깡통폰을 연 화면 — 시계와 내가 고른 앱 이름만 보이고, 이름을 누르면 그 앱이 열림',
+            '위젯 스타일 고르기 — 다크·라이트·피처폰 중에서 선택',
+            '상황별 앱 목록 — 개인·업무·주말 목록을 만들어 두고 바꿔 쓰기'
+        ],
+        features: [
+            '앱 이름만 글자로 남기는 위젯 (6페이지 · 페이지당 9개)',
+            '종이·세이지·미드나이트·로즈 스타일과 피처폰 테마',
+            '상황별 앱 목록 10개 · 집중 모드·제어 센터로 전환',
+            '계정·광고·데이터 수집 없음, 한 번 구매로 모든 기능'
+        ],
+        keywords: '깡통폰, 디지털 디톡스 앱, 폰 중독 줄이기, 아이폰 미니멀 홈 화면, 아이폰 글자 위젯, 아이폰 홈 화면 정리, Potato Phone, 팀혁'
+    },
+    {
+        slug: 'hyeokmyeonggadeul',
+        developer: ['최찬혁'],
+        name: '혁명가들',
+        tagline: '언제, 어디서, 누가, 무엇 때문에 모이는지 — 전국 집회·행진·문화제 일정을 지역과 주제별로 출처와 함께 정리합니다.',
+        description: '혁명가들은 전국의 집회·행진·문화제 일정을 17개 시·도와 주제(누가·무엇을)로 나눠 보여 주는 민간 정보 서비스입니다. 주최 단체가 직접 낸 공지를 근거로 일시·장소·주최·취지를 정리하고, 항목마다 출처와 확인한 날짜를 붙입니다. 상세 화면에서 캘린더에 넣기(하루 전 알림)·네이버 지도·카카오맵·공유를 바로 쓸 수 있고, iPhone 앱으로도 볼 수 있습니다.',
+        longDescription: [
+            '혁명가들은 전국에서 열리는 집회·행진·문화제 일정을 한곳에 모은, 정부·경찰기관과 관련 없는 민간 정보 서비스입니다. 다가오는 일정은 날짜순으로, 또는 17개 시·도별 지역과 ‘누가(노동자·장애인·성소수자·여성·농어민 등)’·‘무엇을(정치·기후·주거·교육·추모 등)’로 나눈 주제별로 볼 수 있습니다. 언제·어디서·어떤 주제인지 세 가지만 차례로 고르는 ‘집회 찾기’로 좁혀 볼 수도 있습니다.',
+            '여러 단체의 홈페이지와 SNS에 흩어진 일정을 한 번에 확인하려는 사람을 위해 만들었습니다. 로그인 없이 웹사이트에서 바로 볼 수 있고, iPhone 앱에서는 일정을 공유 시트로 보내거나 ‘캘린더에 넣기’로 하루 전 알림이 채워진 일정 추가 화면을 열 수 있습니다. 저장은 이용자가 직접 고르며, 앱은 기기의 캘린더를 읽지 않습니다.',
+            '공개되는 집회 신고 정보에는 일시·장소·신고 인원은 있어도 누가 무엇 때문에 모이는지는 없습니다. 그래서 주최 단체가 직접 낸 공지를 1차 근거로 제목·주최·취지를 채우고, 경찰 발표 목록은 일시·장소 대조에, 언론 보도는 사실 확인에 씁니다. 자료 조사는 AI(Claude)가 돕지만 사람이 출처를 대조한 항목만 공개하며, 확인하지 못한 시각·장소·인원은 추측하지 않고 비워 둡니다.',
+            '진보·보수 같은 성향은 나누지 않고, 주제 태그는 무엇에 관한 집회인지만 말합니다. 집회를 평가하거나 참여를 권하지 않으며, 개인 이름·연락처 없이 단체명만 싣습니다. 회원가입·댓글·광고가 없고 쿠키나 방문 통계 도구도 쓰지 않아 개인정보를 수집하지 않습니다.'
+        ],
+        seoTitle: '혁명가들 — 전국 집회·행진·문화제 일정을 지역·주제별로 | 팀혁',
+        metaDescription: '혁명가들은 전국 집회·행진·문화제 일정을 지역과 주제별로 정리합니다. 오늘·이번 주말 일정을 출처와 함께 보고 캘린더에 넣거나 지도로 열 수 있으며, 진보·보수 성향은 나누지 않습니다.',
+        group: 'web',
+        groupLabel: '웹',
+        platform: 'Web · iOS',
+        category: 'ReferenceApplication',
+        icon: 'assets/images/apps/hyeokmyeonggadeul.jpg',
+        page: 'services/hyeokmyeonggadeul/',
+        website: 'https://hyeokmyeonggadeul.com/',
+        appStoreId: '6827177468',
+        detail: true,
+        shots: [
+            'assets/images/apps/shots/hyeokmyeonggadeul-1.webp',
+            'assets/images/apps/shots/hyeokmyeonggadeul-2.webp',
+            'assets/images/apps/shots/hyeokmyeonggadeul-3.webp',
+            'assets/images/apps/shots/hyeokmyeonggadeul-4.webp'
+        ],
+        shotAlts: [
+            '혁명가들 홈 화면 — 다가오는 집회 수, 집회 찾기 버튼, 오늘·내일·이번 주말 바로가기와 날짜별 집회 수',
+            '집회 찾기 — 언제·어디서·어떤 주제인지 차례로 골라 일정을 좁히는 화면',
+            '날짜별 일정 목록 — 시각, 행사 종류, 장소, 주최 단체와 주제 태그',
+            '행사 상세 화면 — 일시·장소, 네이버 지도·카카오맵, 주최 측 공지 출처, 캘린더에 넣기와 공유'
+        ],
+        features: [
+            '17개 시·도 지역과 누가·무엇을 주제로 나눈 전국 일정',
+            '언제·어디서·주제를 차례로 고르는 집회 찾기',
+            '항목마다 주최 측 공지 등 출처와 확인 날짜 표시',
+            '캘린더에 넣기(하루 전 알림) · 네이버 지도·카카오맵 · 공유'
+        ],
+        keywords: '혁명가들, 전국 집회 일정, 오늘 집회, 서울 집회 일정, 주말 집회, 시위 일정, 행진·문화제 일정, 팀혁'
     }
 ];
 
-const APP_ORDER = ['study-timer', 'sowa-filter', 'yusulga', 'please-sleep', 'donelog', 'self-affirm', 'nyangnyang-tuner', 'geuljaengideul', 'jomooljomool', 'sojung-filter', 'dare30', 'aeiou-kr', 'aeiou-jp', 'jiujitsu', 'black-white-chef'];
+const APP_ORDER = ['yesulgadeul', 'kkangtong-phone', 'hyeokmyeonggadeul', 'study-timer', 'sowa-filter', 'yusulga', 'please-sleep', 'donelog', 'self-affirm', 'nyangnyang-tuner', 'geuljaengideul', 'jomooljomool', 'sojung-filter', 'dare30', 'aeiou-kr', 'aeiou-jp', 'jiujitsu', 'black-white-chef'];
 TEAMHYEOK_APPS.sort((a, b) => {
     const ia = APP_ORDER.indexOf(a.slug), ib = APP_ORDER.indexOf(b.slug);
     return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);

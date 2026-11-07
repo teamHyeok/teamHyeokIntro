@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="assets/fonts/GmarketSansBold.woff2" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="assets/css/main.css?v=20260606h">
+    <link rel="stylesheet" href="assets/css/main.css?v=20261108">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370970936034063"
         crossorigin="anonymous"></script>
 </head>
@@ -181,7 +181,264 @@
                 </div>
                 <div class="filter-bar" id="appFilters" role="tablist" aria-label="제품 카테고리 필터" data-animate></div>
                 <div class="app-grid" id="appList">
-                    <!-- 앱 카드가 자바스크립트로 추가됩니다. -->
+                    <!-- static-app-list:start · scripts/generate-app-pages.js 가 apps.js 로 채운다 (JS 없이도 모든 제품 링크가 보이게). main.js 가 같은 카드를 다시 그린다 -->
+                    <a class="app-card" href="services/yesulgadeul/" data-group="web">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/yesulgadeul.jpg" alt="예술가들 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 01</span>
+                                <span class="app-card__platform app-card__platform--web">Web</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">웹</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">예술가들</h3>
+                        <p class="app-card__description">음악·미술·문학 공모전, 신춘문예, 콩쿠르, 레지던시를 한곳에 모아 마감일과 지원 조건을 공고 원문 기준으로 나란히 보여 줍니다.</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/kkangtong-phone/" data-group="life">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/kkangtong-phone.jpg" alt="깡통폰 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 02</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">라이프스타일</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">깡통폰</h3>
+                        <p class="app-card__description">아이콘도 빨간 배지도 없이 꼭 쓰는 앱 이름만 글자 위젯으로 남겨, iPhone을 폴더폰처럼 심심하게 만드는 디지털 디톡스 앱.</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/hyeokmyeonggadeul/" data-group="web">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/hyeokmyeonggadeul.jpg" alt="혁명가들 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 03</span>
+                                <span class="app-card__platform app-card__platform--web">Web</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">웹</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">혁명가들</h3>
+                        <p class="app-card__description">언제, 어디서, 누가, 무엇 때문에 모이는지 — 전국 집회·행진·문화제 일정을 지역과 주제별로 출처와 함께 정리합니다.</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/study-timer/" data-group="learn">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/study-timer.jpg" alt="순공야르 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 04</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__platform app-card__platform--android">Android</span>
+                                <span class="app-card__group">학습</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">순공야르</h3>
+                        <p class="app-card__description">카메라로 자리 비움을 잡아내는 순공 타이머. 진짜 집중한 시간만 기록합니다.</p>
+                        <span class="app-card__dev">신예나 · 최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="https://apps.apple.com/kr/app/id6789873216" data-group="tool" target="_blank" rel="noopener">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/sowa-filter.jpg" alt="소와필터 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 05</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">도구</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">소와필터</h3>
+                        <p class="app-card__description">세상에 모든 필터들</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="https://yusulga.com/" data-group="web" target="_blank" rel="noopener">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/yusulga.svg" alt="유술가들 아이콘" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 06</span>
+                                <span class="app-card__platform app-card__platform--web">Web</span>
+                                <span class="app-card__platform app-card__platform--android">Android</span>
+                                <span class="app-card__group">웹</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">유술가들</h3>
+                        <p class="app-card__description">주짓수·레슬링·유도 그래플러를 위한 커뮤니티. 대회·체육관 정보부터 스파링 파트너 찾기까지.</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">사이트 방문 →</span>
+                    </a>
+                    <a class="app-card" href="services/please-sleep/" data-group="health">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/please-sleep.jpg" alt="언제자요 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 07</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">건강</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">언제자요</h3>
+                        <p class="app-card__description">기상 시간만 정하면 언제 자야 할지 알려주는 수면 알람. 취침·기상 알람을 함께 관리합니다.</p>
+                        <span class="app-card__dev">신예나 · 최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/donelog/" data-group="life">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/donelog.jpg" alt="갓생로그 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 08</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">라이프스타일</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">갓생로그</h3>
+                        <p class="app-card__description">매일 해낸 일을 3초 영상으로 남기는 기록 앱. 하루의 클립이 자동으로 데일리 브이로그가 됩니다.</p>
+                        <span class="app-card__dev">최연재 · 최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/self-affirm/" data-group="life">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/self-affirm.jpg" alt="자기암시 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 09</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">라이프스타일</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">자기암시</h3>
+                        <p class="app-card__description">내가 정한 확언을 원하는 시간에 알림으로 받는 마인드 루틴. 계정 없이 로컬 알림만 씁니다.</p>
+                        <span class="app-card__dev">임우주 · 최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/nyangnyang-tuner/" data-group="tool">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/nyangnyang-tuner.jpg" alt="냥냥 튜너 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 10</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">도구</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">냥냥 튜너</h3>
+                        <p class="app-card__description">마이크로 음을 센트 단위까지 잡아내는 크로매틱 튜너. 대부분의 악기를 정확하게 조율합니다.</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="https://apps.apple.com/kr/app/id6784302663" data-group="life" target="_blank" rel="noopener">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/geuljaengideul.jpg" alt="글쟁이들 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 11</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">라이프스타일</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">글쟁이들</h3>
+                        <p class="app-card__description">세로로 넘겨 읽는 짧은 글 피드</p>
+                        <span class="app-card__dev">최연재 · 최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="https://apps.apple.com/kr/app/id6794860401" data-group="life" target="_blank" rel="noopener">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/jomooljomool.jpg" alt="조물조물 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 12</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">라이프스타일</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">조물조물</h3>
+                        <p class="app-card__description">왁뿌볼, 또각이를 돈주고 사?</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/sojung-filter/" data-group="tool">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/sojung-filter.jpg" alt="소중필터 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 13</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">도구</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">소중필터</h3>
+                        <p class="app-card__description">아날로그 필름 감성을 입히는 사진·영상 필터. 5가지 무드로 순간을 물들입니다.</p>
+                        <span class="app-card__dev">최연재 · 최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/dare30/" data-group="life">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/dare30.jpg" alt="작심 한달 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 14</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">라이프스타일</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">작심 한달</h3>
+                        <p class="app-card__description">7·30·365일 챌린지로 습관을 만드는 트래커. 잔디밭을 채우고 캐릭터의 응원을 받으세요.</p>
+                        <span class="app-card__dev">임우주 · 최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card app-card--soon" href="services/aeiou-kr/" data-group="learn">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/aeiou-kr.svg" alt="아에이오우 KR 아이콘" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 15</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">학습</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">아에이오우 KR</h3>
+                        <p class="app-card__description">외국인을 위한 한글 첫걸음. 손글씨·음성 인식으로 익히는 한국어 학습.</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">준비중 · 미리보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/aeiou-jp/" data-group="learn">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/apps/aeiou-jp.jpg" alt="aeiou JP 아이콘" width="512" height="512" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 16</span>
+                                <span class="app-card__platform app-card__platform--ios">iOS</span>
+                                <span class="app-card__group">학습</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">aeiou JP</h3>
+                        <p class="app-card__description">히라가나 쓰기부터 N5 단어, 상황별 회화까지. AI가 매일 학습을 짜주는 일본어 앱.</p>
+                        <span class="app-card__dev">임우주 · 최찬혁</span>
+                        <span class="app-card__cta">자세히 보기 →</span>
+                    </a>
+                    <a class="app-card" href="services/jiujitsu/" data-group="web">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/jiujitsu_main.webp" alt="주짓수 대회 정보 사이트 아이콘" width="1440" height="1648" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 17</span>
+                                <span class="app-card__platform app-card__platform--web">Web</span>
+                                <span class="app-card__group">웹</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">주짓수 대회 정보 사이트</h3>
+                        <p class="app-card__description">전국 주짓수 대회를 달력과 지도에서 한눈에. 바로 신청 페이지로 이동하세요.</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">사이트 방문 →</span>
+                    </a>
+                    <a class="app-card" href="services/black-white-chef/" data-group="web">
+                        <div class="app-card__top">
+                            <span class="app-card__icon"><img src="assets/images/blackandwhite.webp" alt="흑백요리사 맵 아이콘" width="1600" height="814" loading="lazy"></span>
+                            <div class="app-card__tags">
+                                <span class="app-card__index">// 18</span>
+                                <span class="app-card__platform app-card__platform--web">Web</span>
+                                <span class="app-card__group">웹</span>
+                            </div>
+                        </div>
+                        <h3 class="app-card__title">흑백요리사 맵</h3>
+                        <p class="app-card__description">흑백요리사에 등장한 셰프들의 식당을 한 지도에 모았습니다.</p>
+                        <span class="app-card__dev">최찬혁</span>
+                        <span class="app-card__cta">사이트 방문 →</span>
+                    </a>
+                    <!-- static-app-list:end -->
                 </div>
                 <footer class="site-footer">
                     <p>대장 최찬혁 · &copy; <span id="currentYear"></span> 팀혁(TeamHyeok). All rights reserved.</p>
@@ -190,9 +447,9 @@
         </main>
     </div>
 
-    <script src="assets/data/apps.js?v=20260606h"></script>
-    <script src="assets/js/main.js?v=20260606h"></script>
-    <script src="assets/js/interactions.js?v=20260606h"></script>
+    <script src="assets/data/apps.js?v=20261108"></script>
+    <script src="assets/js/main.js?v=20261108"></script>
+    <script src="assets/js/interactions.js?v=20261108"></script>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "55b749929b84457693b15d46b55032e4"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

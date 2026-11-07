@@ -3,7 +3,10 @@
 // landscape card instead of a cropped square icon.
 //
 // Requires ImageMagick 7 (`magick`) and the source Gmarket Sans TTFs.
-// Run: node scripts/generate-og-cards.js
+// Run: node scripts/generate-og-cards.js            (home, magazine, every app)
+//      node scripts/generate-og-cards.js <slug>     (one card)
+// OG_FONT_DIR=<folder with GmarketSansTTFBold/Medium.ttf> picks another copy of
+// the fonts, e.g. when the iCloud copy below is not downloaded on this Mac.
 
 const fs = require('fs');
 const path = require('path');
@@ -15,7 +18,7 @@ const rootDir = path.join(__dirname, '..');
 const outDir = path.join(rootDir, 'assets/images/og');
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ogcard-'));
 
-const FONT_DIR = '/Users/choechanhyeog/Library/Mobile Documents/com~apple~CloudDocs/Desktop/데스크탑 - Mac/myapp/DoneLog/DoneLog/DayWon/Fonts';
+const FONT_DIR = process.env.OG_FONT_DIR || '/Users/choechanhyeog/Library/Mobile Documents/com~apple~CloudDocs/Desktop/데스크탑 - Mac/myapp/DoneLog/DoneLog/DayWon/Fonts';
 const FONT_BOLD = path.join(FONT_DIR, 'GmarketSansTTFBold.ttf');
 const FONT_MED = path.join(FONT_DIR, 'GmarketSansTTFMedium.ttf');
 
@@ -86,7 +89,8 @@ const buildAppCard = (app) => {
     const tag = caption(app.tagline, FONT_MED, 30, MUTED, 700, path.join(tmpDir, `${app.slug}-tag.png`));
 
     const badge = app.platform === 'Web' ? 'WEB SERVICE'
-        : app.status === 'soon' ? 'COMING SOON' : 'iOS APP';
+        : app.status === 'soon' ? 'COMING SOON'
+        : /\bWeb\b/.test(app.platform) ? 'WEB + iOS APP' : 'iOS APP';
 
     const out = path.join(outDir, `${app.slug}.jpg`);
     magick([

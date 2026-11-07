@@ -139,13 +139,22 @@ const openAppModal = app => {
     const devs = (app.developer && app.developer.length ? app.developer : ['최찬혁']).join(' · ');
     const badges = [app.platform, app.android ? 'Android' : '', app.groupLabel].filter(Boolean).join(' · ');
     const shots = app.shots || [];
+    const shotAlts = app.shotAlts || [];
     const shotsHtml = shots.length
-        ? `<div class="app-modal__shots">${shots.map(s => `<img src="${s}" alt="${app.name} 화면" loading="lazy">`).join('')}</div>`
+        ? `<div class="app-modal__shots">${shots.map((s, i) => `<img src="${s}" alt="${shotAlts[i] || app.name + ' 화면'}" loading="lazy">`).join('')}</div>`
+        : '';
+    // web-first products ('Web · iOS') lead with their own site
+    const webFirst = /^Web\b/.test(app.platform || '');
+    const siteLink = app.website
+        ? `<a class="app-modal__btn${webFirst ? ' app-modal__btn--primary' : ''}" href="${app.website}" target="_blank" rel="noopener">${app.websiteLabel || '사이트 방문'} →</a>`
         : '';
     const links = [];
-    if (app.appStoreId) links.push(`<a class="app-modal__btn app-modal__btn--primary" href="https://apps.apple.com/kr/app/id${app.appStoreId}" target="_blank" rel="noopener">App Store에서 받기</a>`);
+    if (siteLink && webFirst) links.push(siteLink);
+    if (app.appStoreId) links.push(`<a class="app-modal__btn${webFirst ? '' : ' app-modal__btn--primary'}" href="https://apps.apple.com/kr/app/id${app.appStoreId}" target="_blank" rel="noopener">App Store에서 받기</a>`);
     if (app.androidUrl) links.push(`<a class="app-modal__btn" href="${app.androidUrl}" target="_blank" rel="noopener">Google Play</a>`);
     if (app.platform === 'Web' && app.page) links.push(`<a class="app-modal__btn app-modal__btn--primary" href="${app.page}" target="_blank" rel="noopener">사이트 방문 →</a>`);
+    if (siteLink && !webFirst) links.push(siteLink);
+    if (app.detail && app.page) links.push(`<a class="app-modal__btn" href="${app.page}">자세히 보기 →</a>`);
     appModalEl.querySelector('.app-modal__panel').innerHTML = `
         <button class="app-modal__close" type="button" aria-label="닫기" data-close>&times;</button>
         <div class="app-modal__head">
@@ -198,7 +207,8 @@ const createAppCard = (app, index) => {
             </span>
             <div class="app-card__tags">
                 <span class="app-card__index">// ${indexLabel}</span>
-                <span class="app-card__platform app-card__platform--${app.platform === 'iOS' ? 'ios' : 'web'}">${app.platform}</span>
+                ${String(app.platform || '').split('·').map(p => p.trim()).filter(Boolean)
+                    .map(p => `<span class="app-card__platform app-card__platform--${p === 'iOS' ? 'ios' : 'web'}">${p}</span>`).join('')}
                 ${app.android ? '<span class="app-card__platform app-card__platform--android">Android</span>' : ''}
                 <span class="app-card__group">${app.groupLabel}</span>
             </div>

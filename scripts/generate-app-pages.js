@@ -1,3 +1,10 @@
+// Generates, from assets/data/apps.js:
+//  1. /services/<slug>/index.html for every app with `detail: true`
+//     (title/meta/canonical/OG + JSON-LD app and BreadcrumbList).
+//  2. The plain-HTML product list inside index.html (between the
+//     static-app-list markers), so crawlers that don't run JavaScript can
+//     follow a link to every product. main.js draws the same cards over it.
+// Run: node scripts/generate-app-pages.js
 const fs = require('fs');
 const path = require('path');
 const apps = require('../assets/data/apps.js');
@@ -13,6 +20,18 @@ const esc = (s) =>
         .replace(/"/g, '&quot;');
 
 const storeUrl = (app) => `https://apps.apple.com/kr/app/id${app.appStoreId}`;
+// Public Google Play listing (`androidUrl` is the older name for the same link).
+const playStoreUrl = (app) => app.playUrl || app.androidUrl || '';
+// 'Web · iOS' -> ['Web', 'iOS']
+const platformList = (app) =>
+    String(app.platform || 'iOS')
+        .split('·')
+        .map((p) => p.trim())
+        .filter(Boolean);
+const developers = (app) => (app.developer && app.developer.length ? app.developer : ['최찬혁']);
+const won = (n) => `₩${String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+// JSON-LD body: escape "<" so a string can never close the <script> early.
+const ldJson = (obj) => JSON.stringify(obj, null, 2).replace(/</g, '\\u003c');
 
 // Read intrinsic pixel dimensions from PNG/JPEG/WebP headers (no deps) so
 // generated <img> get width/height attributes and don't cause layout shift.
@@ -59,57 +78,124 @@ const dimAttr = (rel) => {
     return d ? ` width="${d.w}" height="${d.h}"` : '';
 };
 
+// eyebrow label + a plain Korean section heading; `pad` = indentation of <header>
+const sectionHead = (eyebrow, heading, pad) => `<header class="detail__head">
+${pad}    <span class="section__eyebrow">${eyebrow}</span>
+${pad}    <h2 class="detail__h2">${esc(heading)}</h2>
+${pad}</header>`;
+
 const renderPage = (app) => {
     const url = `${baseUrl}/${app.page}`;
     const iconRel = `../../${app.icon}`;
     const iconAbs = `${baseUrl}/${app.icon}`;
     const ogAbs = `${baseUrl}/assets/images/og/${app.slug}.jpg`;
     const isSoon = app.status === 'soon';
-    const title = `${app.name} — 팀혁 TeamHyeok`;
-    const desc = app.description;
+    const title = app.seoTitle || `${app.name} — 팀혁 TeamHyeok`;
+    const desc = app.metaDescription || app.description;
+    const about = Array.isArray(app.longDescription) && app.longDescription.length
+        ? app.longDescription
+        : [app.description];
+    const platforms = platformList(app);
+    const shotList = Array.isArray(app.shots) ? app.shots : [];
+    const shotAlt = (i) => (app.shotAlts && app.shotAlts[i]) || `${app.name} 스크린샷 ${i + 1}`;
+    const featureList = Array.isArray(app.features) ? app.features : [];
+    const play = playStoreUrl(app);
 
-    const features = app.features
-        .map((f) => `                        <li>${esc(f)}</li>`)
-        .join('\n');
-
-    const shots = Array.isArray(app.shots) && app.shots.length
+    const galleryMod = app.shotsLandscape ? ' shot-gallery--wide' : shotList.length > 2 ? ' shot-gallery--row' : '';
+    const shots = shotList.length
         ? `
             <section class="detail__shots" data-animate>
-                <span class="section__eyebrow">Screenshots</span>
-                <div class="shot-gallery${app.shotsLandscape ? ' shot-gallery--wide' : ''}">
-${app.shots
+                ${sectionHead('Screenshots', `${app.name} 화면 미리 보기`, ' '.repeat(16))}
+                <div class="shot-gallery${galleryMod}">
+${shotList
     .map(
         (s, i) =>
-            `                    <figure class="shot"><img src="../../${s}" alt="${esc(app.name)} 스크린샷 ${i + 1}"${dimAttr(s)} loading="lazy"></figure>`
+            `                    <figure class="shot"><img src="../../${s}" alt="${esc(shotAlt(i))}"${dimAttr(s)} loading="lazy" decoding="async"></figure>`
     )
     .join('\n')}
                 </div>
             </section>`
         : '';
 
-    const jsonld = {
-        '@context': 'https://schema.org',
-        '@type': 'SoftwareApplication',
-        name: app.name,
-        operatingSystem: 'iOS',
-        applicationCategory: app.category,
-        description: desc,
-        url,
-        image: iconAbs,
-        author: {
-            '@type': 'Organization',
-            name: '팀혁 TeamHyeok',
-            url: baseUrl
-        }
-    };
-    if (!isSoon) {
-        jsonld.downloadUrl = storeUrl(app);
-        jsonld.offers = { '@type': 'Offer', price: '0', priceCurrency: 'KRW' };
-    }
+    const features = featureList.length
+        ? `
+                <div class="detail__features">
+                    ${sectionHead('Features', '주요 기능', ' '.repeat(20))}
+                    <ul class="feature-list">
+${featureList.map((f) => `                        <li>${esc(f)}</li>`).join('\n')}
+                    </ul>
+                </div>`
+        : '';
 
+    const badges = [
+        ...platforms.map(
+            (p) => `<span class="detail__platform detail__platform--${esc(p.toLowerCase())}">${esc(p)}</span>`
+        ),
+        `<span class="detail__group">${esc(app.groupLabel)}</span>`,
+        `<span class="detail__dev"><span aria-hidden="true">// </span>개발 ${esc(developers(app).join(' · '))}</span>`
+    ].join('\n                        ');
+
+    // Buttons: the main way to use the product comes first (the site for
+    // web-first products, the store otherwise).
+    const buttons = [];
+    if (!isSoon) {
+        const webFirst = platforms[0] === 'Web';
+        const site = app.website ? { href: app.website, label: `${app.websiteLabel || '사이트 방문'} →` } : null;
+        if (site && webFirst) buttons.push(site);
+        if (app.appStoreId) {
+            buttons.push({
+                href: storeUrl(app),
+                label: app.price ? `App Store에서 구입 · ${won(app.price)} →` : 'App Store에서 다운로드 →'
+            });
+        }
+        if (play) buttons.push({ href: play, label: 'Google Play에서 다운로드 →' });
+        if (site && !webFirst) buttons.push(site);
+    }
     const action = isSoon
         ? '<span class="cta-button cta-button--disabled">준비중 · 곧 출시</span>'
-        : `<a class="cta-button" href="${storeUrl(app)}" target="_blank" rel="noopener">App Store에서 다운로드 →</a>`;
+        : buttons
+              .map(
+                  (b, i) =>
+                      `<a class="${i ? 'ghost-button' : 'cta-button'}" href="${esc(b.href)}" target="_blank" rel="noopener">${esc(b.label)}</a>`
+              )
+              .join('\n                        ');
+
+    const org = { '@type': 'Organization', name: '팀혁 TeamHyeok', url: baseUrl };
+    const hasWeb = platforms.includes('Web');
+    const jsonld = {
+        '@context': 'https://schema.org',
+        '@type': !hasWeb ? 'MobileApplication' : platforms.length > 1 ? 'SoftwareApplication' : 'WebApplication',
+        name: app.name,
+        operatingSystem: platforms.join(', '),
+        applicationCategory: app.category,
+        description: app.description,
+        url,
+        image: iconAbs,
+        author: org,
+        publisher: org
+    };
+    if (shotList.length) jsonld.screenshot = shotList.map((s) => `${baseUrl}/${s}`);
+    const sameAs = [];
+    if (!isSoon) {
+        if (app.appStoreId) {
+            jsonld.downloadUrl = storeUrl(app);
+            sameAs.push(storeUrl(app));
+        }
+        if (play) sameAs.push(play);
+        jsonld.offers = { '@type': 'Offer', price: String(app.price || 0), priceCurrency: 'KRW' };
+    }
+    if (app.website) sameAs.push(app.website);
+    if (sameAs.length) jsonld.sameAs = sameAs;
+
+    const breadcrumb = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: '팀혁', item: `${baseUrl}/` },
+            { '@type': 'ListItem', position: 2, name: '서비스', item: `${baseUrl}/#apps` },
+            { '@type': 'ListItem', position: 3, name: app.name, item: url }
+        ]
+    };
 
     return `<!DOCTYPE html>
 <html lang="ko">
@@ -144,7 +230,10 @@ ${app.shots
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../../assets/css/main.css">
     <script type="application/ld+json">
-${JSON.stringify(jsonld, null, 2)}
+${ldJson(jsonld)}
+    </script>
+    <script type="application/ld+json">
+${ldJson(breadcrumb)}
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2370970936034063"
         crossorigin="anonymous"></script>
@@ -155,17 +244,23 @@ ${JSON.stringify(jsonld, null, 2)}
 
     <header class="top-bar">
         <div class="container top-bar__inner">
-            <a href="../../index.html" class="brand" aria-label="팀혁 홈">TEAMHYEOK</a>
+            <a href="../../" class="brand" aria-label="팀혁 홈">TEAMHYEOK</a>
             <nav class="nav" aria-label="Primary">
-                <a href="../../index.html#apps">Works</a>
-                <a href="../../index.html#about">About</a>
+                <a href="../../#apps">Works</a>
+                <a href="../../#about">About</a>
             </nav>
         </div>
     </header>
 
     <main class="detail">
         <div class="container">
-            <a class="detail__back" href="../../index.html#apps">← 모든 제품 보기</a>
+            <nav class="detail__crumbs" aria-label="현재 위치">
+                <ol>
+                    <li><a href="../../">팀혁</a></li>
+                    <li><a href="../../#apps">서비스</a></li>
+                    <li aria-current="page">${esc(app.name)}</li>
+                </ol>
+            </nav>
 
             <section class="detail__hero" data-animate>
                 <span class="detail__icon">
@@ -173,8 +268,7 @@ ${JSON.stringify(jsonld, null, 2)}
                 </span>
                 <div class="detail__heading">
                     <div class="detail__badges">
-                        <span class="detail__platform">${app.platform}</span>
-                        <span class="detail__group">${esc(app.groupLabel)}</span>
+                        ${badges}
                     </div>
                     <h1 class="detail__title">${esc(app.name)}</h1>
                     <p class="detail__tagline">${esc(app.tagline)}</p>
@@ -186,15 +280,9 @@ ${JSON.stringify(jsonld, null, 2)}
 ${shots}
             <section class="detail__body" data-animate>
                 <div class="detail__about">
-                    <span class="section__eyebrow">About</span>
-                    <p>${esc(desc)}</p>
-                </div>
-                <div class="detail__features">
-                    <span class="section__eyebrow">Features</span>
-                    <ul class="feature-list">
-${features}
-                    </ul>
-                </div>
+                    ${sectionHead('About', `${app.name} 소개`, ' '.repeat(20))}
+${about.map((p) => `                    <p>${esc(p)}</p>`).join('\n')}
+                </div>${features}
             </section>
         </div>
     </main>
@@ -202,7 +290,7 @@ ${features}
     <footer class="site-footer">
         <div class="container site-footer__inner">
             <p>대장 최찬혁 · &copy; <span id="currentYear"></span> 팀혁(TeamHyeok). All rights reserved.</p>
-            <a class="footer-link" href="../../index.html">팀혁 홈으로</a>
+            <a class="footer-link" href="../../">팀혁 홈으로</a>
         </div>
     </footer>
 
@@ -211,6 +299,55 @@ ${features}
 </body>
 </html>
 `;
+};
+
+// ---- home page: the same cards main.js draws, as plain HTML ----
+const LIST_START = '<!-- static-app-list:start';
+const LIST_END = '<!-- static-app-list:end -->';
+
+const homeCard = (app, index) => {
+    const isSoon = app.status === 'soon';
+    const external = app.external || /^https?:\/\//.test(app.page);
+    const pills = platformList(app).map(
+        (p) => `<span class="app-card__platform app-card__platform--${p === 'iOS' ? 'ios' : 'web'}">${esc(p)}</span>`
+    );
+    if (app.android) pills.push('<span class="app-card__platform app-card__platform--android">Android</span>');
+    const cta = isSoon ? '준비중 · 미리보기 →' : app.platform === 'Web' ? '사이트 방문 →' : '자세히 보기 →';
+    const ind = '                    ';
+    return [
+        `<a class="app-card${isSoon ? ' app-card--soon' : ''}" href="${esc(app.page)}" data-group="${esc(app.group)}"${external ? ' target="_blank" rel="noopener"' : ''}>`,
+        '    <div class="app-card__top">',
+        `        <span class="app-card__icon"><img src="${esc(app.icon)}" alt="${esc(app.name)} 아이콘"${dimAttr(app.icon)} loading="lazy"></span>`,
+        '        <div class="app-card__tags">',
+        `            <span class="app-card__index">// ${String(index + 1).padStart(2, '0')}</span>`,
+        ...pills.map((p) => `            ${p}`),
+        `            <span class="app-card__group">${esc(app.groupLabel)}</span>`,
+        '        </div>',
+        '    </div>',
+        `    <h3 class="app-card__title">${esc(app.name)}</h3>`,
+        `    <p class="app-card__description">${esc(app.tagline)}</p>`,
+        `    <span class="app-card__dev">${esc(developers(app).join(' · '))}</span>`,
+        `    <span class="app-card__cta">${cta}</span>`,
+        '</a>'
+    ]
+        .map((line) => ind + line)
+        .join('\n');
+};
+
+const writeHomeList = () => {
+    const file = path.join(rootDir, 'index.html');
+    const html = fs.readFileSync(file, 'utf8');
+    const start = html.indexOf(LIST_START);
+    const startEnd = start < 0 ? -1 : html.indexOf('-->', start) + 3;
+    const end = html.indexOf(LIST_END);
+    if (start < 0 || end < startEnd) {
+        console.warn('index.html: static-app-list markers not found, home list not updated');
+        return;
+    }
+    const endLine = html.lastIndexOf('\n', end) + 1; // keep the end marker's indentation
+    const cards = apps.map(homeCard).join('\n');
+    fs.writeFileSync(file, `${html.slice(0, startEnd)}\n${cards}\n${html.slice(endLine)}`);
+    console.log(`updated index.html static product list (${apps.length} products)`);
 };
 
 const targets = apps.filter((app) => app.detail);
@@ -222,3 +359,4 @@ targets.forEach((app) => {
 });
 
 console.log(`Generated ${targets.length} app detail pages.`);
+writeHomeList();
