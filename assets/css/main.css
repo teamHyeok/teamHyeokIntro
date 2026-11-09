@@ -951,7 +951,7 @@ a.app-card:hover .app-card__cta {
 /* ---------- editor's picks ---------- */
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
 }
 

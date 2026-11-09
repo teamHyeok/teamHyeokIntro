@@ -316,7 +316,7 @@ const TEAMHYEOK_APPS = [
         slug: 'sowa-filter',
         developer: ['최찬혁'],
         name: '사기카메라',
-        tagline: '세상에 모든 필터들',
+        tagline: '사기급 필터 카메라',
         description: '사기카메라(SAGI)는 찍는 순간 바로 필름이 되는 카메라입니다. 올드폰·필름·디카 감성을 담은 다양한 필름 룩을 촬영 화면에서 미리 입혀, 보정 없이 찍기만 해도 감성 사진이 완성됩니다.',
         group: 'tool',
         groupLabel: '도구',
@@ -328,9 +328,10 @@ const TEAMHYEOK_APPS = [
         external: true,
         detail: false,
         shots: [
-            'assets/images/apps/shots/sowa-filter-1.jpg',
-            'assets/images/apps/shots/sowa-filter-2.jpg',
-            'assets/images/apps/shots/sowa-filter-3.jpg'
+            'assets/images/apps/shots/sagi-camera-1.jpg',
+            'assets/images/apps/shots/sagi-camera-2.jpg',
+            'assets/images/apps/shots/sagi-camera-3.jpg',
+            'assets/images/apps/shots/sagi-camera-4.jpg'
         ],
         features: ['촬영 화면에 미리 입혀지는 필름 프리뷰', '올드폰·필름·디카 등 다양한 감성 룩', '보정 없이 찍기만 하면 완성되는 사진', '감성 팩으로 골라 쓰는 수십 가지 필터'],
         keywords: '사기카메라, 사기필터, SAGI, 소와필터, SOWA, 필름 카메라, 필터 카메라, 감성 필터, 팀혁'
@@ -471,7 +472,7 @@ const TEAMHYEOK_APPS = [
     },
     {
         slug: 'hyeokmyeonggadeul',
-        developer: ['최찬혁'],
+        developer: ['최찬혁', '신예나'],
         name: '혁명가들',
         tagline: '언제, 어디서, 누가, 무엇 때문에 모이는지 — 전국 집회·행진·문화제 일정을 지역과 주제별로 출처와 함께 정리합니다.',
         description: '혁명가들은 전국의 집회·행진·문화제 일정을 17개 시·도와 주제(누가·무엇을)로 나눠 보여 주는 민간 정보 서비스입니다. 주최 단체가 직접 낸 공지를 1차 근거로 일시·장소·주최·취지를 정리하고, 항목마다 출처와 확인한 날짜를 붙입니다. 상세 화면에서 캘린더에 넣기(하루 전 알림)·네이버 지도·카카오맵·공유를 바로 쓸 수 있고, iPhone 앱으로도 볼 수 있습니다.',
