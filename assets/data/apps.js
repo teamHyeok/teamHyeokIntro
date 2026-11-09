@@ -315,9 +315,9 @@ const TEAMHYEOK_APPS = [
     {
         slug: 'sowa-filter',
         developer: ['최찬혁'],
-        name: '소와필터',
+        name: '사기카메라',
         tagline: '세상에 모든 필터들',
-        description: '소와필터(SOWA)는 찍는 순간 바로 필름이 되는 카메라입니다. 올드폰·필름·디카 감성을 담은 다양한 필름 룩을 촬영 화면에서 미리 입혀, 보정 없이 찍기만 해도 감성 사진이 완성됩니다.',
+        description: '사기카메라(SAGI)는 찍는 순간 바로 필름이 되는 카메라입니다. 올드폰·필름·디카 감성을 담은 다양한 필름 룩을 촬영 화면에서 미리 입혀, 보정 없이 찍기만 해도 감성 사진이 완성됩니다.',
         group: 'tool',
         groupLabel: '도구',
         platform: 'iOS',
@@ -333,7 +333,7 @@ const TEAMHYEOK_APPS = [
             'assets/images/apps/shots/sowa-filter-3.jpg'
         ],
         features: ['촬영 화면에 미리 입혀지는 필름 프리뷰', '올드폰·필름·디카 등 다양한 감성 룩', '보정 없이 찍기만 하면 완성되는 사진', '감성 팩으로 골라 쓰는 수십 가지 필터'],
-        keywords: '소와필터, SOWA, 필름 카메라, 필터 카메라, 감성 필터, 팀혁'
+        keywords: '사기카메라, 사기필터, SAGI, 소와필터, SOWA, 필름 카메라, 필터 카메라, 감성 필터, 팀혁'
     },
     {
         slug: 'jomooljomool',
